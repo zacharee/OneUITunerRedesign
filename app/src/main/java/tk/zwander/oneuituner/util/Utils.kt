@@ -528,3 +528,9 @@ fun Context.doCompile(listener: (List<File>) -> Unit) {
         }
     )
 }
+
+val Context.statusBarHeight: Int
+    get() = resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
+
+val Context.navigationBarHeight: Int
+    get() = resources.getDimensionPixelSize(resources.getIdentifier("navigation_bar_height", "dimen", "android"))
