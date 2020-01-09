@@ -433,8 +433,8 @@ fun Context.makeAndroid10StatusBar(clockType: ClockType): Document {
                                             }
                                         )
                                     }
+                                    appendChild(createNotificationIconArea())
                                 }
-                                appendChild(createNotificationIconArea())
                             }
                             appendChild(createStatusBarCenter()).apply {
                                 appendChild(createCutoutSpace())
