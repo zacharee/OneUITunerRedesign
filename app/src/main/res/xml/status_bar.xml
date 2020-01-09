@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:title="@string/left_system_icons"
+        android:summary="@string/left_system_icons_desc"
+        android:key="left_system_icons"
+        android:defaultValue="@bool/left_system_icons_default"
+        />
+
+    <SwitchPreference
+        android:title="@string/hide_status_bar_carrier"
+        android:summary="@string/hide_status_bar_carrier_desc"
+        android:key="hide_status_bar_carrier"
+        android:defaultValue="@bool/hide_status_bar_carrier_default"
+        />
+
+    <SwitchPreference
+        android:title="@string/disable_5ge"
+        android:summary="@string/disable_5ge_desc"
+        android:key="disable_5ge"
+        android:defaultValue="@bool/disable_5ge_default"
+        />
+
+    <SwitchPreference
+        android:title="@string/disable_flashing_wifi"
+        android:key="disable_flashing_wifi"
+        android:defaultValue="@bool/disable_flashing_wifi_default"
+        />
+
+</PreferenceScreen>

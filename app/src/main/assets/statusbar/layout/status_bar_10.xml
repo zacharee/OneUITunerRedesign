@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.systemui.statusbar.phone.PhoneStatusBarView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@*com.android.systemui:id/status_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@*com.android.systemui:dimen/status_bar_height"
+    android:accessibilityPaneTitle="@*com.android.systemui:string/status_bar"
+    android:background="@*com.android.systemui:drawable/system_bar_background"
+    android:descendantFocusability="afterDescendants"
+    android:focusable="false"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@*com.android.systemui:id/phone_status_bar_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@*com.android.systemui:id/status_bar_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@*com.android.systemui:id/notification_lights_out"
+            android:layout_width="@*com.android.systemui:dimen/status_bar_icon_size"
+            android:layout_height="match_parent"
+            android:paddingStart="@*com.android.systemui:dimen/status_bar_padding_start"
+            android:paddingBottom="2dp"
+            android:scaleType="center"
+            android:src="@*com.android.systemui:drawable/ic_sysbar_lights_out_dot_small"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@*com.android.systemui:id/status_bar_contents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="@*com.android.systemui:dimen/status_bar_padding_start"
+            android:paddingTop="@*com.android.systemui:dimen/status_bar_padding_top"
+            android:paddingEnd="@*com.android.systemui:dimen/status_bar_padding_end">
+
+            <com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthFrameLayout
+                android:id="@*com.android.systemui:id/status_bar_left_side_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true">
+
+                <include layout="@*com.android.systemui:layout/heads_up_status_bar_layout" />
+
+                <com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout
+                    android:id="@*com.android.systemui:id/status_bar_left_side"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:gravity="center_vertical">
+
+                    <ViewStub
+                        android:id="@*com.android.systemui:id/operator_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout="@*com.android.systemui:layout/operator_name" />
+
+                    <LinearLayout
+                        android:id="@*com.android.systemui:id/home_carrier_information_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
+
+                    <LinearLayout
+                        android:id="@*com.android.systemui:id/left_clock_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@*com.android.systemui:dimen/status_bar_left_clock_starting_padding"
+                        android:layout_marginEnd="@*com.android.systemui:dimen/status_bar_left_clock_end_padding"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <!--                        <com.android.systemui.statusbar.policy.QSClock-->
+                        <!--                            android:id="@*com.android.systemui:id/clock"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:gravity="center"-->
+                        <!--                            android:singleLine="true"-->
+                        <!--                            android:tag="@*com.android.systemui:string/qs_clock_tag_home_indicator"-->
+                        <!--                            android:textAppearance="@*com.android.systemui:style/TextAppearance.StatusBar.Clock" />-->
+
+                        <ClockLayout />
+
+                    </LinearLayout>
+
+                    <com.android.systemui.statusbar.AlphaOptimizedFrameLayout
+                        android:id="@*com.android.systemui:id/notification_icon_area"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" />
+                </com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout>
+            </com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthFrameLayout>
+
+            <com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout
+                android:id="@*com.android.systemui:id/status_bar_center_side"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <android.widget.Space
+                    android:id="@*com.android.systemui:id/cutout_space_view"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center" />
+
+                <com.android.systemui.statusbar.AlphaOptimizedFrameLayout
+                    android:id="@*com.android.systemui:id/centered_icon_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:gravity="center"
+                    android:orientation="horizontal" />
+
+                <LinearLayout
+                    android:id="@*com.android.systemui:id/middle_clock_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@*com.android.systemui:dimen/status_bar_left_clock_end_padding"
+                    android:layout_marginEnd="@*com.android.systemui:dimen/status_bar_left_clock_end_padding"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone" />
+            </com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout>
+
+            <com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout
+                android:id="@*com.android.systemui:id/system_icon_area"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:gravity="right|center_vertical|center_horizontal|center|end"
+                android:orientation="horizontal">
+
+                <ViewStub
+                    android:id="@*com.android.systemui:id/qs_knox_custom_statusbar_viewstub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout="@*com.android.systemui:layout/qs_knox_custom_statusbar_text" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical|center_horizontal|center|end">
+
+                    <include layout="@*com.android.systemui:layout/system_icons" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@*com.android.systemui:id/right_clock_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@*com.android.systemui:dimen/status_bar_left_clock_end_padding"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone" />
+            </com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout>
+        </RelativeLayout>
+
+        <ViewStub
+            android:id="@*com.android.systemui:id/emergency_cryptkeeper_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout="@*com.android.systemui:layout/emergency_cryptkeeper_text" />
+    </FrameLayout>
+</com.android.systemui.statusbar.phone.PhoneStatusBarView>

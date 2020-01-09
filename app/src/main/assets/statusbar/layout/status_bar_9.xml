@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.systemui.statusbar.phone.PhoneStatusBarView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:systemui="http://schemas.android.com/apk/res/com.android.systemui"
+    android:id="@+id/status_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/status_bar_height"
+    android:accessibilityPaneTitle="@string/status_bar"
+    android:background="@drawable/system_bar_background"
+    android:descendantFocusability="afterDescendants"
+    android:focusable="false"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/middle_clock_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal" />
+
+    <FrameLayout
+        android:id="@+id/status_bar_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/notification_lights_out"
+            android:layout_width="@dimen/status_bar_icon_size"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/status_bar_padding_start"
+            android:paddingBottom="2dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_sysbar_lights_out_dot_small"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/status_bar_contents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/status_bar_padding_start"
+            android:paddingEnd="@dimen/status_bar_padding_end">
+
+            <ViewStub
+                android:id="@+id/operator_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout="@layout/operator_name" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <include layout="@layout/heads_up_status_bar_layout" />
+
+                <LinearLayout
+                    android:id="@+id/status_bar_left_side"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false">
+
+                    <LinearLayout
+                        android:id="@+id/left_clock_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/network_logo_image_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal" />
+
+                        <include
+                            layout="@layout/qs_status_bar_clock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                    <com.android.systemui.statusbar.AlphaOptimizedFrameLayout
+                        android:id="@+id/notification_icon_area"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <android.widget.Space
+                android:id="@+id/cutout_space_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center" />
+
+            <com.android.keyguard.AlphaOptimizedLinearLayout
+                android:id="@+id/system_icon_area"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical|center_horizontal|center|end"
+                android:orientation="horizontal">
+
+                <ViewStub
+                    android:id="@+id/qs_knox_custom_statusbar_viewstub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout="@layout/qs_knox_custom_statusbar_text" />
+
+                <include layout="@layout/system_icons" />
+
+                <LinearLayout
+                    android:id="@+id/right_clock_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal" />
+            </com.android.keyguard.AlphaOptimizedLinearLayout>
+        </LinearLayout>
+
+        <ViewStub
+            android:id="@+id/emergency_cryptkeeper_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout="@layout/emergency_cryptkeeper_text" />
+    </FrameLayout>
+</com.android.systemui.statusbar.phone.PhoneStatusBarView>

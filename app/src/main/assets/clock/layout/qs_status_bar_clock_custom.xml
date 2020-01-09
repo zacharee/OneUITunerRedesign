@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextClock
+    android:gravity="center"
+    android:id="@*com.android.systemui:id/clock"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:minWidth="10dp"
+    android:singleLine="true"
+    android:tag="status_bar_clock"
+    android:textAppearance="@*com.android.systemui:style/TextAppearance.StatusBar.Clock"
+    android:format12Hour="h:mm a"
+    android:format24Hour="h:mm a"
+    android:shadowColor="#7f000000"
+    android:shadowDx="1"
+    android:shadowDy="1"
+    android:shadowRadius="4"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    />

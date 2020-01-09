@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clock_format_labels">
+        <item>@string/clock_format_default</item>
+        <item>@string/clock_format_custom</item>
+        <item>@string/clock_format_aosp</item>
+    </string-array>
+
+    <string-array name="clock_format_values">
+        <item>@string/clock_type_default</item>
+        <item>@string/clock_type_custom</item>
+        <item>@string/clock_type_aosp</item>
+    </string-array>
+</resources>

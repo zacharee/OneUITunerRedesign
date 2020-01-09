@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="@string/tweaks">
+
+        <Preference
+            android:title="@string/clock"
+            android:key="clock"
+            android:icon="@drawable/ic_access_time_24dp"
+            />
+
+        <Preference
+            android:title="@string/qs"
+            android:key="qs"
+            android:icon="@drawable/ic_toggle_switch"
+            />
+
+        <Preference
+            android:title="@string/status_bar"
+            android:key="status_bar"
+            android:icon="@drawable/ic_signal"
+            />
+
+        <Preference
+            android:title="@string/lock_screen"
+            android:key="lock_screen"
+            android:icon="@drawable/ic_lock_outline_24dp"
+            />
+
+        <Preference
+            android:title="@string/misc"
+            android:key="misc"
+            android:icon="@drawable/ic_more_horiz_24dp"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/options">
+
+        <SwitchPreference
+            android:title="@string/use_synergy"
+            android:key="use_synergy"
+            android:defaultValue="@bool/use_synergy_default"
+            android:icon="@drawable/synergy_icon"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

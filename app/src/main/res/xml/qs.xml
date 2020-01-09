@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <tk.zwander.collapsiblepreferencecategory.CollapsiblePreferenceCategory
+        android:title="@string/qs_header"
+        android:key="qs_header">
+
+        <Preference
+            android:summary="@string/qqs_hint"
+            android:enabled="false"
+            />
+
+        <tk.zwander.seekbarpreference.SeekBarPreference
+            android:title="@string/header_count_portrait"
+            android:key="header_count_portrait"
+            android:defaultValue="@integer/header_count_portrait_default"
+            app:minValue="@integer/header_count_portrait_min"
+            app:maxValue="@integer/header_count_portrait_max"
+            />
+
+        <tk.zwander.seekbarpreference.SeekBarPreference
+            android:title="@string/header_count_landscape"
+            android:key="header_count_landscape"
+            android:defaultValue="@integer/header_count_landscape_default"
+            app:minValue="@integer/header_count_landscape_min"
+            app:maxValue="@integer/header_count_landscape_max"
+            />
+
+    </tk.zwander.collapsiblepreferencecategory.CollapsiblePreferenceCategory>
+
+    <tk.zwander.collapsiblepreferencecategory.CollapsiblePreferenceCategory
+        android:title="@string/qs_row_col"
+        android:key="qs_row_col">
+
+        <Preference
+            android:summary="@string/qs_row_col_hint"
+            android:enabled="false"
+            />
+
+        <tk.zwander.seekbarpreference.SeekBarPreference
+            android:title="@string/qs_row_count_portrait"
+            android:key="qs_row_count_portrait"
+            android:defaultValue="@integer/qs_row_count_portrait_default"
+            app:minValue="@integer/qs_row_count_portrait_min"
+            app:maxValue="@integer/qs_row_count_portrait_max"
+            />
+
+        <tk.zwander.seekbarpreference.SeekBarPreference
+            android:title="@string/qs_row_count_landscape"
+            android:key="qs_row_count_landscape"
+            android:defaultValue="@integer/qs_row_count_landscape_default"
+            app:minValue="@integer/qs_row_count_landscape_min"
+            app:maxValue="@integer/qs_row_count_landscape_max"
+            />
+
+        <tk.zwander.seekbarpreference.SeekBarPreference
+            android:title="@string/qs_col_count_portrait"
+            android:key="qs_col_count_portrait"
+            android:defaultValue="@integer/qs_col_count_portrait_default"
+            app:minValue="@integer/qs_col_count_portrait_min"
+            app:maxValue="@integer/qs_col_count_portrait_max"
+            />
+
+        <tk.zwander.seekbarpreference.SeekBarPreference
+            android:title="@string/qs_col_count_landscape"
+            android:key="qs_col_count_landscape"
+            android:defaultValue="@integer/qs_col_count_landscape_default"
+            app:minValue="@integer/qs_col_count_landscape_min"
+            app:maxValue="@integer/qs_col_count_landscape_max"
+            />
+
+    </tk.zwander.collapsiblepreferencecategory.CollapsiblePreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/misc">
+
+        <SwitchPreference
+            android:title="@string/hide_qs_tile_background"
+            android:key="hide_qs_tile_background"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

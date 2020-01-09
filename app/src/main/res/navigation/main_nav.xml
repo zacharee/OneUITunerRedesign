@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/main_nav"
+    app:startDestination="@id/main">
+
+    <fragment
+        android:id="@+id/main"
+        android:name="tk.zwander.oneuituner.fragments.Main"
+        >
+        <action
+            android:id="@+id/action_main_to_clock"
+            app:destination="@id/clock" />
+        <action
+            android:id="@+id/action_main_to_qs"
+            app:destination="@id/qs" />
+        <action
+            android:id="@+id/action_main_to_misc"
+            app:destination="@id/misc" />
+        <action
+            android:id="@+id/action_main_to_statusBar"
+            app:destination="@id/statusBar" />
+        <action
+            android:id="@+id/action_main_to_lockScreen"
+            app:destination="@id/lockScreen"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/clock"
+        android:label="clock"
+        android:name="tk.zwander.oneuituner.fragments.Clock"
+        />
+
+    <fragment
+        android:id="@+id/qs"
+        android:label="qs"
+        android:name="tk.zwander.oneuituner.fragments.QS"
+        />
+
+    <fragment
+        android:id="@+id/misc"
+        android:name="tk.zwander.oneuituner.fragments.Misc"
+        android:label="misc"
+        />
+
+    <fragment
+        android:id="@+id/statusBar"
+        android:name="tk.zwander.oneuituner.fragments.StatusBar"
+        android:label="status_bar"
+        />
+
+    <fragment
+        android:id="@+id/lockScreen"
+        android:name="tk.zwander.oneuituner.fragments.LockScreen"
+        android:label="lock_screen"
+        />
+</navigation>

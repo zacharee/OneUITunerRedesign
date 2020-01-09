@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.systemui.statusbar.phone.KeyguardStatusBarView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:androidprv="http://schemas.android.com/apk/res-auto"
+    xmlns:systemui="http://schemas.android.com/apk/res/com.android.systemui"
+    android:id="@*com.android.systemui:id/keyguard_header"
+    android:layout_width="match_parent"
+    android:layout_height="@*com.android.systemui:dimen/status_bar_header_height_keyguard"
+    android:baselineAligned="false">
+
+    <RelativeLayout
+        android:id="@*com.android.systemui:id/keyguard_status_bar_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@*com.android.systemui:id/status_icon_area"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="right|center_vertical|center_horizontal|center|end">
+
+            <FrameLayout
+                android:id="@*com.android.systemui:id/system_icons_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@*com.android.systemui:dimen/system_icons_super_container_margin_start"
+                android:gravity="right|center_vertical|center_horizontal|center|end"
+                android:paddingEnd="@*com.android.systemui:dimen/system_icons_keyguard_padding_end">
+
+                <include layout="@*com.android.systemui:layout/system_icons" />
+            </FrameLayout>
+
+            <com.android.systemui.statusbar.phone.MultiUserSwitch
+                android:id="@*com.android.systemui:id/multi_user_switch"
+                android:layout_width="@*com.android.systemui:dimen/multi_user_switch_width_keyguard"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@*com.android.systemui:dimen/multi_user_switch_keyguard_margin"
+                android:background="@*com.android.systemui:drawable/ripple_drawable">
+
+                <ImageView
+                    android:id="@*com.android.systemui:id/multi_user_avatar"
+                    android:layout_width="@*com.android.systemui:dimen/multi_user_avatar_keyguard_size"
+                    android:layout_height="@*com.android.systemui:dimen/multi_user_avatar_keyguard_size"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside" />
+            </com.android.systemui.statusbar.phone.MultiUserSwitch>
+        </LinearLayout>
+
+        <Space
+            android:id="@*com.android.systemui:id/cutout_space_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@*com.android.systemui:id/keyguard_network_information_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:visibility="gone"
+            android:layout_marginStart="@*com.android.systemui:dimen/keyguard_carrier_text_margin"
+            android:layout_marginEnd="@*com.android.systemui:dimen/keyguard_operator_logo_margin_start"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.android.systemui.simpleindicator.SimpleIndicatorCarrierText
+                android:id="@*com.android.systemui:id/keyguard_carrier_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ellipsize="marquee"
+                android:fontFamily="sec-roboto-condensed"
+                android:gravity="center_vertical"
+                android:maxWidth="@*com.android.systemui:dimen/carrier_label_portrait_max_width"
+                android:singleLine="true"
+                android:tag="@*com.android.systemui:string/simple_indicator_tag_lock_carrier_text_label"
+                android:textDirection="locale"
+                android:textSize="@*com.android.systemui:dimen/status_bar_carrier_text_size" />
+        </LinearLayout>
+
+        <com.android.systemui.statusbar.policy.QSClock
+            android:id="@*com.android.systemui:id/keyguard_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="3dp"
+            android:layout_toEndOf="@*com.android.systemui:id/keyguard_network_information_container"
+            android:gravity="left|center_vertical|center_horizontal|center|start"
+            android:singleLine="true"
+            android:tag="keyguard_status_bar_clock"
+            android:textAppearance="@*com.android.systemui:style/TextAppearance.StatusBar.Clock" />
+    </RelativeLayout>
+</com.android.systemui.statusbar.phone.KeyguardStatusBarView>

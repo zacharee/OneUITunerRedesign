@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:title="@string/old_recents"
+        android:summary="@string/old_recents_desc"
+        android:key="old_recents"
+        android:defaultValue="@bool/old_recents_default"
+        />
+
+    <tk.zwander.seekbarpreference.SeekBarPreference
+        android:title="@string/nav_height"
+        android:key="nav_height"
+        android:defaultValue="@integer/nav_height_unscaled_default"
+        app:scale="0.1"
+        app:units="dp"
+        app:minValue="@integer/nav_height_min"
+        app:maxValue="@integer/nav_height_max"
+        />
+
+    <tk.zwander.seekbarpreference.SeekBarPreference
+        android:title="@string/status_bar_height"
+        android:key="status_bar_height"
+        android:defaultValue="@integer/status_bar_height_unscaled_default"
+        app:scale="0.1"
+        app:units="dp"
+        app:minValue="@integer/status_bar_height_min"
+        app:maxValue="@integer/status_height_max"
+        />
+
+    <EditTextPreference
+        android:title="@string/freeform_max"
+        android:key="freeform_max"
+        android:defaultValue="@integer/freeform_max_default"
+        app:dialogLayout="@layout/number_edit_text"
+        />
+
+    <EditTextPreference
+        android:title="@string/desktop_freeform_max"
+        android:key="desktop_freeform_max"
+        android:defaultValue="@integer/desktop_freeform_max_default"
+        app:dialogLayout="@layout/number_edit_text"
+        />
+
+</PreferenceScreen>

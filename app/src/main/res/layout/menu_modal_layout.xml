@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/overlay_file_manager"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="?listPreferredItemHeightSmall"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/file_manager_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                app:srcCompat="@drawable/ic_insert_drive_file_24dp"
+                />
+
+            <TextView
+                android:id="@+id/file_manager_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/overlay_file_manager"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

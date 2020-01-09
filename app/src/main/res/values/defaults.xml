@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="custom_qs_date_default">false</bool>
+    <bool name="hide_qs_tile_background_default">false</bool>
+    <bool name="old_recents_default">false</bool>
+    <bool name="left_system_icons_default">false</bool>
+    <bool name="hide_status_bar_carrier_default">false</bool>
+    <bool name="lock_screen_rotation_default">false</bool>
+    <bool name="disable_5ge_default">false</bool>
+    <bool name="disable_flashing_wifi_default">false</bool>
+    <bool name="use_synergy_default">false</bool>
+    <bool name="force_normal_install">false</bool>
+
+    <string name="custom_clock_format_default">h:mm a</string>
+    <string name="custom_qs_date_format_default">EEEMMMMdd</string>
+
+    <integer name="header_count_portrait_default">6</integer>
+    <integer name="header_count_landscape_default">10</integer>
+    <integer name="qs_row_count_portrait_default">3</integer>
+    <integer name="qs_row_count_landscape_default">2</integer>
+    <integer name="qs_col_count_portrait_default">5</integer>
+    <integer name="qs_col_count_landscape_default">8</integer>
+    <!-- Scale: 0.1 (480 ==> 48) -->
+    <integer name="nav_height_unscaled_default">480</integer>
+    <!-- Scale: 0.1 (240 ==> 24) -->
+    <integer name="status_bar_height_unscaled_default">240</integer>
+    <integer name="freeform_max_default">5</integer>
+    <integer name="desktop_freeform_max_default">20</integer>
+</resources>

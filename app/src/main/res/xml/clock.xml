@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        android:title="@string/status_bar_clock_type"
+        android:summary="@string/status_bar_clock_type_desc"
+        android:key="clock_type"
+        android:entries="@array/clock_format_labels"
+        android:entryValues="@array/clock_format_values"
+        android:defaultValue="@string/clock_type_default"
+        />
+
+    <EditTextPreference
+        android:title="@string/clock_format"
+        android:key="clock_format"
+        android:defaultValue="@string/custom_clock_format_default"
+        app:isPreferenceVisible="false"
+        />
+
+    <SwitchPreference
+        android:title="@string/custom_qs_date_format"
+        android:key="custom_qs_date_format"
+        android:defaultValue="@bool/custom_qs_date_default"
+        />
+
+    <EditTextPreference
+        android:title="@string/qs_date_format"
+        android:key="qs_date_format"
+        android:dependency="custom_qs_date_format"
+        android:defaultValue="@string/custom_qs_date_format_default"
+        />
+
+    <Preference
+        android:title="@string/custom_clock_format_ref"
+        android:key="clock_format_ref">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://developer.android.com/reference/java/text/SimpleDateFormat.html"
+            />
+
+    </Preference>
+
+</PreferenceScreen>

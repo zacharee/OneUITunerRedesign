@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.android.systemui.statusbar.policy.Clock
+    android:gravity="center"
+    android:id="@*com.android.systemui:id/clock"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:minWidth="10dp"
+    android:singleLine="true"
+    android:tag="status_bar_clock"
+    android:textAppearance="@*com.android.systemui:style/TextAppearance.StatusBar.Clock"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    />

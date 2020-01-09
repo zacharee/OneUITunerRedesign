@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="header_count_portrait_min">2</integer>
+    <integer name="header_count_landscape_min">2</integer>
+    <integer name="qs_row_count_portrait_min">2</integer>
+    <integer name="qs_row_count_landscape_min">1</integer>
+    <integer name="qs_col_count_portrait_min">2</integer>
+    <integer name="qs_col_count_landscape_min">2</integer>
+    <!-- Scale 0.1 (100 ==> 10) -->
+    <integer name="nav_height_min">0</integer>
+    <!-- Scale 0.1 (100 ==> 10) -->
+    <integer name="status_bar_height_min">0</integer>
+
+    <integer name="header_count_portrait_max">10</integer>
+    <integer name="header_count_landscape_max">18</integer>
+    <integer name="qs_row_count_portrait_max">5</integer>
+    <integer name="qs_row_count_landscape_max">2</integer>
+    <integer name="qs_col_count_portrait_max">6</integer>
+    <integer name="qs_col_count_landscape_max">15</integer>
+    <!-- Scale: 0.1 (1000 ==> 100) -->
+    <integer name="nav_height_max">1000</integer>
+    <!-- Scale: 0.1 (1000 ==> 100) -->
+    <integer name="status_height_max">1000</integer>
+</resources>

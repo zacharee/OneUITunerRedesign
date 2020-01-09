@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#304ffe</color>
+    <color name="colorPrimaryVariant">#7a7cff</color>
+    <color name="colorSecondary">#00c853</color>
+    <color name="colorError">#cf6679</color>
+
+    <color name="title_divider">#33ffffff</color>
+</resources>
