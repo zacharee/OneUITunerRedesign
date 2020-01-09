@@ -4,13 +4,12 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.LayoutTransition
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
 import android.view.animation.OvershootInterpolator
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.navigation.NavController
@@ -19,10 +18,8 @@ import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_main.*
-import tk.zwander.oneuituner.util.*
-import tk.zwander.overlaylib.ResourceFileData
-import tk.zwander.overlaylib.compileOverlay
-import tk.zwander.overlaylib.doCompileAlignAndSign
+import tk.zwander.oneuituner.util.doCompile
+import tk.zwander.oneuituner.util.navController
 import java.io.File
 import java.net.URLConnection
 
@@ -75,20 +72,11 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         navController.addOnDestinationChangedListener(this)
 
         apply.setOnClickListener {
-            doCompileAlignAndSign(
-                "com.android.systemui",
-                "oneuituner",
-                resFiles = arrayListOf(
-                    ResourceFileData(
-                        "status_bar.xml",
-                        "layout",
-                        makeAndroid10StatusBar(ClockType.AOSP).flattenToString()
-                    )
-                ),
-                listener = {
-                    installForSynergy(it)
+            doCompile {
+                it.forEach { file ->
+                    installForSynergy(file)
                 }
-            )
+            }
         }
     }
 
