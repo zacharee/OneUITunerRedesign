@@ -26,6 +26,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="undo">Undo</string>
+    <string name="installation_failed">Installation Failed!</string>
 
     <string name="header_count_portrait">Header Count (Portrait)</string>
     <string name="header_count_landscape">Header Count (Landscape)</string>
@@ -68,6 +69,7 @@
     <string name="synergy_not_installed_desc">It looks like Synergy isn\'t installed. Would you like to check it out?</string>
     <string name="force_normal_install_desc">On many devices on One UI, Samsung blocked normal installation of overlays. To be safe, OneUI Tuner will make all devices except the S9, S9+, and Note9 use the Theme Center workaround. Other devices running One UI may still be able to use the normal method of installation (without the Theme Center). Turn this on to try it out.</string>
     <string name="overlay_removed">Overlay removed</string>
+    <string name="installation_failed_desc">The overlay installation failed:\n\n%s</string>
 
     <string name="qqs_hint">Set your QS grid to 5x3 if the header icons overlap at higher values.</string>
     <string name="qs_row_col_hint">Set your QS grid to 5x3 for these to take effect.</string>

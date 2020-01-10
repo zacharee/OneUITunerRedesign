@@ -2,11 +2,16 @@ package tk.zwander.oneuituner.util
 
 import android.app.Activity
 import android.content.Context
+import android.content.IntentSender
+import android.content.pm.PackageInstaller
+import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.util.TypedValue
+import androidx.core.content.FileProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -18,8 +23,7 @@ import tk.zwander.overlaylib.ResourceData
 import tk.zwander.overlaylib.ResourceFileData
 import tk.zwander.overlaylib.doCompileAlignAndSign
 import tk.zwander.overlaylib.makeResourceXml
-import java.io.File
-import java.io.StringWriter
+import java.io.*
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
@@ -84,7 +88,7 @@ fun Context.doCompile(listener: (List<File>) -> Unit) {
     count++
     doCompileAlignAndSign(
         "com.android.systemui",
-        "oneuituner",
+        "oneuituner.systemui",
         resFiles = mutableListOf<ResourceFileData>().apply {
             add(
                 ResourceFileData(
@@ -463,7 +467,7 @@ fun Context.doCompile(listener: (List<File>) -> Unit) {
     count++
     doCompileAlignAndSign(
         "android",
-        "oneuituner",
+        "oneuituner.android",
         resFiles = mutableListOf<ResourceFileData>().apply {
             add(
                 ResourceFileData(
@@ -529,8 +533,59 @@ fun Context.doCompile(listener: (List<File>) -> Unit) {
     )
 }
 
+private val installParams by lazy {
+    PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL).apply {
+        installFlags = installFlags or PackageManager.INSTALL_REPLACE_EXISTING
+    }
+}
+
 val Context.statusBarHeight: Int
     get() = resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
 
 val Context.navigationBarHeight: Int
     get() = resources.getDimensionPixelSize(resources.getIdentifier("navigation_bar_height", "dimen", "android"))
+
+fun Context.installNormally(updateSender: IntentSender, vararg source: File) {
+    val installer = packageManager.packageInstaller
+    val sessionId = installer.createSession(installParams)
+    val session = installer.openSession(sessionId)
+
+    Log.e("OneUITuner", source.joinToString(","))
+
+    source.forEach {
+        val fileUri = FileProvider.getUriForFile(
+            this,
+            "$packageName.apkprovider", it
+        )
+
+        val output = session.openWrite("OneUITunerInstall", 0, -1)
+        val input = contentResolver.openInputStream(fileUri)
+
+        try {
+            transfer(input, output)
+        } catch (e: IOException) {
+            Log.e("OneUITuner", "error", e)
+        }
+
+        session.fsync(output)
+        input.close()
+        output.close()
+    }
+
+    session.commit(updateSender)
+}
+
+fun transfer(input: InputStream, output: OutputStream) {
+    var read: Int
+    val buffer = ByteArray(64 * 1024)
+
+    while (true) {
+        read = input.read(buffer)
+
+        if (read <= 0) break
+
+        output.write(buffer, 0, read)
+    }
+
+    output.flush()
+}

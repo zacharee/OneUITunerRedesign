@@ -4,4 +4,8 @@
         name="apks"
         path="."
         />
+    <external-cache-path
+        name="apks_external"
+        path="."
+        />
 </paths>
