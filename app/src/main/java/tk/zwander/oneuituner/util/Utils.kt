@@ -704,14 +704,19 @@ fun reboot() {
     }
 }
 
-fun installToModule(vararg files: File, listener: (() -> Unit)? = null) = MainScope().launch {
+fun installToModule(vararg files: File, listener: ((needsSecondReboot: Boolean) -> Unit)? = null) = MainScope().launch {
+    var needsSecondReboot = false
+
     withContext(Dispatchers.IO) {
         files.forEach {
             val folder = SuFile(moduleAppDir, it.nameWithoutExtension)
             if (!folder.exists()) folder.mkdirs()
 
             val dst = SuFile(folder, "${it.nameWithoutExtension}.apk")
-            if (!dst.exists()) dst.createNewFile()
+            if (!dst.exists()) {
+                needsSecondReboot = true
+                dst.createNewFile()
+            }
 
             folder.setWritable(true, true)
             folder.setReadable(true, false)
@@ -725,7 +730,7 @@ fun installToModule(vararg files: File, listener: (() -> Unit)? = null) = MainSc
         }
     }
 
-    listener?.invoke()
+    listener?.invoke(needsSecondReboot)
 }
 
 fun removeFromModule(vararg files: File, listener: (() -> Unit)? = null) = MainScope().launch {

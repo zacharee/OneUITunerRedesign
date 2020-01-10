@@ -2,6 +2,9 @@ package tk.zwander.oneuituner
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.os.Bundle
@@ -49,6 +52,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private val filesToInstall = ArrayList<File>()
     private val packagesToUninstall = ArrayList<String>()
+    private val nm by lazy { getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager }
 
     private var progressShown: Boolean
         get() = progress_wrapper.isVisible
@@ -61,6 +65,13 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         setContentView(R.layout.activity_main)
 
         disableApiBlacklist()
+
+        val channel = NotificationChannel(
+            "oneuituner_reboot",
+            resources.getText(R.string.app_name),
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        nm.createNotificationChannel(channel)
 
         if (Shell.rootAccess()) {
             createMagiskModule {
@@ -124,12 +135,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                     installNormally(filesToInstall.removeAt(0))
                 } else {
                     progressShown = true
-                    installToModule(*it.toTypedArray()) {
+                    installToModule(*it.toTypedArray()) { needsExtraReboot ->
                         progressShown = false
+
+                        prefs.needsAdditionalReboot = needsExtraReboot
 
                         MaterialAlertDialogBuilder(this@MainActivity)
                             .setTitle(R.string.reboot)
-                            .setMessage(R.string.reboot_first_desc)
+                            .setMessage(if (!needsExtraReboot) R.string.reboot_others_desc else R.string.reboot_first_desc)
                             .setPositiveButton(R.string.reboot) { _, _ -> reboot() }
                             .setNegativeButton(R.string.later, null)
                             .setCancelable(false)

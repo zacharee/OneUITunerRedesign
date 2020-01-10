@@ -45,6 +45,7 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
         const val LOCK_SCREEN_ROTATION = "lock_screen_rotation"
 
         const val USE_SYNERGY = "use_synergy"
+        const val NEEDS_ADDITIONAL_REBOOT = "needs_additional_reboot"
     }
 
     val preferences = PreferenceManager.getDefaultSharedPreferences(this)
@@ -114,6 +115,12 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
         get() = getBoolean(USE_SYNERGY, resourceBool(R.bool.use_synergy_default))
         set(value) {
             putBoolean(USE_SYNERGY, value)
+        }
+
+    var needsAdditionalReboot: Boolean
+        get() = getBoolean(NEEDS_ADDITIONAL_REBOOT, true)
+        set(value) {
+            putBoolean(NEEDS_ADDITIONAL_REBOOT, value)
         }
 
     val freeformMax: Int
