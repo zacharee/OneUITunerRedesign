@@ -2,7 +2,6 @@
     <string name="app_name">OneUI Tuner</string>
     <string name="options">Options</string>
     <string name="tweaks">Tweaks</string>
-    <string name="menu">Menu</string>
 
     <string name="clock">Clock</string>
     <string name="qs">Quick Settings</string>
@@ -12,20 +11,11 @@
     <string name="qs_header">QS Header</string>
     <string name="qs_row_col">QS Row/Column</string>
 
-    <string name="adb_needed">ADB is Needed</string>
     <string name="succeeded">Succeeded</string>
-    <string name="failed">Failed</string>
-    <string name="show_me_command">Show the command</string>
-    <string name="close">Close</string>
-    <string name="check">Check</string>
-    <string name="try_again">Try again</string>
     <string name="back">Back</string>
     <string name="apply_changes">Apply Changes</string>
-    <string name="install_theme">Install Theme</string>
-    <string name="remove_component">Remove Component</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="undo">Undo</string>
     <string name="installation_failed">Installation Failed!</string>
 
     <string name="header_count_portrait">Header Count (Portrait)</string>
@@ -47,28 +37,17 @@
     <string name="qs_col_count_landscape">QS Column Count (Landscape)</string>
     <string name="disable_5ge">Disable 5G E</string>
     <string name="disable_flashing_wifi">Disable Flashing WiFi Icon</string>
-    <string name="launch_theme_center">Launch Theme Center</string>
-    <string name="go">Go</string>
     <string name="status_bar_clock_type">Status Bar Clock Type</string>
     <string name="use_synergy">Use Synergy</string>
-    <string name="force_normal_install">Force Normal Install</string>
-    <string name="overlay_file_manager">Overlay File Manager</string>
-    <string name="enable_theme_center">Enable Theme Center</string>
     <string name="desktop_freeform_max">Max Freeform Window Count (Desktop)</string>
     <string name="freeform_max">Max Freeform Window Count</string>
 
-    <string name="root_required_desc">Because of limitations added in later versions of One UI, your device must be rooted to use this app.</string>
     <string name="old_recents_desc">Restores the old vertical Recents carousel. Reboot required.</string>
     <string name="left_system_icons_desc">Move the system icons, like the WiFi, signal, etc icons, to the left of the status bar.</string>
     <string name="hide_status_bar_carrier_desc">Hide the carrier label in the status bar on the lock screen and when unlocked. Reboot required.</string>
     <string name="disable_5ge_desc">Replaces the 5G E icon on AT&amp;T devices with the proper 4G LTE icon.</string>
-    <string name="adb_needed_desc">You\'ll need to run a command through ADB to use this app. OneUI Tuner will tell you if you need to run it again (usually after a reboot).</string>
-    <string name="adb_command">Run this command from your computer:</string>
-    <string name="launch_theme_center_desc">The theme was successfully compiled and installed. Apply it from the Theme Center. Look for \"%s\".</string>
     <string name="status_bar_clock_type_desc">Choose to replace the status bar clock with the AOSP style or a custom format. The AOSP clock will allow you to enable seconds using SystemUI Tuner. The custom format will allow you to use any format you want, but won\'t automatically change color.</string>
     <string name="synergy_not_installed_desc">It looks like Synergy isn\'t installed. Would you like to check it out?</string>
-    <string name="force_normal_install_desc">On many devices on One UI, Samsung blocked normal installation of overlays. To be safe, OneUI Tuner will make all devices except the S9, S9+, and Note9 use the Theme Center workaround. Other devices running One UI may still be able to use the normal method of installation (without the Theme Center). Turn this on to try it out.</string>
-    <string name="overlay_removed">Overlay removed</string>
     <string name="installation_failed_desc">The overlay installation failed:\n\n%s</string>
 
     <string name="qqs_hint">Set your QS grid to 5x3 if the header icons overlap at higher values.</string>
