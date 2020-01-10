@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import org.w3c.dom.Document
 import tk.zwander.oneuituner.R
@@ -588,4 +589,8 @@ fun transfer(input: InputStream, output: OutputStream) {
     }
 
     output.flush()
+}
+
+fun PreferenceFragmentCompat.setPreferenceEnabled(key: CharSequence, enabled: Boolean) {
+    findPreference<Preference>(key)?.isEnabled = enabled
 }

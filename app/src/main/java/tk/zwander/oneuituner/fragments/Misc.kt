@@ -1,12 +1,10 @@
 package tk.zwander.oneuituner.fragments
 
+import android.os.Build
 import android.os.Bundle
 import androidx.preference.Preference
 import tk.zwander.oneuituner.R
-import tk.zwander.oneuituner.util.PrefManager
-import tk.zwander.oneuituner.util.navigationBarHeight
-import tk.zwander.oneuituner.util.pxAsDp
-import tk.zwander.oneuituner.util.statusBarHeight
+import tk.zwander.oneuituner.util.*
 
 class Misc : Base() {
     override val title = R.string.misc
@@ -20,6 +18,10 @@ class Misc : Base() {
 
         findPreference<Preference>(PrefManager.NAV_HEIGHT)?.apply {
             setDefaultValue(requireContext().run { pxAsDp(navigationBarHeight) } * 10)
+        }
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+            setPreferenceEnabled(PrefManager.OLD_RECENTS, false)
         }
     }
 }
