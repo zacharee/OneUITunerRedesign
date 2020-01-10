@@ -1,7 +1,9 @@
 package tk.zwander.oneuituner.util
 
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
@@ -19,15 +21,18 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import org.w3c.dom.Document
+import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
 import tk.zwander.overlaylib.ResourceData
 import tk.zwander.overlaylib.ResourceFileData
 import tk.zwander.overlaylib.doCompileAlignAndSign
 import tk.zwander.overlaylib.makeResourceXml
 import java.io.*
+import java.util.*
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
+import kotlin.collections.ArrayList
 
 val mainHandler = Handler(Looper.getMainLooper())
 
@@ -88,8 +93,8 @@ fun Context.doCompile(listener: (List<File>) -> Unit) {
 
     count++
     doCompileAlignAndSign(
-        "com.android.systemui",
-        "oneuituner.systemui",
+        PACKAGE_SYSTEMUI,
+        SUFFIX_SYSTEMUI,
         resFiles = mutableListOf<ResourceFileData>().apply {
             add(
                 ResourceFileData(
@@ -467,8 +472,8 @@ fun Context.doCompile(listener: (List<File>) -> Unit) {
 
     count++
     doCompileAlignAndSign(
-        "android",
-        "oneuituner.android",
+        PACKAGE_ANDROID,
+        SUFFIX_ANDROID,
         resFiles = mutableListOf<ResourceFileData>().apply {
             add(
                 ResourceFileData(
@@ -546,34 +551,36 @@ val Context.statusBarHeight: Int
 val Context.navigationBarHeight: Int
     get() = resources.getDimensionPixelSize(resources.getIdentifier("navigation_bar_height", "dimen", "android"))
 
-fun Context.installNormally(updateSender: IntentSender, vararg source: File) {
+fun Context.installNormally(source: File) {
     val installer = packageManager.packageInstaller
+
     val sessionId = installer.createSession(installParams)
     val session = installer.openSession(sessionId)
 
-    Log.e("OneUITuner", source.joinToString(","))
+    val fileUri = FileProvider.getUriForFile(
+        this,
+        "$packageName.apkprovider", source
+    )
 
-    source.forEach {
-        val fileUri = FileProvider.getUriForFile(
-            this,
-            "$packageName.apkprovider", it
-        )
+    val output = session.openWrite("OneUITunerInstall:${source.nameWithoutExtension}", 0, -1)
+    val input = contentResolver.openInputStream(fileUri)
 
-        val output = session.openWrite("OneUITunerInstall", 0, -1)
-        val input = contentResolver.openInputStream(fileUri)
-
-        try {
-            transfer(input, output)
-        } catch (e: IOException) {
-            Log.e("OneUITuner", "error", e)
-        }
-
-        session.fsync(output)
-        input.close()
-        output.close()
+    try {
+        transfer(input, output)
+    } catch (e: IOException) {
+        Log.e("OneUITuner", "error", e)
     }
 
-    session.commit(updateSender)
+    session.fsync(output)
+    input.close()
+    output.close()
+    session.commit(intentSender)
+}
+
+fun Context.uninstallNormally(`package`: String) {
+    packageManager.packageInstaller.run {
+        uninstall(`package`, intentSender)
+    }
 }
 
 fun transfer(input: InputStream, output: OutputStream) {
@@ -593,4 +600,28 @@ fun transfer(input: InputStream, output: OutputStream) {
 
 fun PreferenceFragmentCompat.setPreferenceEnabled(key: CharSequence, enabled: Boolean) {
     findPreference<Preference>(key)?.isEnabled = enabled
+}
+
+val Context.updateIntent: Intent
+    get() = Intent(this, MainActivity::class.java).apply {
+        action = MainActivity.ACTION_INSTALL_STATUS_UPDATE
+    }
+
+val Context.intentSender: IntentSender
+    get() = PendingIntent.getActivity(
+        this,
+        Random(System.currentTimeMillis()).nextInt(),
+        updateIntent,
+        0
+    ).intentSender
+
+fun Context.findInstalledOverlays(): Array<String> {
+    return OVERLAYS.filter {
+        try {
+            packageManager.getApplicationInfo(it, 0)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }.toTypedArray()
 }

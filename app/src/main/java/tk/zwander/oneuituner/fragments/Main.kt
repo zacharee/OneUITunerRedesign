@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
+import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
 import tk.zwander.oneuituner.util.*
 
@@ -55,6 +56,10 @@ class Main : Base() {
                 Keys.misc -> true to R.id.action_main_to_misc
                 Keys.statusBar -> true to R.id.action_main_to_statusBar
                 Keys.lockScreen -> true to R.id.action_main_to_lockScreen
+                "uninstall_all" -> run {
+                    (requireActivity() as MainActivity).performUninstall()
+                    false to 0
+                }
                 else -> super.onPreferenceTreeClick(preference) to 0
             }
 

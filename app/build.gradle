@@ -51,6 +51,6 @@ dependencies {
     implementation 'com.github.zacharee:colorpicker:9ea5085260'
     implementation 'com.android.tools.build:apksig:3.5.3'
     implementation 'com.github.zacharee:CollapsiblePreferenceCategory:4883357a52'
-    implementation 'com.github.zacharee:OverlayLib:52e4a88f56'
+    implementation 'com.github.zacharee:OverlayLib:21b7733ab0'
     implementation 'com.github.zacharee:Unblacklister:1.0'
 }

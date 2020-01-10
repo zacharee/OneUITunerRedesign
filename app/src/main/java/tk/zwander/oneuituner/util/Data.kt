@@ -3,6 +3,18 @@ package tk.zwander.oneuituner.util
 import android.content.Context
 import android.content.res.Configuration
 import android.util.TypedValue
+import tk.zwander.overlaylib.constructOverlayPackage
+
+const val SUFFIX_SYSTEMUI = "oneuituner.systemui"
+const val SUFFIX_ANDROID = "oneuituner.android"
+
+const val PACKAGE_SYSTEMUI = "com.android.systemui"
+const val PACKAGE_ANDROID = "android"
+
+val OVERLAYS = arrayOf(
+    constructOverlayPackage(PACKAGE_SYSTEMUI),
+    constructOverlayPackage(PACKAGE_ANDROID)
+)
 
 fun Context.calculateQsWidthForColumnCount(count: Int, landscape: Boolean): Int {
     val displayWidth = dpAsPx(resources.configuration.screenWidthDp)

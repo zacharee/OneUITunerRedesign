@@ -10,6 +10,7 @@
     <string name="lock_screen">Lock Screen</string>
     <string name="qs_header">QS Header</string>
     <string name="qs_row_col">QS Row/Column</string>
+    <string name="uninstall_all">Uninstall All Overlays</string>
 
     <string name="succeeded">Succeeded</string>
     <string name="back">Back</string>

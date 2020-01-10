@@ -3,7 +3,6 @@ package tk.zwander.oneuituner
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.LayoutTransition
-import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.os.Bundle
@@ -22,17 +21,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.shape.MaterialShapeDrawable
 import kotlinx.android.synthetic.main.activity_main.*
-import tk.zwander.oneuituner.util.doCompile
-import tk.zwander.oneuituner.util.installNormally
-import tk.zwander.oneuituner.util.navController
-import tk.zwander.oneuituner.util.prefs
+import tk.zwander.oneuituner.util.*
 import tk.zwander.unblacklister.disableApiBlacklist
 import java.io.File
 import java.net.URLConnection
 
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
     companion object {
-        private const val ACTION_INSTALL_STATUS_UPDATE = "INSTALL_STATUS_UPDATE"
+        const val ACTION_INSTALL_STATUS_UPDATE = "INSTALL_STATUS_UPDATE"
     }
 
     private val currentFrag: NavDestination?
@@ -49,20 +45,8 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
     }
 
-    private val updateIntent by lazy {
-        Intent(this, MainActivity::class.java).apply {
-            action = ACTION_INSTALL_STATUS_UPDATE
-        }
-    }
-
-    private val intentSender by lazy {
-        PendingIntent.getActivity(
-            this,
-            100,
-            updateIntent,
-            0
-        ).intentSender
-    }
+    private val filesToInstall = ArrayList<File>()
+    private val packagesToUninstall = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,7 +90,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 if (prefs.useSynergy) {
                     installForSynergy(it)
                 } else {
-                    installNormally(intentSender, *it.toTypedArray())
+                    filesToInstall.clear()
+                    filesToInstall.addAll(it)
+
+                    installNormally(filesToInstall.removeAt(0))
                 }
             }
         }
@@ -138,6 +125,8 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                     }
                     PackageInstaller.STATUS_SUCCESS -> {
                         Toast.makeText(this, R.string.succeeded, Toast.LENGTH_SHORT).show()
+                        if (filesToInstall.isNotEmpty()) installNormally(filesToInstall.removeAt(0))
+                        if (packagesToUninstall.isNotEmpty()) uninstallNormally(packagesToUninstall.removeAt(0))
                     }
                     PackageInstaller.STATUS_FAILURE,
                     PackageInstaller.STATUS_FAILURE_ABORTED,
@@ -149,7 +138,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                         MaterialAlertDialogBuilder(this)
                             .setTitle(R.string.installation_failed)
                             .setMessage(resources.getString(R.string.installation_failed_desc, intent.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE)))
-                            .setPositiveButton(android.R.string.ok, null)
+                            .setPositiveButton(android.R.string.ok) { _, _ ->
+                                if (filesToInstall.isNotEmpty()) installNormally(filesToInstall.removeAt(0))
+                                if (packagesToUninstall.isNotEmpty()) uninstallNormally(packagesToUninstall.removeAt(0))
+                            }
                             .show()
                     }
                 }
@@ -166,6 +158,13 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         val enabled = id != R.id.main
 
         navButton.animatedVisibility = if (enabled) View.VISIBLE else View.GONE
+    }
+
+    fun performUninstall() {
+        packagesToUninstall.clear()
+        packagesToUninstall.addAll(findInstalledOverlays())
+
+        uninstallNormally(packagesToUninstall.removeAt(0))
     }
 
     private var View.animatedVisibility: Int

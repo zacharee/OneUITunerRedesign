@@ -45,6 +45,14 @@
             android:key="use_synergy"
             android:defaultValue="@bool/use_synergy_default"
             android:icon="@drawable/synergy_icon"
+            android:disableDependentsState="true"
+            />
+
+        <Preference
+            android:title="@string/uninstall_all"
+            android:key="uninstall_all"
+            android:icon="@drawable/ic_baseline_delete_24"
+            android:dependency="use_synergy"
             />
 
     </PreferenceCategory>
