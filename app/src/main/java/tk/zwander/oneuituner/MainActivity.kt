@@ -21,6 +21,7 @@ import androidx.navigation.NavDestination
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.shape.MaterialShapeDrawable
+import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_main.*
 import tk.zwander.oneuituner.util.*
 import tk.zwander.unblacklister.disableApiBlacklist
@@ -61,6 +62,22 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
         disableApiBlacklist()
 
+        if (Shell.rootAccess()) {
+            createMagiskModule {
+                if (it) {
+                    MaterialAlertDialogBuilder(this@MainActivity)
+                        .setCancelable(false)
+                        .setTitle(R.string.magisk_module_installed)
+                        .setMessage(R.string.magisk_module_installed_desc)
+                        .setPositiveButton(R.string.reboot) { _, _ ->
+                            reboot()
+                        }
+                        .setNegativeButton(R.string.later, null)
+                        .show()
+                }
+            }
+        }
+
         cancel_button.setOnClickListener {
             filesToInstall.clear()
             packagesToUninstall.clear()
@@ -98,12 +115,26 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             progressShown = true
             doCompile {
                 if (prefs.useSynergy) {
+                    progressShown = false
                     installForSynergy(it)
-                } else {
+                } else if (!moduleExists) {
                     filesToInstall.clear()
                     filesToInstall.addAll(it)
 
                     installNormally(filesToInstall.removeAt(0))
+                } else {
+                    progressShown = true
+                    installToModule(*it.toTypedArray()) {
+                        progressShown = false
+
+                        MaterialAlertDialogBuilder(this@MainActivity)
+                            .setTitle(R.string.reboot)
+                            .setMessage(R.string.reboot_first_desc)
+                            .setPositiveButton(R.string.reboot) { _, _ -> reboot() }
+                            .setNegativeButton(R.string.later, null)
+                            .setCancelable(false)
+                            .show()
+                    }
                 }
             }
         }
@@ -179,12 +210,26 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     fun performUninstall() {
-        packagesToUninstall.clear()
-        packagesToUninstall.addAll(findInstalledOverlays())
+        if (!Shell.rootAccess()) {
+            packagesToUninstall.clear()
+            packagesToUninstall.addAll(findInstalledOverlays())
 
-        if (packagesToUninstall.isNotEmpty()) {
+            if (packagesToUninstall.isNotEmpty()) {
+                progressShown = true
+                uninstallNormally(packagesToUninstall.removeAt(0))
+            }
+        } else {
             progressShown = true
-            uninstallNormally(packagesToUninstall.removeAt(0))
+            removeFromModule(*findInstalledOverlayFiles()) {
+                progressShown = false
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle(R.string.reboot)
+                    .setMessage(R.string.reboot_uninstall_desc)
+                    .setPositiveButton(R.string.reboot) { _, _ -> reboot() }
+                    .setNegativeButton(R.string.later, null)
+                    .setCancelable(false)
+                    .show()
+            }
         }
     }
 

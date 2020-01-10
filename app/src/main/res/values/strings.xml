@@ -12,6 +12,7 @@
     <string name="qs_row_col">QS Row/Column</string>
     <string name="uninstall_all">Uninstall All Overlays</string>
 
+    <string name="magisk_module_installed">Magisk Module Installed!</string>
     <string name="succeeded">Succeeded</string>
     <string name="back">Back</string>
     <string name="apply_changes">Apply Changes</string>
@@ -19,6 +20,9 @@
     <string name="no">No</string>
     <string name="installation_failed">Installation Failed!</string>
     <string name="cancel">Cancel</string>
+    <string name="rebooting">Rebooting…</string>
+    <string name="reboot">Reboot</string>
+    <string name="later">Later</string>
 
     <string name="header_count_portrait">Header Count (Portrait)</string>
     <string name="header_count_landscape">Header Count (Landscape)</string>
@@ -51,6 +55,11 @@
     <string name="status_bar_clock_type_desc">Choose to replace the status bar clock with the AOSP style or a custom format. The AOSP clock will allow you to enable seconds using SystemUI Tuner. The custom format will allow you to use any format you want, but won\'t automatically change color.</string>
     <string name="synergy_not_installed_desc">It looks like Synergy isn\'t installed. Would you like to check it out?</string>
     <string name="installation_failed_desc">The overlay installation failed:\n\n%s</string>
+    <string name="reboot_first_desc">A reboot is required to activate the overlay. Would you like to reboot now or later?</string>
+    <string name="reboot_others_desc">It\'s strongly recommended that you reboot after applying new settings. Would you like to reboot now?</string>
+    <string name="reboot_uninstall_desc">A reboot is required to complete the removal process. Would you like to reboot now?</string>
+    <string name="reboot_first_again_desc">One more reboot is needed to activate the overlay. Tap this notification to reboot.</string>
+    <string name="magisk_module_installed_desc">Please reboot to finish the installation.</string>
 
     <string name="qqs_hint">Set your QS grid to 5x3 if the header icons overlap at higher values.</string>
     <string name="qs_row_col_hint">Set your QS grid to 5x3 for these to take effect.</string>

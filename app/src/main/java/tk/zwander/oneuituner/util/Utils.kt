@@ -22,8 +22,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import kotlinx.coroutines.*
+import com.topjohnwu.superuser.Shell
+import com.topjohnwu.superuser.io.SuFile
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.w3c.dom.Document
+import tk.zwander.oneuituner.BuildConfig
 import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
 import tk.zwander.overlaylib.ResourceData
@@ -76,7 +82,8 @@ val Context.isSynergyInstalled: Boolean
     }
 
 val needsSynergy: Boolean
-    get() = !Build.MODEL.run { contains("960") } || Build.VERSION.SDK_INT > Build.VERSION_CODES.P
+    get() = (!Build.MODEL.run { contains("960") } || Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+            && !Shell.rootAccess()
 
 fun Document.flattenToString(): String {
     val source = DOMSource(this)
@@ -629,4 +636,104 @@ fun Context.findInstalledOverlays(): Array<String> {
             false
         }
     }.toTypedArray()
+}
+
+fun Context.findInstalledOverlayFiles(): Array<File> {
+    return OVERLAYS.mapNotNull {
+        try {
+            File(packageManager.getApplicationInfo(it, 0).baseCodePath)
+        } catch (e: Exception) {
+            null
+        }
+    }.toTypedArray()
+}
+
+val moduleExists: Boolean
+    get() = SuFile(MAGISK_MODULE_PATH).exists()
+
+val moduleAppDir: File
+    get() = SuFile(MAGISK_MODULE_PATH, "/system/app/").also {
+        if (!it.exists()) {
+            it.mkdirs()
+        }
+    }
+
+fun createMagiskModule(result: ((needsToReboot: Boolean) -> Unit)? = null) = MainScope().launch {
+    val needsToUpdate = withContext(Dispatchers.IO) {
+        val doesExist = moduleExists
+        val currentVersion = try {
+            BufferedReader(FileReader(SuFile("$MAGISK_MODULE_PATH/module.prop")))
+                .lines()
+                .filter { it.startsWith("versionCode") }
+                .findFirst()
+                .get()
+                .split("=")[1]
+                .toInt()
+        } catch (e: Exception) {
+            0
+        }
+
+        val needsToUpdate = !doesExist || currentVersion < BuildConfig.MODULE_VERSION
+
+        if (needsToUpdate) {
+            val prop = java.lang.StringBuilder()
+                .appendln("name=OneUI Tuner Module")
+                .appendln("version=${BuildConfig.MODULE_VERSION}")
+                .appendln("versionCode=${BuildConfig.MODULE_VERSION}")
+                .appendln("author=Zachary Wander")
+                .appendln("description=Systemlessly install Tuner overlays")
+
+            Shell.su(
+                "mkdir -p $MAGISK_MODULE_PATH",
+                "chmod -R 0755 $MAGISK_MODULE_PATH",
+                "touch $MAGISK_MODULE_PATH/auto_mount",
+                "touch $MAGISK_MODULE_PATH/update",
+                "echo \"$prop\" > $MAGISK_MODULE_PATH/module.prop"
+            ).exec()
+        }
+
+        needsToUpdate
+    }
+
+    result?.invoke(needsToUpdate)
+}
+
+fun reboot() {
+    Shell.su("/system/bin/svc power reboot").submit {
+        Log.e("OneUITuner", "Reboot failed?! ${it.code} ${it.isSuccess} \n${it.out.joinToString("\n")} \n${it.err.joinToString(",")}")
+    }
+}
+
+fun installToModule(vararg files: File, listener: (() -> Unit)? = null) = MainScope().launch {
+    withContext(Dispatchers.IO) {
+        files.forEach {
+            val folder = SuFile(moduleAppDir, it.nameWithoutExtension)
+            if (!folder.exists()) folder.mkdirs()
+
+            val dst = SuFile(folder, "${it.nameWithoutExtension}.apk")
+            if (!dst.exists()) dst.createNewFile()
+
+            folder.setWritable(true, true)
+            folder.setReadable(true, false)
+            folder.setExecutable(true, false)
+
+            dst.setWritable(true, true)
+            dst.setReadable(true, false)
+            dst.setExecutable(false)
+
+            it.copyTo(dst, true)
+        }
+    }
+
+    listener?.invoke()
+}
+
+fun removeFromModule(vararg files: File, listener: (() -> Unit)? = null) = MainScope().launch {
+    withContext(Dispatchers.IO) {
+        files.forEach {
+            Shell.su("rm -rf $moduleAppDir/${it.nameWithoutExtension}").exec()
+        }
+    }
+
+    listener?.invoke()
 }

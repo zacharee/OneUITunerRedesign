@@ -11,6 +11,9 @@ const val SUFFIX_ANDROID = "oneuituner.android"
 const val PACKAGE_SYSTEMUI = "com.android.systemui"
 const val PACKAGE_ANDROID = "android"
 
+val MAGISK_PATH = "/sbin/.magisk"
+val MAGISK_MODULE_PATH = "$MAGISK_PATH/modules/opfpcontrol"
+
 val OVERLAYS = arrayOf(
     constructOverlayPackage(PACKAGE_SYSTEMUI),
     constructOverlayPackage(PACKAGE_ANDROID)
