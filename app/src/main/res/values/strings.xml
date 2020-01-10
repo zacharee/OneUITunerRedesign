@@ -18,6 +18,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="installation_failed">Installation Failed!</string>
+    <string name="cancel">Cancel</string>
 
     <string name="header_count_portrait">Header Count (Portrait)</string>
     <string name="header_count_landscape">Header Count (Landscape)</string>

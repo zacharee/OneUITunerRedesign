@@ -1,3 +1,5 @@
+@file:Suppress("DeferredResultUnused")
+
 package tk.zwander.oneuituner.util
 
 import android.app.Activity
@@ -20,6 +22,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import kotlinx.coroutines.*
 import org.w3c.dom.Document
 import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
@@ -87,456 +90,458 @@ fun Document.flattenToString(): String {
     return writer.toString()
 }
 
-fun Context.doCompile(listener: (List<File>) -> Unit) {
-    var count = 0
-    val files = ArrayList<File>()
+fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
+    withContext(Dispatchers.IO) {
+        var count = 0
+        val files = ArrayList<File>()
 
-    count++
-    doCompileAlignAndSign(
-        PACKAGE_SYSTEMUI,
-        SUFFIX_SYSTEMUI,
-        resFiles = mutableListOf<ResourceFileData>().apply {
-            add(
-                ResourceFileData(
-                    "status_bar.xml",
-                    "layout",
-                    (if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) makeAndroid9StatusBar() else makeAndroid10StatusBar()).flattenToString()
-                )
-            )
-
-            add(
-                ResourceFileData(
-                    "integers.xml",
-                    "values",
-                    makeResourceXml(
-                        *arrayListOf<ResourceData>().apply {
-                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "quick_qs_tile_num",
-                                        prefs.headerCountPortrait.toString()
-                                    )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "quick_qs_tile_min_num",
-                                        "2"
-                                    )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "qspanel_screen_grid_columns_5",
-                                        prefs.qsColCountPortrait.toString()
-                                    )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "qspanel_screen_grid_rows",
-                                        prefs.qsRowCountPortrait.toString()
-                                    )
-                                )
-                            } else {
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "quick_qs_panel_max_columns",
-                                        prefs.headerCountPortrait.toString()
-                                    )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "quick_qs_tile_min_num",
-                                        "2"
-                                    )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "sec_quick_settings_max_columns",
-                                        "20"
-                                    )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "sec_quick_settings_num_columns",
-                                        "20"
-                                    )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "sec_quick_settings_max_rows",
-                                        "20"
-                                    )
-                                )
-                            }
-                        }.toTypedArray()
+        count++
+        doCompileAlignAndSign(
+            PACKAGE_SYSTEMUI,
+            SUFFIX_SYSTEMUI,
+            resFiles = mutableListOf<ResourceFileData>().apply {
+                add(
+                    ResourceFileData(
+                        "status_bar.xml",
+                        "layout",
+                        (if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) makeAndroid9StatusBar() else makeAndroid10StatusBar()).flattenToString()
                     )
                 )
-            )
 
-            add(
-                ResourceFileData(
-                    "integers.xml",
-                    "values-land",
-                    makeResourceXml(
-                        *arrayListOf<ResourceData>().apply {
-                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "quick_qs_tile_num",
-                                        prefs.headerCountLandscape.toString()
+                add(
+                    ResourceFileData(
+                        "integers.xml",
+                        "values",
+                        makeResourceXml(
+                            *arrayListOf<ResourceData>().apply {
+                                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "quick_qs_tile_num",
+                                            prefs.headerCountPortrait.toString()
+                                        )
                                     )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "qspanel_screen_grid_columns_5",
-                                        prefs.qsColCountLandscape.toString()
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "quick_qs_tile_min_num",
+                                            "2"
+                                        )
                                     )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "qspanel_screen_grid_rows",
-                                        prefs.qsRowCountLandscape.toString()
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "qspanel_screen_grid_columns_5",
+                                            prefs.qsColCountPortrait.toString()
+                                        )
                                     )
-                                )
-                            } else {
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "quick_qs_panel_max_columns",
-                                        prefs.headerCountLandscape.toString()
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "qspanel_screen_grid_rows",
+                                            prefs.qsRowCountPortrait.toString()
+                                        )
                                     )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "sec_quick_settings_max_columns",
-                                        "20"
+                                } else {
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "quick_qs_panel_max_columns",
+                                            prefs.headerCountPortrait.toString()
+                                        )
                                     )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "sec_quick_settings_num_columns",
-                                        "20"
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "quick_qs_tile_min_num",
+                                            "2"
+                                        )
                                     )
-                                )
-                                add(
-                                    ResourceData(
-                                        "integer",
-                                        "sec_quick_settings_max_rows",
-                                        "20"
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_columns",
+                                            "20"
+                                        )
                                     )
-                                )
-                            }
-                        }.toTypedArray()
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_num_columns",
+                                            "20"
+                                        )
+                                    )
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows",
+                                            "20"
+                                        )
+                                    )
+                                }
+                            }.toTypedArray()
+                        )
                     )
                 )
-            )
-            add(
-                ResourceFileData(
-                    "dimens.xml",
-                    "values",
-                    makeResourceXml(
-                        *arrayListOf<ResourceData>().apply {
-                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                                add(ResourceData(
-                                    "dimen",
-                                    "qs_tile_height_5x3_ratio",
-                                    prefs.qsRowCountPortrait.run {
-                                        when {
-                                            this > 4 -> "9.5"
-                                            this > 3 -> "8.0"
-                                            else -> "7.1"
+
+                add(
+                    ResourceFileData(
+                        "integers.xml",
+                        "values-land",
+                        makeResourceXml(
+                            *arrayListOf<ResourceData>().apply {
+                                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "quick_qs_tile_num",
+                                            prefs.headerCountLandscape.toString()
+                                        )
+                                    )
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "qspanel_screen_grid_columns_5",
+                                            prefs.qsColCountLandscape.toString()
+                                        )
+                                    )
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "qspanel_screen_grid_rows",
+                                            prefs.qsRowCountLandscape.toString()
+                                        )
+                                    )
+                                } else {
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "quick_qs_panel_max_columns",
+                                            prefs.headerCountLandscape.toString()
+                                        )
+                                    )
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_columns",
+                                            "20"
+                                        )
+                                    )
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_num_columns",
+                                            "20"
+                                        )
+                                    )
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows",
+                                            "20"
+                                        )
+                                    )
+                                }
+                            }.toTypedArray()
+                        )
+                    )
+                )
+                add(
+                    ResourceFileData(
+                        "dimens.xml",
+                        "values",
+                        makeResourceXml(
+                            *arrayListOf<ResourceData>().apply {
+                                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                                    add(ResourceData(
+                                        "dimen",
+                                        "qs_tile_height_5x3_ratio",
+                                        prefs.qsRowCountPortrait.run {
+                                            when {
+                                                this > 4 -> "9.5"
+                                                this > 3 -> "8.0"
+                                                else -> "7.1"
+                                            }
                                         }
-                                    }
-                                ))
-                                add(ResourceData(
-                                    "dimen",
-                                    "qs_tile_icon_size_5x3_ratio",
-                                    prefs.qsRowCountPortrait.run {
-                                        when {
-                                            this > 4 -> if (!needsSynergy) "21.0" else "3.0"
-                                            else -> if (!needsSynergy) "19.43" else "2.73"
+                                    ))
+                                    add(ResourceData(
+                                        "dimen",
+                                        "qs_tile_icon_size_5x3_ratio",
+                                        prefs.qsRowCountPortrait.run {
+                                            when {
+                                                this > 4 -> if (!needsSynergy) "21.0" else "3.0"
+                                                else -> if (!needsSynergy) "19.43" else "2.73"
+                                            }
                                         }
-                                    }
-                                ))
+                                    ))
+                                    add(ResourceData(
+                                        "dimen",
+                                        "qs_tile_text_size",
+                                        prefs.qsRowCountPortrait.run {
+                                            when {
+                                                this > 4 -> "12sp"
+                                                else -> "13sp"
+                                            }
+                                        }
+                                    ))
+                                } else {
+                                    add(
+                                        ResourceData(
+                                            "dimen",
+                                            "sec_qs_tile_width",
+                                            "${calculateQsWidthForColumnCount(
+                                                prefs.qsColCountPortrait,
+                                                false
+                                            )}dp"
+                                        )
+                                    )
+                                }
+                            }.toTypedArray()
+                        )
+                    )
+                )
+                add(
+                    ResourceFileData(
+                        "dimens.xml",
+                        "values-sw411dp",
+                        makeResourceXml(
+                            *arrayListOf<ResourceData>().apply {
                                 add(ResourceData(
                                     "dimen",
                                     "qs_tile_text_size",
                                     prefs.qsRowCountPortrait.run {
                                         when {
-                                            this > 4 -> "12sp"
-                                            else -> "13sp"
+                                            this > 4 -> "13sp"
+                                            else -> "14sp"
                                         }
                                     }
                                 ))
-                            } else {
-                                add(
-                                    ResourceData(
-                                        "dimen",
-                                        "sec_qs_tile_width",
-                                        "${calculateQsWidthForColumnCount(
-                                            prefs.qsColCountPortrait,
-                                            false
-                                        )}dp"
+
+                                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                                    add(
+                                        ResourceData(
+                                            "dimen",
+                                            "sec_qs_tile_width",
+                                            "${calculateQsWidthForColumnCount(
+                                                prefs.qsColCountPortrait,
+                                                false
+                                            )}dp"
+                                        )
                                     )
-                                )
-                            }
-                        }.toTypedArray()
-                    )
-                )
-            )
-            add(
-                ResourceFileData(
-                    "dimens.xml",
-                    "values-sw411dp",
-                    makeResourceXml(
-                        *arrayListOf<ResourceData>().apply {
-                            add(ResourceData(
-                                "dimen",
-                                "qs_tile_text_size",
-                                prefs.qsRowCountPortrait.run {
-                                    when {
-                                        this > 4 -> "13sp"
-                                        else -> "14sp"
-                                    }
                                 }
-                            ))
-
-                            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                                add(
-                                    ResourceData(
-                                        "dimen",
-                                        "sec_qs_tile_width",
-                                        "${calculateQsWidthForColumnCount(
-                                            prefs.qsColCountPortrait,
-                                            false
-                                        )}dp"
-                                    )
-                                )
-                            }
-                        }.toTypedArray()
-                    )
-                )
-            )
-
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                add(
-                    ResourceFileData(
-                        "dimens.xml",
-                        "values-land",
-                        makeResourceXml(
-                            ResourceData(
-                                "dimen",
-                                "sec_qs_tile_width",
-                                "${calculateQsWidthForColumnCount(
-                                    prefs.qsColCountLandscape,
-                                    true
-                                )}dp"
-                            )
+                            }.toTypedArray()
                         )
                     )
                 )
-            }
 
-            if (prefs.customQsDateFormat && prefs.qsDateFormat.isValidClockFormat) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                    add(
+                        ResourceFileData(
+                            "dimens.xml",
+                            "values-land",
+                            makeResourceXml(
+                                ResourceData(
+                                    "dimen",
+                                    "sec_qs_tile_width",
+                                    "${calculateQsWidthForColumnCount(
+                                        prefs.qsColCountLandscape,
+                                        true
+                                    )}dp"
+                                )
+                            )
+                        )
+                    )
+                }
+
+                if (prefs.customQsDateFormat && prefs.qsDateFormat.isValidClockFormat) {
+                    add(
+                        ResourceFileData(
+                            "strings.xml",
+                            "values",
+                            makeResourceXml(
+                                ResourceData(
+                                    "string",
+                                    "system_ui_quick_panel_date_pattern",
+                                    prefs.qsDateFormat
+                                )
+                            )
+                        )
+                    )
+                }
+
+                if (prefs.hideQsTileBackground) {
+                    add(
+                        ResourceFileData(
+                            "colors.xml",
+                            "values",
+                            makeResourceXml(
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_background_on",
+                                    "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_background_off",
+                                    "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_background_dim",
+                                    "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_bottom_background",
+                                    "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_background_image",
+                                    "@android:color/transparent"
+                                )
+                            )
+                        )
+                    )
+                    add(
+                        ResourceFileData(
+                            "colors.xml",
+                            "values-night",
+                            makeResourceXml(
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_background_off",
+                                    "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_background_dim",
+                                    "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_bottom_background",
+                                    "@android:color/transparent"
+                                )
+                            )
+                        )
+                    )
+                }
+                if (prefs.disable5ge) {
+                    add(
+                        ResourceFileData(
+                            "stat_sys_data_connected_5ge_att",
+                            "drawable",
+                            StringBuilder()
+                                .append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
+                                .append("<bitmap xmlns:android=\"https://schemas.android.com/apk/res/android\" android:src=\"@drawable/stat_sys_data_connected_lte_att\" />\n")
+                                .toString()
+                        )
+                    )
+                }
+
+                if (prefs.disableFlashingWiFi) {
+                    add(
+                        ResourceFileData(
+                            "stat_sys_wifi_signal_checking",
+                            "drawable",
+                            StringBuilder()
+                                .append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
+                                .append("<bitmap xmlns:android=\"https://schemas.android.com/apk/res/android\" android:src=\"@drawable/stat_sys_wifi_signal_checking_dim\" />\n")
+                                .toString()
+                        )
+                    )
+                }
+
                 add(
                     ResourceFileData(
-                        "strings.xml",
+                        "bools.xml",
                         "values",
                         makeResourceXml(
                             ResourceData(
-                                "string",
-                                "system_ui_quick_panel_date_pattern",
-                                prefs.qsDateFormat
+                                "bool",
+                                "config_enableLockScreenRotation",
+                                "${prefs.lockScreenRotation}"
                             )
                         )
                     )
                 )
+            },
+            listener = {
+                files.add(it)
+                if (files.size >= count) listener(files)
             }
+        )
 
-            if (prefs.hideQsTileBackground) {
+        count++
+        doCompileAlignAndSign(
+            PACKAGE_ANDROID,
+            SUFFIX_ANDROID,
+            resFiles = mutableListOf<ResourceFileData>().apply {
                 add(
                     ResourceFileData(
-                        "colors.xml",
+                        "config.xml",
                         "values",
                         makeResourceXml(
-                            ResourceData(
-                                "color",
-                                "qs_tile_round_background_on",
-                                "@android:color/transparent"
-                            ),
-                            ResourceData(
-                                "color",
-                                "qs_tile_round_background_off",
-                                "@android:color/transparent"
-                            ),
-                            ResourceData(
-                                "color",
-                                "qs_tile_round_background_dim",
-                                "@android:color/transparent"
-                            ),
-                            ResourceData(
-                                "color",
-                                "qs_tile_round_bottom_background",
-                                "@android:color/transparent"
-                            ),
-                            ResourceData(
-                                "color",
-                                "qs_tile_round_background_image",
-                                "@android:color/transparent"
-                            )
-                        )
-                    )
-                )
-                add(
-                    ResourceFileData(
-                        "colors.xml",
-                        "values-night",
-                        makeResourceXml(
-                            ResourceData(
-                                "color",
-                                "qs_tile_round_background_off",
-                                "@android:color/transparent"
-                            ),
-                            ResourceData(
-                                "color",
-                                "qs_tile_round_background_dim",
-                                "@android:color/transparent"
-                            ),
-                            ResourceData(
-                                "color",
-                                "qs_tile_round_bottom_background",
-                                "@android:color/transparent"
-                            )
-                        )
-                    )
-                )
-            }
-            if (prefs.disable5ge) {
-                add(
-                    ResourceFileData(
-                        "stat_sys_data_connected_5ge_att",
-                        "drawable",
-                        StringBuilder()
-                            .append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
-                            .append("<bitmap xmlns:android=\"https://schemas.android.com/apk/res/android\" android:src=\"@drawable/stat_sys_data_connected_lte_att\" />\n")
-                            .toString()
-                    )
-                )
-            }
-
-            if (prefs.disableFlashingWiFi) {
-                add(
-                    ResourceFileData(
-                        "stat_sys_wifi_signal_checking",
-                        "drawable",
-                        StringBuilder()
-                            .append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
-                            .append("<bitmap xmlns:android=\"https://schemas.android.com/apk/res/android\" android:src=\"@drawable/stat_sys_wifi_signal_checking_dim\" />\n")
-                            .toString()
-                    )
-                )
-            }
-
-            add(
-                ResourceFileData(
-                    "bools.xml",
-                    "values",
-                    makeResourceXml(
-                        ResourceData(
-                            "bool",
-                            "config_enableLockScreenRotation",
-                            "${prefs.lockScreenRotation}"
-                        )
-                    )
-                )
-            )
-        },
-        listener = {
-            files.add(it)
-            if (files.size >= count) listener(files)
-        }
-    )
-
-    count++
-    doCompileAlignAndSign(
-        PACKAGE_ANDROID,
-        SUFFIX_ANDROID,
-        resFiles = mutableListOf<ResourceFileData>().apply {
-            add(
-                ResourceFileData(
-                    "config.xml",
-                    "values",
-                    makeResourceXml(
-                        *mutableListOf(
-                            ResourceData(
-                                "dimen",
-                                "navigation_bar_height",
-                                "${prefs.navHeight}dp"
-                            ),
-                            ResourceData(
-                                "dimen",
-                                "navigation_bar_width",
-                                "${prefs.navHeight}dp"
-                            ),
-                            ResourceData(
-                                "dimen",
-                                "status_bar_height_portrait",
-                                "${prefs.statusBarHeight}dp"
-                            )
-                        ).apply {
-                            if (prefs.oldRecents && Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                                add(
-                                    ResourceData(
-                                        "string",
-                                        "config_recentsComponentName",
-                                        "com.android.systemui/.recents.RecentsActivity",
-                                        "translatable=\"false\""
-                                    )
+                            *mutableListOf(
+                                ResourceData(
+                                    "dimen",
+                                    "navigation_bar_height",
+                                    "${prefs.navHeight}dp"
+                                ),
+                                ResourceData(
+                                    "dimen",
+                                    "navigation_bar_width",
+                                    "${prefs.navHeight}dp"
+                                ),
+                                ResourceData(
+                                    "dimen",
+                                    "status_bar_height_portrait",
+                                    "${prefs.statusBarHeight}dp"
                                 )
-                            }
-                        }.toTypedArray()
+                            ).apply {
+                                if (prefs.oldRecents && Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                                    add(
+                                        ResourceData(
+                                            "string",
+                                            "config_recentsComponentName",
+                                            "com.android.systemui/.recents.RecentsActivity",
+                                            "translatable=\"false\""
+                                        )
+                                    )
+                                }
+                            }.toTypedArray()
+                        )
                     )
                 )
-            )
-            add(
-                ResourceFileData(
-                    "integers.xml",
-                    "values",
-                    makeResourceXml(
-                        *mutableListOf(
-                            ResourceData(
-                                "integer",
-                                "multiwindow_freeform_max_count",
-                                "${prefs.freeformMax}"
-                            ),
-                            ResourceData(
-                                "integer",
-                                "multiwindow_desktop_freeform_max_count",
-                                "${prefs.desktopFreeformMax}"
-                            )
-                        ).toTypedArray()
+                add(
+                    ResourceFileData(
+                        "integers.xml",
+                        "values",
+                        makeResourceXml(
+                            *mutableListOf(
+                                ResourceData(
+                                    "integer",
+                                    "multiwindow_freeform_max_count",
+                                    "${prefs.freeformMax}"
+                                ),
+                                ResourceData(
+                                    "integer",
+                                    "multiwindow_desktop_freeform_max_count",
+                                    "${prefs.desktopFreeformMax}"
+                                )
+                            ).toTypedArray()
+                        )
                     )
                 )
-            )
-        },
-        listener = {
-            files.add(it)
-            if (files.size >= count) listener(files)
-        }
-    )
+            },
+            listener = {
+                files.add(it)
+                if (files.size >= count) listener(files)
+            }
+        )
+    }
 }
 
 private val installParams by lazy {

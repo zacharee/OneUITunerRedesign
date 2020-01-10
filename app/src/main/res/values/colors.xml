@@ -6,4 +6,5 @@
     <color name="colorError">#cf6679</color>
 
     <color name="title_divider">#33ffffff</color>
+    <color name="progress_background">#8f000000</color>
 </resources>

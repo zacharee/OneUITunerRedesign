@@ -2,12 +2,12 @@ package tk.zwander.oneuituner
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.LayoutTransition
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import android.view.animation.AlphaAnimation
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
 import android.view.animation.OvershootInterpolator
@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -48,11 +49,24 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private val filesToInstall = ArrayList<File>()
     private val packagesToUninstall = ArrayList<String>()
 
+    private var progressShown: Boolean
+        get() = progress_wrapper.isVisible
+        set(value) {
+            progress_wrapper.fadedVisibility = if (value) View.VISIBLE else View.GONE
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         disableApiBlacklist()
+
+        cancel_button.setOnClickListener {
+            filesToInstall.clear()
+            packagesToUninstall.clear()
+
+            progressShown = false
+        }
 
         bottom_bar.setNavigationOnClickListener {
             onBackPressed()
@@ -64,11 +78,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
             window.navigationBarColor = color
         }
-
-        root.layoutTransition = LayoutTransition()
-            .apply {
-                enableTransitionType(LayoutTransition.CHANGING)
-            }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -86,6 +95,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         navController.addOnDestinationChangedListener(this)
 
         apply.setOnClickListener {
+            progressShown = true
             doCompile {
                 if (prefs.useSynergy) {
                     installForSynergy(it)
@@ -125,8 +135,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                     }
                     PackageInstaller.STATUS_SUCCESS -> {
                         Toast.makeText(this, R.string.succeeded, Toast.LENGTH_SHORT).show()
-                        if (filesToInstall.isNotEmpty()) installNormally(filesToInstall.removeAt(0))
-                        if (packagesToUninstall.isNotEmpty()) uninstallNormally(packagesToUninstall.removeAt(0))
+                        handlePackageSuccessOrFailure()
                     }
                     PackageInstaller.STATUS_FAILURE,
                     PackageInstaller.STATUS_FAILURE_ABORTED,
@@ -138,14 +147,23 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                         MaterialAlertDialogBuilder(this)
                             .setTitle(R.string.installation_failed)
                             .setMessage(resources.getString(R.string.installation_failed_desc, intent.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE)))
-                            .setPositiveButton(android.R.string.ok) { _, _ ->
-                                if (filesToInstall.isNotEmpty()) installNormally(filesToInstall.removeAt(0))
-                                if (packagesToUninstall.isNotEmpty()) uninstallNormally(packagesToUninstall.removeAt(0))
+                            .setPositiveButton(android.R.string.ok, null)
+                            .setOnDismissListener {
+                                handlePackageSuccessOrFailure()
                             }
                             .show()
                     }
                 }
             }
+        }
+    }
+
+    private fun handlePackageSuccessOrFailure() {
+        if (filesToInstall.isEmpty() && packagesToUninstall.isEmpty()) {
+            progressShown = false
+        } else {
+            if (filesToInstall.isNotEmpty()) installNormally(filesToInstall.removeAt(0))
+            if (packagesToUninstall.isNotEmpty()) uninstallNormally(packagesToUninstall.removeAt(0))
         }
     }
 
@@ -164,7 +182,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         packagesToUninstall.clear()
         packagesToUninstall.addAll(findInstalledOverlays())
 
-        uninstallNormally(packagesToUninstall.removeAt(0))
+        if (packagesToUninstall.isNotEmpty()) {
+            progressShown = true
+            uninstallNormally(packagesToUninstall.removeAt(0))
+        }
     }
 
     private var View.animatedVisibility: Int
@@ -184,6 +205,31 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                         if (hide) visibility = value
                     }
                 })
+        }
+
+    private var View.fadedVisibility: Int
+        get() = visibility
+        set(value) {
+            val hide = value != View.VISIBLE
+
+            if (!hide) {
+                visibility = value
+            }
+
+            clearAnimation()
+            animate()
+                .alpha(if (hide) 0f else 1f)
+                .setDuration(resources.getInteger(android.R.integer.config_mediumAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        //Dummy animation to prevent flicker
+                        val dummy = AlphaAnimation(alpha, alpha)
+                        dummy.duration = 1
+                        startAnimation(dummy)
+                        if (hide) visibility = value
+                    }
+                })
+                .start()
         }
 
     private fun installForSynergy(files: List<File>) {
