@@ -17,6 +17,7 @@ class Clock : Base() {
         keysToSync.add(PrefManager.CLOCK_FORMAT)
         keysToSync.add(PrefManager.QS_DATE_FORMAT)
         keysToSync.add(PrefManager.CLOCK_TYPE)
+        keysToSync.add(PrefManager.CLOCK_POSITION)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

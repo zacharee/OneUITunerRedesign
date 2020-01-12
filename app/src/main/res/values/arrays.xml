@@ -11,4 +11,16 @@
         <item>@string/clock_type_custom</item>
         <item>@string/clock_type_aosp</item>
     </string-array>
+
+    <string-array name="clock_position_labels">
+        <item>@string/clock_position_left_name</item>
+        <item>@string/clock_position_middle_name</item>
+        <item>@string/clock_position_right_name</item>
+    </string-array>
+
+    <string-array name="clock_position_values">
+        <item>@string/clock_position_left</item>
+        <item>@string/clock_position_middle</item>
+        <item>@string/clock_position_right</item>
+    </string-array>
 </resources>

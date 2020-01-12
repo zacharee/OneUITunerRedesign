@@ -47,6 +47,7 @@
     <string name="use_synergy">Use Synergy</string>
     <string name="desktop_freeform_max">Max Freeform Window Count (Desktop)</string>
     <string name="freeform_max">Max Freeform Window Count</string>
+    <string name="clock_position">Clock Position</string>
 
     <string name="old_recents_desc">Restores the old vertical Recents carousel. Reboot required.</string>
     <string name="left_system_icons_desc">Move the system icons, like the WiFi, signal, etc icons, to the left of the status bar.</string>
@@ -68,9 +69,17 @@
     <string name="clock_format_custom">Custom</string>
     <string name="clock_format_aosp">AOSP</string>
 
+    <string name="clock_position_left_name">Left</string>
+    <string name="clock_position_middle_name">Middle</string>
+    <string name="clock_position_right_name">Right</string>
+
     <string name="clock_type_default">default</string>
     <string name="clock_type_custom">custom</string>
     <string name="clock_type_aosp">aosp</string>
+
+    <string name="clock_position_left">left</string>
+    <string name="clock_position_middle">middle</string>
+    <string name="clock_position_right">right</string>
 
     <string name="default_clock_type">@string/clock_type_default</string>
 </resources>

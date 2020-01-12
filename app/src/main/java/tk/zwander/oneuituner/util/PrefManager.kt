@@ -22,6 +22,7 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
         const val CUSTOM_QS_DATE_FORMAT = "custom_qs_date_format"
         const val QS_DATE_FORMAT = "qs_date_format"
         const val CLOCK_TYPE = "clock_type"
+        const val CLOCK_POSITION = "clock_position"
 
         const val HEADER_COUNT_PORTRAIT = "header_count_portrait"
         const val HEADER_COUNT_LANDSCAPE = "header_count_landscape"
@@ -54,8 +55,12 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
     val clockTypeCustom = resourceString(R.string.clock_type_custom)
     val clockTypeAosp = resourceString(R.string.clock_type_aosp)
 
+    val clockPositionLeft = resourceString(R.string.clock_position_left)
+    val clockPositionMiddle = resourceString(R.string.clock_position_middle)
+    val clockPositionRight = resourceString(R.string.clock_position_right)
+
     val clockType: String
-        get() = getString(CLOCK_TYPE, resourceString(R.string.default_clock_type))
+        get() = getString(CLOCK_TYPE, clockTypeDefault)
 
     val clockFormat: String
         get() = getString(CLOCK_FORMAT, resourceString(R.string.custom_clock_format_default))
@@ -65,6 +70,9 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
 
     val qsDateFormat: String
         get() = getString(QS_DATE_FORMAT, resourceString(R.string.custom_qs_date_format_default))
+
+    val clockPosition: String
+        get() = getString(CLOCK_POSITION, clockPositionLeft)
 
     val headerCountPortrait: Int
         get() = getInt(HEADER_COUNT_PORTRAIT, resourceInt(R.integer.header_count_portrait_default))

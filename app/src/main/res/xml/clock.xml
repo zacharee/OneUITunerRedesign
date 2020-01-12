@@ -11,6 +11,14 @@
         android:defaultValue="@string/clock_type_default"
         />
 
+    <ListPreference
+        android:title="@string/clock_position"
+        android:key="clock_position"
+        android:entries="@array/clock_position_labels"
+        android:entryValues="@array/clock_position_values"
+        android:defaultValue="@string/clock_position_left"
+        />
+
     <EditTextPreference
         android:title="@string/clock_format"
         android:key="clock_format"
