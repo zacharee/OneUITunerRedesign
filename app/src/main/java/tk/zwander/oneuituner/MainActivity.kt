@@ -34,6 +34,12 @@ import java.net.URLConnection
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
     companion object {
         const val ACTION_INSTALL_STATUS_UPDATE = "INSTALL_STATUS_UPDATE"
+
+        init {
+            Shell.Config.setFlags(Shell.FLAG_REDIRECT_STDERR)
+            Shell.Config.verboseLogging(BuildConfig.DEBUG)
+            Shell.Config.setTimeout(10)
+        }
     }
 
     private val currentFrag: NavDestination?
