@@ -418,6 +418,11 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                             makeResourceXml(
                                 ResourceData(
                                     "color",
+                                    "qs_tile_round_background_on",
+                                    "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
                                     "qs_tile_round_background_off",
                                     "@android:color/transparent"
                                 ),
@@ -429,6 +434,11 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                 ResourceData(
                                     "color",
                                     "qs_tile_round_bottom_background",
+                                    "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_round_background_image",
                                     "@android:color/transparent"
                                 )
                             )
