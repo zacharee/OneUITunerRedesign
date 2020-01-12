@@ -33,10 +33,7 @@ import org.w3c.dom.Element
 import tk.zwander.oneuituner.BuildConfig
 import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
-import tk.zwander.overlaylib.ResourceData
-import tk.zwander.overlaylib.ResourceFileData
-import tk.zwander.overlaylib.doCompileAlignAndSign
-import tk.zwander.overlaylib.makeResourceXml
+import tk.zwander.overlaylib.*
 import java.io.*
 import java.util.*
 import javax.xml.transform.TransformerFactory
@@ -723,7 +720,7 @@ fun reboot() {
     }
 }
 
-fun installToModule(vararg files: File, listener: ((needsSecondReboot: Boolean) -> Unit)? = null) = MainScope().launch {
+fun installToModule(vararg files: SuFile, listener: ((needsSecondReboot: Boolean) -> Unit)? = null) = MainScope().launch {
     var needsSecondReboot = false
 
     withContext(Dispatchers.IO) {

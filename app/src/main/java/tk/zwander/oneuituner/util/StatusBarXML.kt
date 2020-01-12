@@ -168,7 +168,7 @@ fun Document.createStatusBarContents(): Node {
     return importNode(DocumentBuilderFactory.newInstance()
         .newDocumentBuilder()
         .newDocument()
-        .createElement("LinearLayout")
+        .createElement(if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "LinearLayout" else "RelativeLayout")
         .apply {
             setAttribute("android:id", "@*com.android.systemui:id/status_bar_contents")
             setAttribute("android:layout_width", "match_parent")
@@ -235,6 +235,7 @@ fun Document.createStatusBarLeftSide(): Node {
 
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
                 setAttribute("android:gravity", "center_vertical")
+                setAttribute("android:layout_alignParentStart", "true")
             }
         }, true)
 }
@@ -376,14 +377,31 @@ fun Document.createStatusBarCenter(): Node {
         .createElement("com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout")
         .apply {
             setAttribute("android:id", "@*com.android.systemui:id/status_bar_center_side")
-            setAttribute("android:layout_width", "0dp")
+            setAttribute("android:layout_width", "wrap_content")
             setAttribute("android:layout_height", "match_parent")
             setAttribute("android:layout_centerInParent", "true")
             setAttribute("android:layout_gravity", "center")
             setAttribute("android:gravity", "center")
-            setAttribute("android:layout_weight", "1")
             setAttribute("android:orientation", "horizontal")
         }, true)
+}
+
+fun Document.createStatusBarRight(): Element {
+    return importElement(
+        DocumentBuilderFactory.newInstance()
+            .newDocumentBuilder()
+            .newDocument()
+            .createElement("LinearLayout")
+            .apply {
+                setAttribute("android:id", "@+id/status_bar_right_side")
+                setAttribute("android:layout_width", "wrap_content")
+                setAttribute("android:layout_height", "match_parent")
+                setAttribute("android:layout_alignParentEnd", "true")
+                setAttribute("android:layout_gravity", "center")
+                setAttribute("android:gravity", "center")
+                setAttribute("android:orientation", "horizontal")
+            }
+    )
 }
 
 fun Document.createCenteredIconArea(): Node {
@@ -439,14 +457,14 @@ fun Context.makeAndroid10StatusBar(): Document {
                                             appendChild(createSystemIconsInclude())
                                         }
                                     }
-                                    appendChild(createDefaultClock(false))
-                                    appendChild(createLeftClockContainer()).apply {
+                                    appendChild(createLeftClockContainer(isGone = true))
+                                    appendChild(createLeftClockContainer(isGone = clockPosition != prefs.clockPositionLeft, fakeID = "fake_left_container")).apply {
                                         if (clockPosition == prefs.clockPositionLeft) {
                                             appendChild(
                                                 when (clockType) {
-                                                    prefs.clockTypeAosp -> createAOSPClock()
-                                                    prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat)
-                                                    else -> createDefaultClock(true, "clock_default")
+                                                    prefs.clockTypeAosp -> createAOSPClock(defaultID = true)
+                                                    prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat, defaultID = true)
+                                                    else -> createDefaultClock()
                                                 }
                                             )
                                         }
@@ -455,44 +473,40 @@ fun Context.makeAndroid10StatusBar(): Document {
                                     appendChild(createNotificationIconArea())
                                 }
                             }
-                            appendChild(createHorizontalLinearLayout().apply {
-                                setAttribute("android:layout_width", "0dp")
-                                setAttribute("android:layout_weight", "1")
-                            })
                             appendChild(createStatusBarCenter()).apply {
                                 appendChild(createCutoutSpace())
                                 appendChild(createCenteredIconArea())
-                                appendChild(createMiddleClockContainer(isGone = clockPosition != prefs.clockPositionMiddle)).apply {
+                                appendChild(createMiddleClockContainer(isGone = true))
+                                appendChild(createMiddleClockContainer(fakeID = "fake_middle_container", isGone = clockPosition != prefs.clockPositionMiddle)).apply {
                                     if (clockPosition == prefs.clockPositionMiddle) {
                                         appendChild(
                                             when (clockType) {
-                                                prefs.clockTypeAosp -> createAOSPClock()
-                                                prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat)
+                                                prefs.clockTypeAosp -> createAOSPClock(defaultID = true)
+                                                prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat, defaultID = true)
                                                 else -> createDefaultClock()
                                             }
                                         )
                                     }
                                 }
                             }
-                            appendChild(createHorizontalLinearLayout().apply {
-                                setAttribute("android:layout_width", "0dp")
-                                setAttribute("android:layout_weight", "1")
-                            })
-                            if (!leftSystemIcons) {
-                                appendChild(createSystemIconArea()).apply {
-                                    appendChild(createQsKnoxCustomStatusBar())
-                                    appendChild(createSystemIconsInclude())
+                            appendChild(createStatusBarRight()).apply {
+                                if (!leftSystemIcons) {
+                                    appendChild(createSystemIconArea()).apply {
+                                        appendChild(createQsKnoxCustomStatusBar())
+                                        appendChild(createSystemIconsInclude())
+                                    }
                                 }
-                            }
-                            appendChild(createRightClockContainer(isGone = clockPosition != prefs.clockPositionRight)).apply {
-                                if (clockPosition == prefs.clockPositionRight) {
-                                    appendChild(
-                                        when (clockType) {
-                                            prefs.clockTypeAosp -> createAOSPClock()
-                                            prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat)
-                                            else -> createDefaultClock()
-                                        }
-                                    )
+                                appendChild(createRightClockContainer(isGone = true))
+                                appendChild(createRightClockContainer(isGone = clockPosition != prefs.clockPositionRight, fakeID = "fake_right_container")).apply {
+                                    if (clockPosition == prefs.clockPositionRight) {
+                                        appendChild(
+                                            when (clockType) {
+                                                prefs.clockTypeAosp -> createAOSPClock(defaultID = true)
+                                                prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat, defaultID = true)
+                                                else -> createDefaultClock()
+                                            }
+                                        )
+                                    }
                                 }
                             }
                         }

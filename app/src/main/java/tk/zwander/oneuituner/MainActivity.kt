@@ -25,6 +25,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.topjohnwu.superuser.Shell
+import com.topjohnwu.superuser.io.SuFile
 import kotlinx.android.synthetic.main.activity_main.*
 import tk.zwander.oneuituner.util.*
 import tk.zwander.unblacklister.disableApiBlacklist
@@ -141,7 +142,8 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                     installNormally(filesToInstall.removeAt(0))
                 } else {
                     progressShown = true
-                    installToModule(*it.toTypedArray()) { needsExtraReboot ->
+                    val suFiles = it.map { f -> SuFile(f.absolutePath) }
+                    installToModule(*suFiles.toTypedArray()) { needsExtraReboot ->
                         progressShown = false
 
                         prefs.needsAdditionalReboot = needsExtraReboot
