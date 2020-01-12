@@ -29,6 +29,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.w3c.dom.Document
+import org.w3c.dom.Element
 import tk.zwander.oneuituner.BuildConfig
 import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
@@ -112,6 +113,14 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                         "status_bar.xml",
                         "layout",
                         (if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) makeAndroid9StatusBar() else makeAndroid10StatusBar()).flattenToString()
+                    )
+                )
+
+                add(
+                    ResourceFileData(
+                        "keyguard_status_bar.xml",
+                        "layout",
+                        (if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) makeAndroid9KeyguardStatusBar() else makeAndroid10KeyguardStatusBar()).flattenToString()
                     )
                 )
 
@@ -752,3 +761,5 @@ fun removeFromModule(vararg files: File, listener: (() -> Unit)? = null) = MainS
 
     listener?.invoke()
 }
+
+fun Document.importElement(element: Element): Element = importNode(element, true) as Element
