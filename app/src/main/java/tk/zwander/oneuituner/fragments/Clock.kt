@@ -1,11 +1,13 @@
 package tk.zwander.oneuituner.fragments
 
+import android.os.Build
 import android.os.Bundle
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import tk.zwander.oneuituner.R
 import tk.zwander.oneuituner.util.PrefManager
 import tk.zwander.oneuituner.util.prefs
+import tk.zwander.oneuituner.util.setPreferenceEnabled
 
 class Clock : Base() {
     override val title = R.string.clock
@@ -29,6 +31,8 @@ class Clock : Base() {
             updateFormatVisibility(newValue.toString())
             true
         }
+
+        setPreferenceEnabled(PrefManager.CLOCK_POSITION, Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
     }
 
     private fun updateFormatVisibility(newValue: String) {
