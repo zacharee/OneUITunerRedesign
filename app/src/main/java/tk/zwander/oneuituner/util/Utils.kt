@@ -323,6 +323,13 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                             "0dp"
                                         )
                                     )
+                                    add(
+                                        ResourceData(
+                                            "dimen",
+                                            "notification_panel_carrier_label_height_zvv",
+                                            "0dp"
+                                        )
+                                    )
                                 }
                             }.toTypedArray()
                         )
