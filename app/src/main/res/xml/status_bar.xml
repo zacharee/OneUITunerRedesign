@@ -16,6 +16,13 @@
         />
 
     <SwitchPreference
+        android:title="@string/hide_panel_carrier"
+        android:summary="@string/hide_panel_carrier_desc"
+        android:key="hide_panel_carrier"
+        android:defaultValue="@bool/hide_panel_carrier_default"
+        />
+
+    <SwitchPreference
         android:title="@string/disable_5ge"
         android:summary="@string/disable_5ge_desc"
         android:key="disable_5ge"

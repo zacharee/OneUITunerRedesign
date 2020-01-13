@@ -10,6 +10,7 @@
     <bool name="disable_flashing_wifi_default">false</bool>
     <bool name="use_synergy_default">false</bool>
     <bool name="force_normal_install">false</bool>
+    <bool name="hide_panel_carrier_default">false</bool>
 
     <string name="custom_clock_format_default">h:mm a</string>
     <string name="custom_qs_date_format_default">EEEMMMMdd</string>

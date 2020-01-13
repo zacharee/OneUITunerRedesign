@@ -314,6 +314,16 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                         )
                                     )
                                 }
+
+                                if (prefs.hidePanelCarrier) {
+                                    add(
+                                        ResourceData(
+                                            "dimen",
+                                            "notification_panel_carrier_label_height",
+                                            "0dp"
+                                        )
+                                    )
+                                }
                             }.toTypedArray()
                         )
                     )
