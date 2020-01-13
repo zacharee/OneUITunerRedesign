@@ -33,10 +33,7 @@ import org.w3c.dom.Element
 import tk.zwander.oneuituner.BuildConfig
 import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
-import tk.zwander.oneuituner.xml.makeAndroid10KeyguardStatusBar
-import tk.zwander.oneuituner.xml.makeAndroid10StatusBar
-import tk.zwander.oneuituner.xml.makeAndroid9KeyguardStatusBar
-import tk.zwander.oneuituner.xml.makeAndroid9StatusBar
+import tk.zwander.oneuituner.xml.*
 import tk.zwander.overlaylib.*
 import java.io.*
 import java.util.*
@@ -116,6 +113,16 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                         (if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) makeAndroid9StatusBar() else makeAndroid10StatusBar()).flattenToString()
                     )
                 )
+
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                    add(
+                        ResourceFileData(
+                            "qs_carrier.xml",
+                            "layout",
+                            makeQSCarrier().flattenToString()
+                        )
+                    )
+                }
 
                 add(
                     ResourceFileData(
