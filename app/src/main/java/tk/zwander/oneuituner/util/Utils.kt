@@ -449,6 +449,11 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                     "color",
                                     "qs_tile_round_background_image",
                                     "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_icon_on_tint_color",
+                                    "@android:color/white"
                                 )
                             )
                         )
@@ -482,6 +487,11 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                     "color",
                                     "qs_tile_round_background_image",
                                     "@android:color/transparent"
+                                ),
+                                ResourceData(
+                                    "color",
+                                    "qs_tile_icon_on_tint_color",
+                                    "@android:color/white"
                                 )
                             )
                         )
