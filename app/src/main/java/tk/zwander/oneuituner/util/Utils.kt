@@ -126,6 +126,14 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
 
                 add(
                     ResourceFileData(
+                        "operator_name.xml",
+                        "layout",
+                        makeOperatorName().flattenToString()
+                    )
+                )
+
+                add(
+                    ResourceFileData(
                         "keyguard_status_bar.xml",
                         "layout",
                         (if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) makeAndroid9KeyguardStatusBar() else makeAndroid10KeyguardStatusBar()).flattenToString()
