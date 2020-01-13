@@ -9,7 +9,7 @@ android {
         applicationId "tk.zwander.oneuituner"
         minSdkVersion 28
         targetSdkVersion 28
-        versionCode 11
+        versionCode 12
         versionName versionCode.toString()
 
         buildConfigField "Integer", "MODULE_VERSION", "1"
