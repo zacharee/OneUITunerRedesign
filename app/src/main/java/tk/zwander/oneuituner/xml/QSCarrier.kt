@@ -4,6 +4,7 @@ import android.content.Context
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import tk.zwander.oneuituner.util.importElement
+import tk.zwander.oneuituner.util.prefs
 import tk.zwander.oneuituner.xml.QSCarrier.createMobileSignalGroupInclude
 import tk.zwander.oneuituner.xml.QSCarrier.createQSCarrier
 import tk.zwander.oneuituner.xml.QSCarrier.createQsCarrierText
@@ -63,7 +64,7 @@ object QSCarrier {
                     setAttribute("android:marqueeRepeatLimit", "marquee_forever")
                     setAttribute("android:maxEms", "7")
                     setAttribute("android:singleLine", "true")
-                    setAttribute("android:textAppearance", "@*com.android.systemui.style/TextAppearance.QS.Status")
+                    setAttribute("android:textAppearance", "@*com.android.systemui:style/TextAppearance.QS.Status")
                     setAttribute("android:textDirection", "locale")
                 }
         )
@@ -78,7 +79,7 @@ fun Context.makeQSCarrier(): Document {
         .apply {
             appendChild(createQSCarrier()).apply {
                 appendChild(createMobileSignalGroupInclude())
-                appendChild(createQsCarrierText())
+                appendChild(createQsCarrierText(prefs.hideStatusBarCarrier))
             }
         }
 }
