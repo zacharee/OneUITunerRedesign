@@ -57,16 +57,16 @@ abstract class Base : PreferenceFragmentCompat(), SharedPreferences.OnSharedPref
         preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
-    internal fun syncSummary(key: String?) {
+    private fun syncSummary(key: String?) {
         key?.let {
             if (keysToSync.contains(it)) {
                 findPreference<Preference>(it)?.apply {
-                    when {
-                        this is ListPreference -> {
-                            summary = entry
+                    summary = when (this) {
+                        is ListPreference -> {
+                            entry
                         }
                         else -> {
-                            summary = preferenceManager.sharedPreferences.all[it]?.toString()
+                            preferenceManager.sharedPreferences.all[it]?.toString()
                         }
                     }
                 }
