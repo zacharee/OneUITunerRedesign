@@ -193,7 +193,7 @@ object KeyguardStatusBarXML {
 //                    setAttribute("systemui:showMissingSim", "true")
                     } else {
                         setAttribute("android:maxWidth", "@*com.android.systemui:dimen/carrier_label_portrait_max_width")
-                        setAttribute("android:tag", "@*com.android.systemui:string/simple_indicator_tag_log_carrier_text_label")
+                        setAttribute("android:tag", "@*com.android.systemui:string/simple_indicator_tag_lock_carrier_text_label")
                     }
                 }
         )
