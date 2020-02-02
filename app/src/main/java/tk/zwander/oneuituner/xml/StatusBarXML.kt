@@ -230,7 +230,7 @@ object StatusBarXML {
             .newDocument()
             .createElement(if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "FrameLayout" else "com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthFrameLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/status_bar_left_side_container")
+                setAttribute("android:id", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "@+id/status_bar_left_side_container" else "@*com.android.systemui:id/status_bar_left_side_container")
                 setAttribute("android:layout_width", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "0dp" else "match_parent")
                 setAttribute("android:layout_height", "match_parent")
 
