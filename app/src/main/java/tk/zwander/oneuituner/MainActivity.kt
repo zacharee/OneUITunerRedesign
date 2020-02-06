@@ -130,7 +130,13 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         navController.addOnDestinationChangedListener(this)
 
         apply.setOnClickListener {
+            if (prefs.useSynergy || !isSynergyInstalled) {
+                showSynergyInstallPrompt()
+                return@setOnClickListener
+            }
+
             progressShown = true
+
             doCompile {
                 if (prefs.useSynergy) {
                     progressShown = false

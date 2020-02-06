@@ -27,21 +27,7 @@ class Main : Base() {
                             (pref as SwitchPreference).isChecked = false
                         }
 
-                        AlertDialog.Builder(context!!)
-                            .setTitle(R.string.use_synergy)
-                            .setMessage(R.string.synergy_not_installed_desc)
-                            .setPositiveButton(R.string.yes) { _, _ ->
-                                val uri = Uri.parse("https://play.google.com/store/apps/details?id=projekt.samsung.theme.compiler")
-                                val listingIntent = Intent(Intent.ACTION_VIEW)
-
-                                listingIntent.`package` = "com.android.vending"
-                                listingIntent.data = uri
-                                listingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-                                startActivity(listingIntent)
-                            }
-                            .setNegativeButton(R.string.no, null)
-                            .show()
+                        requireContext().showSynergyInstallPrompt()
                     }
                     true
                 }

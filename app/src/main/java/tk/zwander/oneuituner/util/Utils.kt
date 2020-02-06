@@ -10,11 +10,13 @@ import android.content.IntentSender
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
+import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -806,3 +808,21 @@ fun removeFromModule(vararg files: File, listener: (() -> Unit)? = null) = MainS
 }
 
 fun Document.importElement(element: Element): Element = importNode(element, true) as Element
+
+fun Context.showSynergyInstallPrompt() {
+    AlertDialog.Builder(this)
+        .setTitle(R.string.synergy_not_installed)
+        .setMessage(R.string.synergy_not_installed_desc)
+        .setPositiveButton(R.string.yes) { _, _ ->
+            val uri = Uri.parse("https://play.google.com/store/apps/details?id=projekt.samsung.theme.compiler")
+            val listingIntent = Intent(Intent.ACTION_VIEW)
+
+            listingIntent.`package` = "com.android.vending"
+            listingIntent.data = uri
+            listingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+            startActivity(listingIntent)
+        }
+        .setNegativeButton(R.string.no, null)
+        .show()
+}

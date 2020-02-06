@@ -49,6 +49,7 @@
     <string name="freeform_max">Max Freeform Window Count</string>
     <string name="clock_position">Clock Position</string>
     <string name="hide_panel_carrier">Hide Notification Panel Carrier Name</string>
+    <string name="synergy_not_installed">Synergy not installed!</string>
 
     <string name="old_recents_desc">Restores the old vertical Recents carousel. Reboot required.</string>
     <string name="left_system_icons_desc">Move the system icons, like the WiFi, signal, etc icons, to the left of the status bar.</string>
@@ -63,6 +64,7 @@
     <string name="reboot_first_again_desc">One more reboot is needed to activate the overlay. Tap this notification to reboot.</string>
     <string name="magisk_module_installed_desc">Please reboot to finish the installation.</string>
     <string name="hide_panel_carrier_desc">Hide the carrier name shown at the bottom of the notification panel.</string>
+    <string name="use_synergy_desc">This needs to be enabled on ALL unrooted One UI 2.0 devices. It does not need to be enabled on rooted devices, or the Galaxy Note9/S9/S9+ running One UI 1.0.</string>
 
     <string name="qqs_hint">Set your QS grid to 5x3 if the header icons overlap at higher values.</string>
     <string name="qs_row_col_hint">Set your QS grid to 5x3 for these to take effect.</string>

@@ -42,6 +42,7 @@
 
         <SwitchPreference
             android:title="@string/use_synergy"
+            android:summary="@string/use_synergy_desc"
             android:key="use_synergy"
             android:defaultValue="@bool/use_synergy_default"
             android:icon="@drawable/synergy_icon"
