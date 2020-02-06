@@ -3,6 +3,7 @@ package tk.zwander.oneuituner.util
 import android.content.Context
 import android.content.res.Configuration
 import android.util.TypedValue
+import tk.zwander.oneuituner.BuildConfig
 import tk.zwander.overlaylib.constructOverlayPackage
 
 const val SUFFIX_SYSTEMUI = "oneuituner.systemui"
@@ -17,6 +18,14 @@ val MAGISK_MODULE_PATH = "$MAGISK_PATH/modules/opfpcontrol"
 val OVERLAYS = arrayOf(
     constructOverlayPackage(PACKAGE_SYSTEMUI),
     constructOverlayPackage(PACKAGE_ANDROID)
+)
+
+val LEGACY_OVERLAYS = arrayOf(
+    "$PACKAGE_SYSTEMUI.${BuildConfig.APPLICATION_ID}.overlay.clock",
+    "$PACKAGE_SYSTEMUI.${BuildConfig.APPLICATION_ID}.overlay.qs",
+    "$PACKAGE_SYSTEMUI.${BuildConfig.APPLICATION_ID}.overlay.status_bar",
+    "$PACKAGE_SYSTEMUI.${BuildConfig.APPLICATION_ID}.overlay.lock_screen",
+    "$PACKAGE_ANDROID.${BuildConfig.APPLICATION_ID}.overlay.misc"
 )
 
 fun Context.calculateQsWidthForColumnCount(count: Int, landscape: Boolean): Int {

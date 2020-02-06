@@ -46,6 +46,10 @@ class Main : Base() {
                     (requireActivity() as MainActivity).performUninstall()
                     false to 0
                 }
+                "uninstall_legacy" -> run {
+                    (requireActivity() as MainActivity).performLegacyUninstall()
+                    false to 0
+                }
                 else -> super.onPreferenceTreeClick(preference) to 0
             }
 

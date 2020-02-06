@@ -56,6 +56,13 @@
             android:dependency="use_synergy"
             />
 
+        <Preference
+            android:title="@string/uninstall_legacy_overlays"
+            android:summary="@string/uninstall_legacy_overlays_desc"
+            android:key="uninstall_legacy"
+            android:icon="@drawable/ic_baseline_delete_24"
+            />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

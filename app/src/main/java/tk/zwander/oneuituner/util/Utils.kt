@@ -712,6 +712,27 @@ fun Context.findInstalledOverlayFiles(): Array<File> {
     }.toTypedArray()
 }
 
+fun Context.findInstalledLegacyOverlays(): Array<String> {
+    return LEGACY_OVERLAYS.filter {
+        try {
+            packageManager.getApplicationInfo(it, 0)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }.toTypedArray()
+}
+
+fun Context.findInstalledLegacyOverlayFiles(): Array<File> {
+    return LEGACY_OVERLAYS.mapNotNull {
+        try {
+            File(packageManager.getApplicationInfo(it, 0).baseCodePath)
+        } catch (e: Exception) {
+            null
+        }
+    }.toTypedArray()
+}
+
 val moduleExists: Boolean
     get() = SuFile(MAGISK_MODULE_PATH).exists()
 

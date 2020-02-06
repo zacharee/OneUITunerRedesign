@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         )
         nm.createNotificationChannel(channel)
 
-        if (Shell.rootAccess()) {
+        if (Shell.rootAccess() && needsSynergy && !prefs.useSynergy) {
             createMagiskModule {
                 if (it) {
                     MaterialAlertDialogBuilder(this@MainActivity)
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         navController.addOnDestinationChangedListener(this)
 
         apply.setOnClickListener {
-            if (prefs.useSynergy || !isSynergyInstalled) {
+            if (prefs.useSynergy && !isSynergyInstalled) {
                 showSynergyInstallPrompt()
                 return@setOnClickListener
             }
@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 if (prefs.useSynergy) {
                     progressShown = false
                     installForSynergy(it)
-                } else if (!moduleExists) {
+                } else if (!moduleExists || !needsSynergy) {
                     filesToInstall.clear()
                     filesToInstall.addAll(it)
 
@@ -237,7 +237,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     fun performUninstall() {
-        if (!Shell.rootAccess()) {
+        if (!Shell.rootAccess() || !needsSynergy) {
             packagesToUninstall.clear()
             packagesToUninstall.addAll(findInstalledOverlays())
 
@@ -248,6 +248,30 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         } else {
             progressShown = true
             removeFromModule(*findInstalledOverlayFiles()) {
+                progressShown = false
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle(R.string.reboot)
+                    .setMessage(R.string.reboot_uninstall_desc)
+                    .setPositiveButton(R.string.reboot) { _, _ -> reboot() }
+                    .setNegativeButton(R.string.later, null)
+                    .setCancelable(false)
+                    .show()
+            }
+        }
+    }
+
+    fun performLegacyUninstall() {
+        if (!Shell.rootAccess() || !needsSynergy) {
+            packagesToUninstall.clear()
+            packagesToUninstall.addAll(findInstalledLegacyOverlays())
+
+            if (packagesToUninstall.isNotEmpty()) {
+                progressShown = true
+                uninstallNormally(packagesToUninstall.removeAt(0))
+            }
+        } else {
+            progressShown = true
+            removeFromModule(*findInstalledLegacyOverlayFiles()) {
                 progressShown = false
                 MaterialAlertDialogBuilder(this@MainActivity)
                     .setTitle(R.string.reboot)
