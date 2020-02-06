@@ -124,6 +124,14 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                             makeQSCarrier().flattenToString()
                         )
                     )
+                } else {
+                    add(
+                        ResourceFileData(
+                            "qs_status_bar_clock.xml",
+                            "layout",
+                            maxQSStatusBarClock().flattenToString()
+                        )
+                    )
                 }
 
                 add(
