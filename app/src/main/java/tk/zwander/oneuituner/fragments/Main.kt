@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
+import com.topjohnwu.superuser.Shell
 import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
 import tk.zwander.oneuituner.util.*
@@ -17,7 +18,7 @@ class Main : Base() {
         setPreferencesFromResource(R.xml.main, rootKey)
 
         with(findPreference<SwitchPreference>(PrefManager.USE_SYNERGY)!!) {
-            if (needsSynergy && !requireContext().prefs.hasKey(PrefManager.USE_SYNERGY)) isChecked = true
+            if (!Shell.rootAccess() && needsSynergy && !requireContext().prefs.hasKey(PrefManager.USE_SYNERGY)) isChecked = true
             onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { pref, newValue ->
                     val enabled = newValue.toString().toBoolean()

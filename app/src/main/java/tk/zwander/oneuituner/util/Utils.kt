@@ -84,7 +84,6 @@ val Context.isSynergyInstalled: Boolean
 
 val needsSynergy: Boolean
     get() = (!Build.MODEL.run { contains("960") } || Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
-            && !Shell.rootAccess()
 
 fun Document.flattenToString(): String {
     val source = DOMSource(this)

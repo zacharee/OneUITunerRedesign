@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 if (prefs.useSynergy) {
                     progressShown = false
                     installForSynergy(it)
-                } else if (!moduleExists || !needsSynergy) {
+                } else if (!moduleExists || (!needsSynergy && !Shell.rootAccess())) {
                     filesToInstall.clear()
                     filesToInstall.addAll(it)
 
