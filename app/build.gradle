@@ -57,7 +57,7 @@ dependencies {
     implementation 'com.github.zacharee:SeekBarPreference:ddc62c12f2'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.zacharee:colorpicker:9ea5085260'
-    implementation 'com.android.tools.build:apksig:3.5.3'
+    implementation 'com.android.tools.build:apksig:3.6.1'
     implementation 'com.github.zacharee:CollapsiblePreferenceCategory:4883357a52'
     implementation 'com.github.zacharee:OverlayLib:c233867bf1'
     implementation 'com.github.zacharee:Unblacklister:1.0'
