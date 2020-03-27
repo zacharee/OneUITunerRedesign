@@ -337,6 +337,13 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                             )}dp"
                                         )
                                     )
+                                    add(
+                                        ResourceData(
+                                            "dimen",
+                                            "qs_quick_tile_size",
+                                            "${calculateQsWidthForHeaderCount(prefs.headerCountPortrait, false)}dp"
+                                        )
+                                    )
                                 }
 
                                 if (prefs.hidePanelCarrier) {
@@ -387,6 +394,16 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                             )}dp"
                                         )
                                     )
+                                    add(
+                                        ResourceData(
+                                            "dimen",
+                                            "qs_quick_tile_size",
+                                            "${calculateQsWidthForHeaderCount(
+                                                prefs.headerCountPortrait,
+                                                false
+                                            )}dp"
+                                        )
+                                    )
                                 }
                             }.toTypedArray()
                         )
@@ -406,6 +423,33 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                         prefs.qsColCountLandscape,
                                         true
                                     )}dp"
+                                ),
+                                ResourceData(
+                                    "dimen",
+                                    "qs_quick_tile_size",
+                                    "${calculateQsWidthForHeaderCount(prefs.headerCountLandscape, true)}dp"
+                                )
+                            )
+                        )
+                    )
+
+                    add(
+                        ResourceFileData(
+                            "dimens.xml",
+                            "values-sw411dp-land",
+                            makeResourceXml(
+                                ResourceData(
+                                    "dimen",
+                                    "sec_qs_tile_width",
+                                    "${calculateQsWidthForColumnCount(
+                                        prefs.qsColCountLandscape,
+                                        true
+                                    )}dp"
+                                ),
+                                ResourceData(
+                                    "dimen",
+                                    "qs_quick_tile_size",
+                                    "${calculateQsWidthForHeaderCount(prefs.headerCountLandscape, true)}dp"
                                 )
                             )
                         )
