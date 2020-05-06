@@ -44,7 +44,24 @@ fun Context.calculateQsWidthForColumnCount(count: Int, landscape: Boolean): Int 
 
     val num = unit - (unit * 0.044f).toInt()
 
-    return (pxAsDp(num / count))
+    return pxAsDp(num / count)
+}
+
+fun Context.calculateQsWidthForHeaderCount(count: Int, landscape: Boolean): Int {
+    val displayWidth = dpAsPx(resources.configuration.screenWidthDp)
+    val displayHeight = dpAsPx(resources.configuration.screenHeightDp)
+    val statusBarHeight = statusBarHeight
+    val isInLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+    val unit = when {
+        landscape && isInLandscape -> displayWidth - statusBarHeight
+        landscape && !isInLandscape -> displayHeight - statusBarHeight
+        !landscape && isInLandscape -> displayHeight
+        !landscape && !isInLandscape -> displayWidth
+        else -> throw Exception("This shouldn't have happened!")
+    }
+
+    return pxAsDp(unit / (count + 1))
 }
 
 fun Context.dpAsPx(dp: Number): Int {
