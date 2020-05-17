@@ -60,5 +60,5 @@ dependencies {
     implementation 'com.android.tools.build:apksig:3.6.3'
     implementation 'com.github.zacharee:CollapsiblePreferenceCategory:4883357a52'
     implementation 'com.github.zacharee:OverlayLib:13c7fc5716'
-    implementation 'com.github.zacharee:Unblacklister:1.0'
+    implementation 'com.github.zacharee:Unblacklister:1.1'
 }
