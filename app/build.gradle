@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "tk.zwander.oneuituner"
         minSdkVersion 28
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 16
         versionName versionCode.toString()
 
