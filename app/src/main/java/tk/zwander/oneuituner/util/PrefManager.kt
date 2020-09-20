@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import tk.zwander.oneuituner.R
 
 class PrefManager private constructor(context: Context) : ContextWrapper(context) {

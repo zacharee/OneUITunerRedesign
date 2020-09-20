@@ -2,6 +2,7 @@
 
 package tk.zwander.oneuituner.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
@@ -65,7 +66,7 @@ val Activity.navController: NavController
 
 val String.isValidClockFormat: Boolean
     get() = try {
-        SimpleDateFormat(this)
+        SimpleDateFormat(this, Locale.getDefault())
         true
     } catch (e: Exception) {
         false
@@ -813,11 +814,11 @@ fun createMagiskModule(result: ((needsToReboot: Boolean) -> Unit)? = null) = Mai
 
         if (needsToUpdate) {
             val prop = java.lang.StringBuilder()
-                .appendln("name=OneUI Tuner Module")
-                .appendln("version=${BuildConfig.MODULE_VERSION}")
-                .appendln("versionCode=${BuildConfig.MODULE_VERSION}")
-                .appendln("author=Zachary Wander")
-                .appendln("description=Systemlessly install Tuner overlays")
+                .appendLine("name=OneUI Tuner Module")
+                .appendLine("version=${BuildConfig.MODULE_VERSION}")
+                .appendLine("versionCode=${BuildConfig.MODULE_VERSION}")
+                .appendLine("author=Zachary Wander")
+                .appendLine("description=Systemlessly install Tuner overlays")
 
             Shell.su(
                 "mkdir -p $MAGISK_MODULE_PATH",
@@ -840,6 +841,8 @@ fun reboot() {
     }
 }
 
+@Suppress("BlockingMethodInNonBlockingContext")
+@SuppressLint("SetWorldReadable")
 fun installToModule(vararg files: SuFile, listener: ((needsSecondReboot: Boolean) -> Unit)? = null) = MainScope().launch {
     var needsSecondReboot = false
 
@@ -855,6 +858,7 @@ fun installToModule(vararg files: SuFile, listener: ((needsSecondReboot: Boolean
             }
 
             folder.setWritable(true, true)
+            @Suppress("BlockingMethodInNonBlockingContext")
             folder.setReadable(true, false)
             folder.setExecutable(true, false)
 
