@@ -23,4 +23,53 @@
         <item>@string/clock_position_middle</item>
         <item>@string/clock_position_right</item>
     </string-array>
+
+    <string-array name="nav_bar_layout_resource_keys">
+        <item>config_navBarLayout</item>
+        <item>config_navBarLayoutHandle</item>
+        <item>config_navBarLayoutQuickstep</item>
+        <item>config_navBarRevTabletLayout</item>
+        <item>config_navBarRevWinnerLayoutAlignLeft</item>
+        <item>config_navBarRevWinnerLayoutAlignRight</item>
+        <item>config_secNavBarGestureLayoutHandle</item>
+        <item>config_secNavBarGestureRevLayoutHandle</item>
+        <item>config_secNavBarGestureTabletLayoutHandle</item>
+        <item>config_secNavBarGestureTabletRevLayoutHandle</item>
+        <item>config_secNavBarLayout</item>
+        <item>config_secNavBarLayoutHandle</item>
+        <item>config_secNavBarRevLayout</item>
+        <item>config_secNavBarRevLayoutHandle</item>
+    </string-array>
+    
+    <string-array name="nav_bar_layout_button_keys">
+        <item>left</item>
+        <item>right</item>
+        <item>back</item>
+        <item>home_handle</item>
+        <item>recent</item>
+        <item>multi-window</item>
+        <item>home</item>
+        <item>backIME</item>
+        <item>gap</item>
+        <item>pin</item>
+        <item>space</item>
+        <item>appdock</item>
+        <item>camera</item>
+        <item>capture</item>
+        <item>power</item>
+        <item>internet</item>
+        <item>dpad_up</item>
+        <item>dpad_down</item>
+        <item>dpad_left</item>
+        <item>dpad_right</item>
+        <item>key_f4</item>
+        <item>key_f5</item>
+        <item>forward</item>
+        <item>media_prev</item>
+        <item>media_next</item>
+        <item>media_play_pause</item>
+        <item>quickpanel</item>
+        <item>page_up</item>
+        <item>page_down</item>
+    </string-array>
 </resources>

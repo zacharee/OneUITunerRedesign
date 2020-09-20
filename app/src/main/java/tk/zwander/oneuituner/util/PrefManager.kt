@@ -37,6 +37,7 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
         const val STATUS_BAR_HEIGHT = "status_bar_height"
         const val FREEFORM_MAX_COUNT = "freeform_max"
         const val FREEFORM_DESKTOP_MAX_COUNT = "desktop_freeform_max"
+        const val NAV_LAYOUT = "custom_nav_layout"
 
         const val LEFT_SYSTEM_ICONS = "left_system_icons"
         const val HIDE_STATUS_BAR_CARRIER = "hide_status_bar_carrier"
@@ -74,6 +75,9 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
 
     val clockPosition: String
         get() = getString(CLOCK_POSITION, clockPositionLeft)
+
+    val navLayout: String
+        get() = getString(NAV_LAYOUT, "")
 
     val headerCountPortrait: Int
         get() = getInt(HEADER_COUNT_PORTRAIT, resourceInt(R.integer.header_count_portrait_default))

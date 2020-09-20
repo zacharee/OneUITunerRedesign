@@ -457,21 +457,111 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                     )
                 }
 
-                if (prefs.customQsDateFormat && prefs.qsDateFormat.isValidClockFormat) {
-                    add(
-                        ResourceFileData(
-                            "strings.xml",
-                            "values",
-                            makeResourceXml(
-                                ResourceData(
-                                    "string",
-                                    "system_ui_quick_panel_date_pattern",
-                                    prefs.qsDateFormat
-                                )
-                            )
+                add(
+                    ResourceFileData(
+                        "strings.xml",
+                        "values",
+                        makeResourceXml(
+                            *arrayListOf<ResourceData>().apply {
+                                if (prefs.customQsDateFormat && prefs.qsDateFormat.isValidClockFormat) {
+                                    add(
+                                        ResourceData(
+                                            "string",
+                                            "system_ui_quick_panel_date_pattern",
+                                            prefs.qsDateFormat
+                                        )
+                                    )
+                                }
+
+                                if (prefs.navLayout.isNotEmpty()) {
+                                    val keys = resources.getStringArray(R.array.nav_bar_layout_resource_keys)
+
+                                    keys.forEach {
+                                        add(
+                                            ResourceData(
+                                                "string",
+                                                it,
+                                                prefs.navLayout
+                                            )
+                                        )
+                                    }
+                                }
+                            }.toTypedArray()
                         )
                     )
-                }
+                )
+
+                add(
+                    ResourceFileData(
+                        "strings.xml",
+                        "values-sw600dp",
+                        makeResourceXml(
+                            *arrayListOf<ResourceData>().apply {
+                                if (prefs.navLayout.isNotEmpty()) {
+                                    val keys = resources.getStringArray(R.array.nav_bar_layout_resource_keys)
+
+                                    keys.forEach {
+                                        add(
+                                            ResourceData(
+                                                "string",
+                                                it,
+                                                prefs.navLayout
+                                            )
+                                        )
+                                    }
+                                }
+                            }.toTypedArray()
+                        )
+                    )
+                )
+
+                add(
+                    ResourceFileData(
+                        "strings.xml",
+                        "values-sw900dp",
+                        makeResourceXml(
+                            *arrayListOf<ResourceData>().apply {
+                                if (prefs.navLayout.isNotEmpty()) {
+                                    val keys = resources.getStringArray(R.array.nav_bar_layout_resource_keys)
+
+                                    keys.forEach {
+                                        add(
+                                            ResourceData(
+                                                "string",
+                                                it,
+                                                prefs.navLayout
+                                            )
+                                        )
+                                    }
+                                }
+                            }.toTypedArray()
+                        )
+                    )
+                )
+
+                add(
+                    ResourceFileData(
+                        "strings.xml",
+                        "values-sw372dp",
+                        makeResourceXml(
+                            *arrayListOf<ResourceData>().apply {
+                                if (prefs.navLayout.isNotEmpty()) {
+                                    val keys = resources.getStringArray(R.array.nav_bar_layout_resource_keys)
+
+                                    keys.forEach {
+                                        add(
+                                            ResourceData(
+                                                "string",
+                                                it,
+                                                prefs.navLayout
+                                            )
+                                        )
+                                    }
+                                }
+                            }.toTypedArray()
+                        )
+                    )
+                )
 
                 if (prefs.hideQsTileBackground) {
                     add(

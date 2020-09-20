@@ -43,4 +43,10 @@
         app:dialogLayout="@layout/number_edit_text"
         />
 
+    <EditTextPreference
+        android:title="@string/custom_nav_layout"
+        android:summary="@string/custom_nav_layout"
+        android:key="custom_nav_layout"
+        />
+
 </PreferenceScreen>
