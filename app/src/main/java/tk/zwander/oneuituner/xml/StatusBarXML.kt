@@ -7,6 +7,7 @@ import org.w3c.dom.Element
 import org.w3c.dom.Node
 import tk.zwander.oneuituner.util.importElement
 import tk.zwander.oneuituner.util.prefs
+import tk.zwander.oneuituner.xml.KeyguardStatusBarXML.createDividedIconContainer
 import tk.zwander.oneuituner.xml.StatusBarXML.createAOSPClock
 import tk.zwander.oneuituner.xml.StatusBarXML.createCenteredIconArea
 import tk.zwander.oneuituner.xml.StatusBarXML.createCustomClock
@@ -352,7 +353,7 @@ object StatusBarXML {
                 setAttribute("android:id", "@*com.android.systemui:id/qs_knox_custom_statusbar_viewstub")
                 setAttribute("android:layout_width", "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
-                setAttribute("android:layout", "@*com.android.systemui:layout/qs_knox_custom_statusbar_text")
+                setAttribute("android:layout", "@*com.android.systemui:layout/${if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) "sec_qs_knox_custom_statusbar_text" else "qs_knox_custom_statusbar_text"}")
             }, true)
     }
 
@@ -458,6 +459,97 @@ object StatusBarXML {
                 setAttribute("android:orientation", "horizontal")
             }, true) as Element
     }
+}
+
+fun Context.makeAndroid11StatusBar(): Document {
+    val clockType = prefs.clockType
+    val leftSystemIcons = prefs.leftSystemIcons
+    val clockPosition = prefs.clockPosition
+
+    return DocumentBuilderFactory.newInstance()
+        .newDocumentBuilder()
+        .newDocument()
+        .apply {
+            appendChild(createPhoneStatusBarView().apply {
+                appendChild(createPhoneStatusBarBackground())
+
+                appendChild(createStatusBarArea().apply {
+                    appendChild(createNotificationLightsOut())
+                    appendChild(createStatusBarContents().apply {
+                        appendChild(createLeftSideContainer().apply {
+                            appendChild(createHeadsUpLayoutInclude())
+                            appendChild(createStatusBarLeftSide().apply {
+                                appendChild(createOperatorName(prefs.hideStatusBarCarrier))
+                                appendChild(createHomeCarrierInfo(prefs.hideStatusBarCarrier))
+
+                                if (leftSystemIcons) {
+                                    appendChild(createSystemIconArea()).apply {
+                                        appendChild(createQsKnoxCustomStatusBar())
+                                        appendChild(createSystemIconsInclude())
+                                    }
+                                }
+
+                                appendChild(createLeftClockContainer(isGone = true))
+                                appendChild(createLeftClockContainer(isGone = clockPosition != prefs.clockPositionLeft, fakeID = "fake_left_container")).apply {
+                                    if (clockPosition == prefs.clockPositionLeft) {
+                                        appendChild(
+                                            when (clockType) {
+                                                prefs.clockTypeAosp -> createAOSPClock(defaultID = true)
+                                                prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat, defaultID = true)
+                                                else -> createDefaultClock()
+                                            }
+                                        )
+                                    }
+                                }
+
+                                appendChild(createNotificationIconArea())
+                            })
+                        })
+
+                        appendChild(createStatusBarCenter().apply {
+                            appendChild(createCutoutSpace())
+                            appendChild(createCenteredIconArea())
+
+                            appendChild(createMiddleClockContainer(isGone = true))
+                            appendChild(createMiddleClockContainer(fakeID = "fake_middle_container", isGone = clockPosition != prefs.clockPositionMiddle)).apply {
+                                if (clockPosition == prefs.clockPositionMiddle) {
+                                    appendChild(
+                                        when (clockType) {
+                                            prefs.clockTypeAosp -> createAOSPClock(defaultID = true)
+                                            prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat, defaultID = true)
+                                            else -> createDefaultClock()
+                                        }
+                                    )
+                                }
+                            }
+                        })
+
+                        appendChild(createDividedIconContainer())
+                        appendChild(createSystemIconArea().apply {
+                            appendChild(createQsKnoxCustomStatusBar())
+                            if (!prefs.leftSystemIcons) {
+                                appendChild(createSystemIconsInclude())
+                            }
+
+                            appendChild(createRightClockContainer(isGone = true))
+                            appendChild(createRightClockContainer(isGone = clockPosition != prefs.clockPositionRight, fakeID = "fake_right_container")).apply {
+                                if (clockPosition == prefs.clockPositionRight) {
+                                    appendChild(
+                                        when (clockType) {
+                                            prefs.clockTypeAosp -> createAOSPClock(defaultID = true)
+                                            prefs.clockTypeCustom -> createCustomClock(prefs.clockFormat, defaultID = true)
+                                            else -> createDefaultClock()
+                                        }
+                                    )
+                                }
+                            }
+                        })
+                    })
+
+                    appendChild(createEmergencyCryptKeeperText())
+                })
+            })
+        }
 }
 
 fun Context.makeAndroid10StatusBar(): Document {

@@ -1,2 +1,4 @@
-include ':app'
+include ':app', ':overlaylib'
 rootProject.name = "OneUI Tuner"
+
+project(':overlaylib').projectDir = new File("../OverlayLib/app")

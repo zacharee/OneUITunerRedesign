@@ -6,6 +6,7 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import tk.zwander.oneuituner.util.importElement
 import tk.zwander.oneuituner.util.prefs
+import tk.zwander.oneuituner.xml.KeyguardStatusBarXML.createDividedIconContainer
 import tk.zwander.oneuituner.xml.KeyguardStatusBarXML.createKeyguardCarrierText
 import tk.zwander.oneuituner.xml.KeyguardStatusBarXML.createKeyguardClock
 import tk.zwander.oneuituner.xml.KeyguardStatusBarXML.createKeyguardLeftSideContainer
@@ -84,7 +85,10 @@ object KeyguardStatusBarXML {
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:layout_marginStart", "@*com.android.systemui:dimen/system_icons_super_container_margin_start")
                     setAttribute("android:gravity", "right|center_vertical|center_horizontal|center|end")
-                    setAttribute("android:paddingEnd", "@*com.android.systemui:dimen/system_icons_keyguard_padding_end")
+
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                        setAttribute("android:paddingEnd", "@*com.android.systemui:dimen/system_icons_keyguard_padding_end")
+                    }
 
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
                         setAttribute("android:layout_weight", "1")
@@ -157,11 +161,17 @@ object KeyguardStatusBarXML {
 
                     if (!isVisibile) setAttribute("android:visibility", "gone")
 
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                        setAttribute("android:paddingEnd", "@*com.android.systemui:dimen/carrier_information_margin_side")
-                    } else {
-                        setAttribute("android:layout_marginStart", "@*com.android.systemui:dimen/keyguard_carrier_text_margin")
-                        setAttribute("android:layout_marginEnd", "@*com.android.systemui:dimen/keyguard_operator_logo_margin_start")
+                    when {
+                        Build.VERSION.SDK_INT > Build.VERSION_CODES.Q -> {
+                            setAttribute("android:paddingEnd", "@*com.android.systemui:dimen/status_carrierinfo_margin_side")
+                        }
+                        Build.VERSION.SDK_INT > Build.VERSION_CODES.P -> {
+                            setAttribute("android:paddingEnd", "@*com.android.systemui:dimen/carrier_information_margin_side")
+                        }
+                        else -> {
+                            setAttribute("android:layout_marginStart", "@*com.android.systemui:dimen/keyguard_carrier_text_margin")
+                            setAttribute("android:layout_marginEnd", "@*com.android.systemui:dimen/keyguard_operator_logo_margin_start")
+                        }
                     }
                 }
         )
@@ -183,7 +193,10 @@ object KeyguardStatusBarXML {
                     setAttribute("android:singleLine", "true")
                     setAttribute("android:textColor", "?android:attr/textColorSecondary")
                     setAttribute("android:textDirection", "locale")
-                    setAttribute("android:textSize", "@*com.android.systemui:dimen/status_bar_carrier_text_size")
+
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                        setAttribute("android:textSize", "@*com.android.systemui:dimen/status_bar_carrier_text_size")
+                    }
 
                     if (!isVisibile) setAttribute("android:visibility", "gone")
 
@@ -204,23 +217,81 @@ object KeyguardStatusBarXML {
             DocumentBuilderFactory.newInstance()
                 .newDocumentBuilder()
                 .newDocument()
-                .createElement("com.android.systemui.statusbar.policy.QSClock")
-                .apply {
-                    setAttribute("android:id", "@*com.android.systemui:id/keyguard_clock")
-                    setAttribute("android:layout_width", "wrap_content")
-                    setAttribute("android:layout_height", "match_parent")
-                    setAttribute("android:layout_toEndOf", "@*com.android.systemui:id/keyguard_network_information_container")
-                    setAttribute("android:gravity", "left|center_vertical|center_horizontal|center|start")
-                    setAttribute("android:singleLine", "true")
-                    setAttribute("android:tag", "keyguard_status_bar_clock")
-                    setAttribute("android:textAppearance", "@*com.android.systemui:style/TextAppearance.StatusBar.Clock")
+                .run {
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+                        createElement("FrameLayout")
+                            .apply {
+                                setAttribute("android:layout_width", "wrap_content")
+                                setAttribute("android:layout_height", "wrap_content")
+                                setAttribute("android:visibility", "gone")
+                            }
+                    } else {
+                        createElement("com.android.systemui.statusbar.policy.QSClock")
+                            .apply {
+                                setAttribute("android:id", "@*com.android.systemui:id/keyguard_clock")
+                                setAttribute("android:layout_width", "wrap_content")
+                                setAttribute("android:layout_height", "match_parent")
+                                setAttribute("android:layout_toEndOf", "@*com.android.systemui:id/keyguard_network_information_container")
+                                setAttribute("android:gravity", "left|center_vertical|center_horizontal|center|start")
+                                setAttribute("android:singleLine", "true")
+                                setAttribute("android:tag", "keyguard_status_bar_clock")
+                                setAttribute("android:textAppearance", "@*com.android.systemui:style/TextAppearance.StatusBar.Clock")
 
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                        setAttribute("android:layout_marginEnd", "3dp")
+                                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                                    setAttribute("android:layout_marginEnd", "3dp")
+                                }
+                            }
                     }
                 }
         )
     }
+
+    fun Document.createDividedIconContainer(): Element {
+        return importElement(
+            DocumentBuilderFactory.newInstance()
+                .newDocumentBuilder()
+                .newDocument()
+                .run {
+                    createElement("com.android.systemui.statusbar.phone.StatusIconDividedContainer").apply {
+                        setAttribute("android:id", "@*com.android.systemui:id/divided_statusIcons")
+                        setAttribute("android:layout_width", "wrap_content")
+                        setAttribute("android:layout_height", "match_parent")
+                        setAttribute("android:layout_toStartOf", "@*com.android.systemui:id/status_icon_area")
+                        setAttribute("android:gravity", "center_vertical")
+                        setAttribute("android:orientation", "horizontal")
+                    }
+                }
+        )
+    }
+}
+
+fun Context.makeAndroid11KeyguardStatusBar(): Document {
+    return DocumentBuilderFactory.newInstance()
+        .newDocumentBuilder()
+        .newDocument()
+        .apply {
+            appendChild(createKeyguardStatusBarView().apply {
+                appendChild(createKeyguardStatusBarArea().apply {
+                    appendChild(createStatusIconArea().apply {
+                        appendChild(createSystemIconsContainer().apply {
+                            appendChild(createSystemIconsInclude())
+                        })
+
+                        appendChild(createMultiUserSwitch().apply {
+                            appendChild(createMultiUserAvatar())
+                        })
+                    })
+
+                    appendChild(createDividedIconContainer())
+                    appendChild(createCutoutSpace())
+                    appendChild(createKeyguardLeftSideContainer().apply {
+                        appendChild(createKeyguardNetworkInformationContainer(!prefs.hideStatusBarCarrier).apply {
+                            appendChild(createKeyguardCarrierText(!prefs.hideStatusBarCarrier))
+                        })
+                    })
+                })
+            })
+        }
 }
 
 fun Context.makeAndroid10KeyguardStatusBar(): Document {
