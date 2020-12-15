@@ -12,7 +12,7 @@ class QS : Base() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.qs, rootKey)
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P && Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
             setPreferenceEnabled(PrefManager.QS_ROW_COUNT_LANDSCAPE, false)
             setPreferenceEnabled(PrefManager.QS_ROW_COUNT_PORTRAIT, false)
         }

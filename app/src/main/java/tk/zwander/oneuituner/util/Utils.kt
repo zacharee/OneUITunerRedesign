@@ -120,23 +120,35 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                 else -> makeAndroid11StatusBar()
                             }).flattenToString()
                         )
-                    )    
-                }
-
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                    add(
-                        ResourceFileData(
-                            "qs_carrier.xml",
-                            "layout",
-                            contents = makeQSCarrier().flattenToString()
-                        )
                     )
-                } else {
+
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                        add(
+                            ResourceFileData(
+                                "qs_carrier.xml",
+                                "layout",
+                                contents = makeQSCarrier().flattenToString()
+                            )
+                        )
+                    } else {
+                        add(
+                            ResourceFileData(
+                                "qs_status_bar_clock.xml",
+                                "layout",
+                                contents = maxQSStatusBarClock().flattenToString()
+                            )
+                        )
+                    }
+
                     add(
                         ResourceFileData(
-                            "qs_status_bar_clock.xml",
+                            "keyguard_status_bar.xml",
                             "layout",
-                            contents = maxQSStatusBarClock().flattenToString()
+                            contents = (when {
+                                Build.VERSION.SDK_INT <= Build.VERSION_CODES.P -> makeAndroid9KeyguardStatusBar()
+                                Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q -> makeAndroid10KeyguardStatusBar()
+                                else -> makeAndroid11KeyguardStatusBar()
+                            }).flattenToString()
                         )
                     )
                 }
@@ -146,18 +158,6 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                         "operator_name.xml",
                         "layout",
                         contents = makeOperatorName().flattenToString()
-                    )
-                )
-
-                add(
-                    ResourceFileData(
-                        "keyguard_status_bar.xml",
-                        "layout",
-                        contents = (when {
-                            Build.VERSION.SDK_INT <= Build.VERSION_CODES.P -> makeAndroid9KeyguardStatusBar()
-                            Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q -> makeAndroid10KeyguardStatusBar()
-                            else -> makeAndroid11KeyguardStatusBar()
-                        }).flattenToString()
                     )
                 )
 
@@ -196,7 +196,7 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                             prefs.qsRowCountPortrait.toString()
                                         )
                                     )
-                                } else {
+                                } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
                                     add(
                                         ResourceData(
                                             "integer",
@@ -232,6 +232,70 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                             "20"
                                         )
                                     )
+                                } else {
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_qs_panel_max_columns",
+                                            prefs.headerCountPortrait.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_qs_panel_max_columns_fold",
+                                            prefs.headerCountPortrait.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_qs_panel_max_columns_tablet",
+                                            prefs.headerCountPortrait.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_qs_panel_max_columns_fold_sub",
+                                            prefs.headerCountPortrait.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows",
+                                            prefs.qsRowCountPortrait.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows_tablet",
+                                            prefs.qsRowCountPortrait.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows_fold",
+                                            prefs.qsRowCountPortrait.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows_fold_sub",
+                                            prefs.qsRowCountPortrait.toString()
+                                        )
+                                    )
                                 }
                             }
                         )
@@ -241,7 +305,7 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                 add(
                     ResourceFileData(
                         "integers.xml",
-                        "values",
+                        "values-land",
                         makeResourceXml(
                             arrayListOf<ResourceData>().apply {
                                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
@@ -255,6 +319,13 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                     add(
                                         ResourceData(
                                             "integer",
+                                            "quick_qs_tile_min_num",
+                                            "2"
+                                        )
+                                    )
+                                    add(
+                                        ResourceData(
+                                            "integer",
                                             "qspanel_screen_grid_columns_5",
                                             prefs.qsColCountLandscape.toString()
                                         )
@@ -263,15 +334,22 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                         ResourceData(
                                             "integer",
                                             "qspanel_screen_grid_rows",
-                                            prefs.qsRowCountLandscape.toString()
+                                            prefs.qsColCountLandscape.toString()
                                         )
                                     )
-                                } else {
+                                } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
                                     add(
                                         ResourceData(
                                             "integer",
                                             "quick_qs_panel_max_columns",
                                             prefs.headerCountLandscape.toString()
+                                        )
+                                    )
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "quick_qs_tile_min_num",
+                                            "2"
                                         )
                                     )
                                     add(
@@ -295,11 +373,76 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                             "20"
                                         )
                                     )
+                                } else {
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_qs_panel_max_columns",
+                                            prefs.headerCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_qs_panel_max_columns_fold",
+                                            prefs.headerCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_qs_panel_max_columns_tablet",
+                                            prefs.headerCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_qs_panel_max_columns_fold_sub",
+                                            prefs.headerCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows",
+                                            prefs.qsRowCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows_tablet",
+                                            prefs.qsRowCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows_fold",
+                                            prefs.qsRowCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                            "integer",
+                                            "sec_quick_settings_max_rows_fold_sub",
+                                            prefs.qsRowCountLandscape.toString()
+                                        )
+                                    )
                                 }
                             }
                         )
                     )
                 )
+
                 add(
                     ResourceFileData(
                         "dimens.xml",

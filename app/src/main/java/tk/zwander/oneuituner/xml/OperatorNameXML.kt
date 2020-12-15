@@ -1,6 +1,7 @@
 package tk.zwander.oneuituner.xml
 
 import android.content.Context
+import android.os.Build
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import tk.zwander.oneuituner.util.importElement
@@ -18,7 +19,7 @@ object OperatorNameXML {
                 .createElement("com.android.systemui.statusbar.AlphaOptimizedFrameLayout")
                 .apply {
                     setAttribute("xmlns:android", "http://schemas.android.com/apk/res/android")
-                    setAttribute("android:id", "@*com.android.systemui:id/operator_name_frame")
+                    setAttribute("android:id", "@${if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) "+" else "*com.android.systemui:"}id/operator_name_frame")
                     setAttribute("android:layout_width", if (hide) "0dp" else "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
                 }
@@ -32,7 +33,7 @@ object OperatorNameXML {
                 .newDocument()
                 .createElement("com.android.systemui.statusbar.OperatorNameView")
                 .apply {
-                    setAttribute("android:id", "@*com.android.systemui:id/operator_name")
+                    setAttribute("android:id", "@${if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) "+" else "*com.android.systemui:"}id/operator_name")
                     setAttribute("android:layout_width", "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:gravity", "left|center_vertical|center_horizontal|center|start")
