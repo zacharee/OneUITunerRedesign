@@ -31,6 +31,9 @@ import tk.zwander.oneuituner.util.*
 import tk.zwander.unblacklister.disableApiBlacklist
 import java.io.File
 import java.net.URLConnection
+import java.nio.file.CopyOption
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
     companion object {
@@ -162,6 +165,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                             .setCancelable(false)
                             .show()
                     }
+                }
+
+                it.forEach {
+                    Files.copy(it.toPath(), File(externalMediaDirs[0], it.name).toPath(), StandardCopyOption.REPLACE_EXISTING)
                 }
             }
         }

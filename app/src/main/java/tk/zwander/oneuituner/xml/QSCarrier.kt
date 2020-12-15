@@ -19,7 +19,7 @@ object QSCarrier {
                 .createElement("com.android.systemui.qs.QSCarrier")
                 .apply {
                     setAttribute("xmlns:android", "http://schemas.android.com/apk/res/android")
-                    setAttribute("android:id", "@*com.android.systemui:id/linear_carrier")
+                    setAttribute("android:id", "@+id/linear_carrier")
                     setAttribute("android:layout_width", "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:background", "@android:color/transparent")
@@ -41,10 +41,10 @@ object QSCarrier {
                 .newDocument()
                 .createElement("include")
                 .apply {
-                    setAttribute("layout", "@*com.android.systemui:layout/mobile_signal_group")
+                    setAttribute("layout", "@layout/mobile_signal_group")
                     setAttribute("android:layout_width", "wrap_content")
                     setAttribute("android:layout_height", "wrap_content")
-                    setAttribute("android:layout_marginEnd", "@*com.android.systemui:dimen/qs_carrier_margin_width")
+                    setAttribute("android:layout_marginEnd", "@dimen/qs_carrier_margin_width")
                     setAttribute("android:visibility", "gone")
                 }
         )
@@ -57,14 +57,14 @@ object QSCarrier {
                 .newDocument()
                 .createElement("com.android.systemui.util.AutoMarqueeTextView")
                 .apply {
-                    setAttribute("android:id", "@*com.android.systemui:id/qs_carrier_text")
+                    setAttribute("android:id", "@+id/qs_carrier_text")
                     setAttribute("android:layout_width", if (isHidden) "0dp" else "wrap_content")
                     setAttribute("android:layout_height", "wrap_content")
                     if (!isHidden) setAttribute("android:layout_weight", "1")
                     setAttribute("android:marqueeRepeatLimit", "marquee_forever")
                     setAttribute("android:maxEms", "7")
                     setAttribute("android:singleLine", "true")
-                    setAttribute("android:textAppearance", "@*com.android.systemui:style/TextAppearance.QS.Status")
+                    setAttribute("android:textAppearance", "@style/TextAppearance.QS.Status")
                     setAttribute("android:textDirection", "locale")
                 }
         )

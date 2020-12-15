@@ -49,7 +49,7 @@ object StatusBarXML {
                 setAttribute("android:gravity", "center")
                 setAttribute("android:singleLine", "true")
                 setAttribute("android:tag", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "status_bar_clock" else "@*com.android.systemui:string/qs_clock_tag_home_indicator")
-                setAttribute("android:textAppearance", "@*com.android.systemui:style/TextAppearance.StatusBar.Clock")
+                setAttribute("android:textAppearance", "@style/TextAppearance.StatusBar.Clock")
             }, true)
     }
 
@@ -60,13 +60,13 @@ object StatusBarXML {
             .createElement("com.android.systemui.statusbar.policy.Clock")
             .apply {
                 setAttribute("android:gravity", "center")
-                setAttribute("android:id", if (defaultID) "@*com.android.systemui:id/clock" else "@+id/clock_aosp")
+                setAttribute("android:id", if (defaultID) "@+id/clock" else "@+id/clock_aosp")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:layout_width", "wrap_content")
                 setAttribute("android:minWidth", "10dp")
                 setAttribute("android:singleLine", "true")
-                setAttribute("android:tag", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "status_bar_clock" else "@*com.android.systemui:string/qs_clock_tag_home_indicator")
-                setAttribute("android:textAppearance", "@*com.android.systemui:style/TextAppearance.StatusBar.Clock")
+                setAttribute("android:tag", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "status_bar_clock" else "@string/qs_clock_tag_home_indicator")
+                setAttribute("android:textAppearance", "@style/TextAppearance.StatusBar.Clock")
             }, true)
     }
 
@@ -77,13 +77,13 @@ object StatusBarXML {
             .createElement("TextClock")
             .apply {
                 setAttribute("android:gravity", "center")
-                setAttribute("android:id", if (defaultID) "@*com.android.systemui:id/clock" else "@+id/clock_custom")
+                setAttribute("android:id", if (defaultID) "@+id/clock" else "@+id/clock_custom")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:layout_width", "wrap_content")
                 setAttribute("android:minWidth", "10dp")
                 setAttribute("android:singleLine", "true")
-                setAttribute("android:tag", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "status_bar_clock" else "@*com.android.systemui:string/qs_clock_tag_home_indicator")
-                setAttribute("android:textAppearance", "@*com.android.systemui:style/TextAppearance.StatusBar.Clock")
+                setAttribute("android:tag", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "status_bar_clock" else "@string/qs_clock_tag_home_indicator")
+                setAttribute("android:textAppearance", "@style/TextAppearance.StatusBar.Clock")
                 setAttribute("android:format12Hour", format)
                 setAttribute("android:format24Hour", format)
                 setAttribute("android:shadowColor", "#7f000000")
@@ -100,11 +100,11 @@ object StatusBarXML {
             .createElement("com.android.systemui.statusbar.phone.PhoneStatusBarView")
             .apply {
                 setAttribute("xmlns:android", "http://schemas.android.com/apk/res/android")
-                setAttribute("android:id", "@*com.android.systemui:id/status_bar")
+                setAttribute("android:id", "@+id/status_bar")
                 setAttribute("android:layout_width", "match_parent")
-                setAttribute("android:layout_height", "@*com.android.systemui:dimen/status_bar_height")
-                setAttribute("android:accessibilityPaneTitle", "@*com.android.systemui:string/status_bar")
-                setAttribute("android:background", "@*com.android.systemui:drawable/system_bar_background")
+                setAttribute("android:layout_height", "@*android:dimen/status_bar_height")
+                setAttribute("android:accessibilityPaneTitle", "@string/status_bar")
+                setAttribute("android:background", "@drawable/system_bar_background")
                 setAttribute("android:descendantFocusability", "afterDescendants")
                 setAttribute("android:focusable", "false")
                 setAttribute("android:orientation", "vertical")
@@ -121,7 +121,7 @@ object StatusBarXML {
                 .newDocument()
                 .createElement("FrameLayout")
                 .apply {
-                    setAttribute("android:id", "@*com.android.systemui:id/${if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "background" else "phone_status_bar_background"}")
+                    setAttribute("android:id", "@+id/${if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "background" else "phone_status_bar_background"}")
                     setAttribute("android:layout_width", "match_parent")
                     setAttribute("android:layout_height", "match_parent")
                 }, true)
@@ -133,7 +133,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("com.android.systemui.statusbar.AlphaOptimizedFrameLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/notification_icon_area")
+                setAttribute("android:id", "@+id/notification_icon_area")
                 setAttribute("android:layout_width", "0dp")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:layout_weight", "1")
@@ -147,7 +147,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("LinearLayout")
             .apply {
-                setAttribute("android:id", if (fakeID != null) "@+id/$fakeID" else "@*com.android.systemui:id/middle_clock_container")
+                setAttribute("android:id", if (fakeID != null) "@+id/$fakeID" else "@+id/middle_clock_container")
                 setAttribute("android:layout_width", if (zeroWidth) "0dp" else "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:layout_gravity", "center")
@@ -156,8 +156,8 @@ object StatusBarXML {
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
                     if (!zeroWidth) {
-                        setAttribute("android:layout_marginStart", "@*com.android.systemui:dimen/status_bar_left_clock_end_padding")
-                        setAttribute("android:layout_marginEnd", "@*com.android.systemui:dimen/status_bar_left_clock_end_padding")
+                        setAttribute("android:layout_marginStart", "@dimen/status_bar_left_clock_end_padding")
+                        setAttribute("android:layout_marginEnd", "@dimen/status_bar_left_clock_end_padding")
                     }
                     if (isGone) setAttribute("android:visibility", "gone")
                 }
@@ -170,7 +170,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("FrameLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/status_bar_area")
+                setAttribute("android:id", "@+id/status_bar_area")
                 setAttribute("android:layout_width", "match_parent")
                 setAttribute("android:layout_height", "match_parent")
             }, true)
@@ -182,13 +182,13 @@ object StatusBarXML {
             .newDocument()
             .createElement("ImageView")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/notification_lights_out")
-                setAttribute("android:layout_width", "@*com.android.systemui:dimen/status_bar_icon_size")
+                setAttribute("android:id", "@+id/notification_lights_out")
+                setAttribute("android:layout_width", "@dimen/status_bar_icon_size")
                 setAttribute("android:layout_height", "match_parent")
-                setAttribute("android:paddingLeft", "@*com.android.systemui:dimen/status_bar_padding_start")
+                setAttribute("android:paddingLeft", "@dimen/status_bar_padding_start")
                 setAttribute("android:paddingBottom", "2dp")
                 setAttribute("android:scaleType", "center")
-                setAttribute("android:src", "@*com.android.systemui:drawable/ic_sysbar_lights_out_dot_small")
+                setAttribute("android:src", "@drawable/ic_sysbar_lights_out_dot_small")
                 setAttribute("android:visibility", "gone")
             }, true)
     }
@@ -199,15 +199,15 @@ object StatusBarXML {
             .newDocument()
             .createElement(if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "LinearLayout" else "RelativeLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/status_bar_contents")
+                setAttribute("android:id", "@+id/status_bar_contents")
                 setAttribute("android:layout_width", "match_parent")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:orientation", "horizontal")
-                setAttribute("android:paddingStart", "@*com.android.systemui:dimen/status_bar_padding_start")
-                setAttribute("android:paddingEnd", "@*com.android.systemui:dimen/status_bar_padding_end")
+                setAttribute("android:paddingStart", "@dimen/status_bar_padding_start")
+                setAttribute("android:paddingEnd", "@dimen/status_bar_padding_end")
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                    setAttribute("android:paddingTop", "@*com.android.systemui:dimen/status_bar_padding_top")
+                    setAttribute("android:paddingTop", "@dimen/status_bar_padding_top")
                 }
             }, true)
     }
@@ -218,10 +218,10 @@ object StatusBarXML {
             .newDocument()
             .createElement("ViewStub")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/operator_name")
+                setAttribute("android:id", "@+id/operator_name")
                 setAttribute("android:layout_width", if (hide) "0dp" else "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
-                setAttribute("android:layout", "@*com.android.systemui:layout/operator_name")
+                setAttribute("android:layout", "@layout/operator_name")
             }, true)
     }
 
@@ -231,7 +231,7 @@ object StatusBarXML {
             .newDocument()
             .createElement(if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "FrameLayout" else "com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthFrameLayout")
             .apply {
-                setAttribute("android:id", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "@+id/status_bar_left_side_container" else "@*com.android.systemui:id/status_bar_left_side_container")
+                setAttribute("android:id", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "@+id/status_bar_left_side_container" else "@+id/status_bar_left_side_container")
                 setAttribute("android:layout_width", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "0dp" else "match_parent")
                 setAttribute("android:layout_height", "match_parent")
 
@@ -247,7 +247,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("include")
             .apply {
-                setAttribute("layout", "@*com.android.systemui:layout/heads_up_status_bar_layout")
+                setAttribute("layout", "@layout/heads_up_status_bar_layout")
             }, true)
     }
 
@@ -257,7 +257,7 @@ object StatusBarXML {
             .newDocument()
             .createElement(if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "LinearLayout" else "com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/status_bar_left_side")
+                setAttribute("android:id", "@+id/status_bar_left_side")
                 setAttribute("android:layout_width", "match_parent")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:clipChildren", "false")
@@ -275,15 +275,15 @@ object StatusBarXML {
             .newDocument()
             .createElement("LinearLayout")
             .apply {
-                setAttribute("android:id", if (fakeID != null) "@+id/$fakeID" else "@*com.android.systemui:id/left_clock_container")
+                setAttribute("android:id", if (fakeID != null) "@+id/$fakeID" else "@+id/left_clock_container")
                 setAttribute("android:layout_width", if (zeroWidth) "0dp" else "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:gravity", if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "center_vertical" else "center")
                 setAttribute("android:orientation", "horizontal")
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                    setAttribute("android:layout_marginStart", "@*com.android.systemui:dimen/status_bar_left_clock_starting_padding")
-                    setAttribute("android:layout_marginEnd", "@*com.android.systemui:dimen/status_bar_left_clock_end_padding")
+                    setAttribute("android:layout_marginStart", "@dimen/status_bar_left_clock_starting_padding")
+                    setAttribute("android:layout_marginEnd", "@dimen/status_bar_left_clock_end_padding")
                     if (isGone) setAttribute("android:visibility", "gone")
                 }
             }, true)
@@ -295,7 +295,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("LinearLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/home_carrier_information_container")
+                setAttribute("android:id", "@+id/home_carrier_information_container")
                 setAttribute("android:layout_width", if (hide) "0dp" else "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:gravity", "center")
@@ -309,7 +309,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("LinearLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/network_logo_image_container")
+                setAttribute("android:id", "@+id/network_logo_image_container")
                 setAttribute("android:layout_width", if (isHidden) "0dp" else "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:gravity", "center")
@@ -323,7 +323,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("android.widget.Space")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/cutout_space_view")
+                setAttribute("android:id", "@+id/cutout_space_view")
                 setAttribute("android:layout_width", "0dp")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:gravity", "center")
@@ -336,7 +336,7 @@ object StatusBarXML {
             .newDocument()
             .createElement(if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) "com.android.keyguard.AlphaOptimizedLinearLayout" else "com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/system_icon_area")
+                setAttribute("android:id", "@+id/system_icon_area")
                 setAttribute("android:layout_width", "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:gravity", "right|center_vertical|center_horizontal|center|end")
@@ -350,10 +350,10 @@ object StatusBarXML {
             .newDocument()
             .createElement("ViewStub")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/qs_knox_custom_statusbar_viewstub")
+                setAttribute("android:id", "@+id/qs_knox_custom_statusbar_viewstub")
                 setAttribute("android:layout_width", "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
-                setAttribute("android:layout", "@*com.android.systemui:layout/${if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) "sec_qs_knox_custom_statusbar_text" else "qs_knox_custom_statusbar_text"}")
+                setAttribute("android:layout", "@layout/${if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) "sec_qs_knox_custom_statusbar_text" else "qs_knox_custom_statusbar_text"}")
             }, true)
     }
 
@@ -363,7 +363,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("include")
             .apply {
-                setAttribute("layout", "@*com.android.systemui:layout/system_icons")
+                setAttribute("layout", "@layout/system_icons")
             })
     }
 
@@ -373,14 +373,14 @@ object StatusBarXML {
             .newDocument()
             .createElement("LinearLayout")
             .apply {
-                setAttribute("android:id", if (fakeID != null) "@+id/$fakeID" else "@*com.android.systemui:id/right_clock_container")
+                setAttribute("android:id", if (fakeID != null) "@+id/$fakeID" else "@+id/right_clock_container")
                 setAttribute("android:layout_width", if (zeroWidth) "0dp" else "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:gravity", "center")
                 setAttribute("android:orientation", "horizontal")
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                    if (!zeroWidth) setAttribute("android:layout_marginStart", "@*com.android.systemui:dimen/status_bar_left_clock_end_padding")
+                    if (!zeroWidth) setAttribute("android:layout_marginStart", "@+dimen/status_bar_left_clock_end_padding")
                     if (isGone) setAttribute("android:visibility", "gone")
                 }
             }, true)
@@ -392,10 +392,10 @@ object StatusBarXML {
             .newDocument()
             .createElement("ViewStub")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/emergency_cryptkeeper_text")
+                setAttribute("android:id", "@+id/emergency_cryptkeeper_text")
                 setAttribute("android:layout_width", "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
-                setAttribute("android:layout", "@*com.android.systemui:layout/emergency_cryptkeeper_text")
+                setAttribute("android:layout", "@layout/emergency_cryptkeeper_text")
             }, true)
     }
 
@@ -405,7 +405,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/status_bar_center_side")
+                setAttribute("android:id", "@+id/status_bar_center_side")
                 setAttribute("android:layout_width", "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:layout_centerInParent", "true")
@@ -439,7 +439,7 @@ object StatusBarXML {
             .newDocument()
             .createElement("com.android.systemui.statusbar.AlphaOptimizedFrameLayout")
             .apply {
-                setAttribute("android:id", "@*com.android.systemui:id/centered_icon_area")
+                setAttribute("android:id", "@+id/centered_icon_area")
                 setAttribute("android:layout_width", "wrap_content")
                 setAttribute("android:layout_height", "match_parent")
                 setAttribute("android:clipChildren", "false")
