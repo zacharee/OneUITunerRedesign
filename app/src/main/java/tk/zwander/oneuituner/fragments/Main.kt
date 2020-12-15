@@ -2,6 +2,7 @@ package tk.zwander.oneuituner.fragments
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
@@ -23,7 +24,7 @@ class Main : Base() {
                 Preference.OnPreferenceChangeListener { pref, newValue ->
                     val enabled = newValue.toString().toBoolean()
 
-                    if (enabled && !context!!.isSynergyInstalled) {
+                    if (enabled && !requireContext().isSynergyInstalled) {
                         mainHandler.post {
                             (pref as SwitchPreference).isChecked = false
                         }
@@ -32,6 +33,12 @@ class Main : Base() {
                     }
                     true
                 }
+        }
+
+        with(findPreference<SwitchPreference>(Keys.clock)!!) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+                isEnabled = false
+            }
         }
     }
 

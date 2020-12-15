@@ -36,6 +36,6 @@ class Clock : Base() {
     }
 
     private fun updateFormatVisibility(newValue: String) {
-        clockFormat.isVisible = newValue == context!!.prefs.clockTypeCustom
+        clockFormat.isVisible = newValue == requireContext().prefs.clockTypeCustom
     }
 }
