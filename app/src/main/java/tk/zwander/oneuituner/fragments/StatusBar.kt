@@ -14,7 +14,6 @@ class StatusBar : Base() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             findPreference<SwitchPreference>("left_system_icons")?.isEnabled = false
             findPreference<SwitchPreference>("hide_status_bar_carrier")?.isEnabled = false
-
         }
     }
 }

@@ -11,7 +11,7 @@ import tk.zwander.oneuituner.xml.OperatorNameXML.createOperatorNameView
 import javax.xml.parsers.DocumentBuilderFactory
 
 object OperatorNameXML {
-    fun Document.createOperatorNameRoot(hide: Boolean = false): Element {
+    fun Document.createOperatorNameRoot(): Element {
         return importElement(
             DocumentBuilderFactory.newInstance()
                 .newDocumentBuilder()
@@ -20,13 +20,13 @@ object OperatorNameXML {
                 .apply {
                     setAttribute("xmlns:android", "http://schemas.android.com/apk/res/android")
                     setAttribute("android:id", "@${if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) "+" else "*com.android.systemui:"}id/operator_name_frame")
-                    setAttribute("android:layout_width", if (hide) "0dp" else "wrap_content")
+                    setAttribute("android:layout_width", "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
                 }
         )
     }
 
-    fun Document.createOperatorNameView(): Element {
+    fun Document.createOperatorNameView(hide: Boolean): Element {
         return importElement(
             DocumentBuilderFactory.newInstance()
                 .newDocumentBuilder()
@@ -34,7 +34,7 @@ object OperatorNameXML {
                 .createElement("com.android.systemui.statusbar.OperatorNameView")
                 .apply {
                     setAttribute("android:id", "@${if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) "+" else "*com.android.systemui:"}id/operator_name")
-                    setAttribute("android:layout_width", "wrap_content")
+                    setAttribute("android:layout_width", if (hide) "0dp" else "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:gravity", "left|center_vertical|center_horizontal|center|start")
                     setAttribute("android:maxLength", "20")
@@ -51,8 +51,8 @@ fun Context.makeOperatorName(): Document {
         .newDocumentBuilder()
         .newDocument()
         .apply {
-            appendChild(createOperatorNameRoot(prefs.hideStatusBarCarrier)).apply {
-                appendChild(createOperatorNameView())
+            appendChild(createOperatorNameRoot()).apply {
+                appendChild(createOperatorNameView(prefs.hideStatusBarCarrier))
             }
         }
 }

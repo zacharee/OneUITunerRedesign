@@ -167,135 +167,139 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                         "values",
                         makeResourceXml(
                             arrayListOf<ResourceData>().apply {
-                                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "quick_qs_tile_num",
-                                            prefs.headerCountPortrait.toString()
+                                when {
+                                    Build.VERSION.SDK_INT <= Build.VERSION_CODES.P -> {
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "quick_qs_tile_num",
+                                                prefs.headerCountPortrait.toString()
+                                            )
                                         )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "quick_qs_tile_min_num",
-                                            "2"
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "quick_qs_tile_min_num",
+                                                "2"
+                                            )
                                         )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "qspanel_screen_grid_columns_5",
-                                            prefs.qsColCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "qspanel_screen_grid_columns_5",
+                                                prefs.qsColCountPortrait.toString()
+                                            )
                                         )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "qspanel_screen_grid_rows",
-                                            prefs.qsRowCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "qspanel_screen_grid_rows",
+                                                prefs.qsRowCountPortrait.toString()
+                                            )
                                         )
-                                    )
-                                } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "quick_qs_panel_max_columns",
-                                            prefs.headerCountPortrait.toString()
+                                    }
+                                    Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q -> {
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "quick_qs_panel_max_columns",
+                                                prefs.headerCountPortrait.toString()
+                                            )
                                         )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "quick_qs_tile_min_num",
-                                            "2"
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "quick_qs_tile_min_num",
+                                                "2"
+                                            )
                                         )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_columns",
-                                            "20"
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_max_columns",
+                                                "20"
+                                            )
                                         )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_num_columns",
-                                            "20"
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_num_columns",
+                                                "20"
+                                            )
                                         )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows",
-                                            "20"
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_max_rows",
+                                                "20"
+                                            )
                                         )
-                                    )
-                                } else {
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_qs_panel_max_columns",
-                                            prefs.headerCountPortrait.toString()
+                                    }
+                                    else -> {
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_qs_panel_max_columns",
+                                                prefs.headerCountPortrait.toString()
+                                            )
                                         )
-                                    )
 
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_qs_panel_max_columns_fold",
-                                            prefs.headerCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_qs_panel_max_columns_fold",
+                                                prefs.headerCountPortrait.toString()
+                                            )
                                         )
-                                    )
 
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_qs_panel_max_columns_tablet",
-                                            prefs.headerCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_qs_panel_max_columns_tablet",
+                                                prefs.headerCountPortrait.toString()
+                                            )
                                         )
-                                    )
 
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_qs_panel_max_columns_fold_sub",
-                                            prefs.headerCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_qs_panel_max_columns_fold_sub",
+                                                prefs.headerCountPortrait.toString()
+                                            )
                                         )
-                                    )
 
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows",
-                                            prefs.qsRowCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_max_rows",
+                                                prefs.qsRowCountPortrait.toString()
+                                            )
                                         )
-                                    )
 
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows_tablet",
-                                            prefs.qsRowCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_max_rows_tablet",
+                                                prefs.qsRowCountPortrait.toString()
+                                            )
                                         )
-                                    )
 
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows_fold",
-                                            prefs.qsRowCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_max_rows_fold",
+                                                prefs.qsRowCountPortrait.toString()
+                                            )
                                         )
-                                    )
 
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows_fold_sub",
-                                            prefs.qsRowCountPortrait.toString()
+                                        add(
+                                            ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_max_rows_fold_sub",
+                                                prefs.qsRowCountPortrait.toString()
+                                            )
                                         )
-                                    )
+                                    }
                                 }
                             }
                         )
