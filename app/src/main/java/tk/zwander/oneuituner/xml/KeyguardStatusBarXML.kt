@@ -31,11 +31,11 @@ object KeyguardStatusBarXML {
                 .apply {
                     setAttribute("xmlns:android", "http://schemas.android.com/apk/res/android")
                     setAttribute("xmlns:systemui", "http://schemas.android.com/apk/res/com.android.systemui")
-                    setAttribute("android:id", "@+id/keyguard_header")
+                    setAttribute("android:id", "@*com.android.systemui:id/keyguard_header")
                     setAttribute("android:layout_width", "match_parent")
                     setAttribute(
                         "android:layout_height",
-                        "@dimen/status_bar_header_height_keyguard"
+                        "@*com.android.systemui:dimen/status_bar_header_height_keyguard"
                     )
                     setAttribute("android:baselineAligned", "false")
                 }
@@ -49,7 +49,7 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .createElement("RelativeLayout")
                 .apply {
-                    setAttribute("android:id", "@+id/keyguard_status_bar_area")
+                    setAttribute("android:id", "@*com.android.systemui:id/keyguard_status_bar_area")
                     setAttribute("android:layout_width", "match_parent")
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:gravity", "center_vertical")
@@ -64,7 +64,7 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .createElement(if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) "com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout" else "LinearLayout")
                 .apply {
-                    setAttribute("android:id", "@+id/status_icon_area")
+                    setAttribute("android:id", "@*com.android.systemui:id/status_icon_area")
                     setAttribute("android:layout_width", "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:layout_alignParentEnd", "true")
@@ -80,10 +80,10 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .createElement("FrameLayout")
                 .apply {
-                    setAttribute("android:id", "@+id/system_icons_container")
+                    setAttribute("android:id", "@*com.android.systemui:id/system_icons_container")
                     setAttribute("android:layout_width", if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) "0dp" else "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
-                    setAttribute("android:layout_marginStart", "@dimen/system_icons_super_container_margin_start")
+                    setAttribute("android:layout_marginStart", "@*com.android.systemui:dimen/system_icons_super_container_margin_start")
                     setAttribute("android:gravity", "right|center_vertical|center_horizontal|center|end")
 
                     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
@@ -104,11 +104,11 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .createElement("com.android.systemui.statusbar.phone.MultiUserSwitch")
                 .apply {
-                    setAttribute("android:id", "@+id/multi_user_switch")
-                    setAttribute("android:layout_width", "@dimen/multi_user_switch_width_keyguard")
+                    setAttribute("android:id", "@*com.android.systemui:id/multi_user_switch")
+                    setAttribute("android:layout_width", "@*com.android.systemui:dimen/multi_user_switch_width_keyguard")
                     setAttribute("android:layout_height", "match_parent")
-                    setAttribute("android:layout_marginEnd", "@dimen/multi_user_switch_keyguard_margin")
-                    setAttribute("android:background", "@drawable/ripple_drawable")
+                    setAttribute("android:layout_marginEnd", "@*com.android.systemui:dimen/multi_user_switch_keyguard_margin")
+                    setAttribute("android:background", "@*com.android.systemui:drawable/ripple_drawable")
                 }
         )
     }
@@ -120,9 +120,9 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .createElement("ImageView")
                 .apply {
-                    setAttribute("android:id", "@+id/multi_user_avatar")
-                    setAttribute("android:layout_width", "@dimen/multi_user_avatar_keyguard_size")
-                    setAttribute("android:layout_height", "@dimen/multi_user_avatar_keyguard_size")
+                    setAttribute("android:id", "@*com.android.systemui:id/multi_user_avatar")
+                    setAttribute("android:layout_width", "@*com.android.systemui:dimen/multi_user_avatar_keyguard_size")
+                    setAttribute("android:layout_height", "@*com.android.systemui:dimen/multi_user_avatar_keyguard_size")
                     setAttribute("android:layout_gravity", "center")
                     setAttribute("android:scaleType", "centerInside")
                 }
@@ -136,7 +136,7 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .createElement("com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthRelativeLayout")
                 .apply {
-                    setAttribute("android:id", "@+id/keyguard_left_side_container")
+                    setAttribute("android:id", "@*com.android.systemui:id/keyguard_left_side_container")
                     setAttribute("android:layout_width", "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:layout_alignParentStart", "true")
@@ -152,7 +152,7 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .createElement(if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) "com.android.systemui.statusbar.phone.IndicatorGardenMaxWidthLinearLayout" else "LinearLayout")
                 .apply {
-                    setAttribute("android:id", "@+id/keyguard_network_information_container")
+                    setAttribute("android:id", "@*com.android.systemui:id/keyguard_network_information_container")
                     setAttribute("android:layout_width", if (isVisibile) "wrap_content" else "0dp")
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:layout_alignParentStart", "true")
@@ -163,7 +163,7 @@ object KeyguardStatusBarXML {
 
                     when {
                         Build.VERSION.SDK_INT > Build.VERSION_CODES.Q -> {
-                            setAttribute("android:paddingEnd", "@dimen/status_carrierinfo_margin_side")
+                            setAttribute("android:paddingEnd", "@*com.android.systemui:dimen/status_carrierinfo_margin_side")
                         }
                         Build.VERSION.SDK_INT > Build.VERSION_CODES.P -> {
                             setAttribute("android:paddingEnd", "@*com.android.systemui:dimen/carrier_information_margin_side")
@@ -184,7 +184,7 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .createElement(if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) "com.android.keyguard.CarrierText" else "com.android.systemui.simpleindicator.SimpleIndicatorCarrierText")
                 .apply {
-                    setAttribute("android:id", "@+id/keyguard_carrier_text")
+                    setAttribute("android:id", "@*com.android.systemui:id/keyguard_carrier_text")
                     setAttribute("android:layout_width", "wrap_content")
                     setAttribute("android:layout_height", "match_parent")
                     setAttribute("android:ellipsize", "marquee")
@@ -201,7 +201,7 @@ object KeyguardStatusBarXML {
                     if (!isVisibile) setAttribute("android:visibility", "gone")
 
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                        setAttribute("android:textAppearance", "@style/TextAppearance.StatusBar.Clock")
+                        setAttribute("android:textAppearance", "@*com.android.systemui:style/TextAppearance.StatusBar.Clock")
 //                    setAttribute("systemui:showAirplaneMode", "true")
 //                    setAttribute("systemui:showMissingSim", "true")
                     } else {
@@ -253,10 +253,10 @@ object KeyguardStatusBarXML {
                 .newDocument()
                 .run {
                     createElement("com.android.systemui.statusbar.phone.StatusIconDividedContainer").apply {
-                        setAttribute("android:id", "@+id/divided_statusIcons")
+                        setAttribute("android:id", "@*com.android.systemui:id/divided_statusIcons")
                         setAttribute("android:layout_width", "wrap_content")
                         setAttribute("android:layout_height", "match_parent")
-                        setAttribute("android:layout_toStartOf", "@id/status_icon_area")
+                        setAttribute("android:layout_toStartOf", "@*com.android.systemui:id/status_icon_area")
                         setAttribute("android:gravity", "center_vertical")
                         setAttribute("android:orientation", "horizontal")
                     }
