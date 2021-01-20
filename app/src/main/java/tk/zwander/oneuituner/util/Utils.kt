@@ -299,6 +299,54 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                                 prefs.qsRowCountPortrait.toString()
                                             )
                                         )
+
+                                        add(
+                                            ResourceData(
+                                                    "integer",
+                                                    "quick_settings_num_columns",
+                                                    prefs.qsColCountPortrait.toString()
+                                            )
+                                        )
+
+                                        add(
+                                            ResourceData(
+                                                    "integer",
+                                                    "sec_quick_settings_num_columns",
+                                                    prefs.qsColCountPortrait.toString()
+                                            )
+                                        )
+
+                                        add(
+                                            ResourceData(
+                                                    "integer",
+                                                    "sec_quick_settings_num_columns_tablet",
+                                                    prefs.qsColCountPortrait.toString()
+                                            )
+                                        )
+
+                                        add(
+                                            ResourceData(
+                                                    "integer",
+                                                    "sec_quick_settings_num_columns_power_saving",
+                                                    prefs.qsColCountPortrait.toString()
+                                            )
+                                        )
+
+                                        add(
+                                            ResourceData(
+                                                    "integer",
+                                                    "sec_quick_settings_num_columns_fold",
+                                                    prefs.qsColCountPortrait.toString()
+                                            )
+                                        )
+
+                                        add(
+                                            ResourceData(
+                                                    "integer",
+                                                    "sec_quick_settings_num_columns_fold_sub",
+                                                    prefs.qsColCountPortrait.toString()
+                                            )
+                                        )
                                     }
                                 }
                             }
@@ -439,6 +487,54 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                             "integer",
                                             "sec_quick_settings_max_rows_fold_sub",
                                             prefs.qsRowCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                                "integer",
+                                                "quick_settings_num_columns",
+                                                prefs.qsColCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_num_columns",
+                                                prefs.qsColCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_num_columns_tablet",
+                                                prefs.qsColCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_num_columns_power_saving",
+                                                prefs.qsColCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_num_columns_fold",
+                                                prefs.qsColCountLandscape.toString()
+                                        )
+                                    )
+
+                                    add(
+                                        ResourceData(
+                                                "integer",
+                                                "sec_quick_settings_num_columns_fold_sub",
+                                                prefs.qsColCountLandscape.toString()
                                         )
                                     )
                                 }
