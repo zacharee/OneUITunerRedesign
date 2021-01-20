@@ -35,7 +35,7 @@ class Main : Base() {
                 }
         }
 
-        with(findPreference<SwitchPreference>(Keys.clock)!!) {
+        with(findPreference<Preference>(Keys.clock)!!) {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
                 isEnabled = false
             }
