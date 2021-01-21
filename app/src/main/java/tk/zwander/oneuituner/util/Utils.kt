@@ -36,6 +36,12 @@ import org.w3c.dom.Element
 import tk.zwander.oneuituner.BuildConfig
 import tk.zwander.oneuituner.MainActivity
 import tk.zwander.oneuituner.R
+import tk.zwander.oneuituner.util.values.dimens.*
+import tk.zwander.oneuituner.util.values.integers.*
+import tk.zwander.oneuituner.util.values.strings.make372CommonStrings
+import tk.zwander.oneuituner.util.values.strings.make600CommonStrings
+import tk.zwander.oneuituner.util.values.strings.make900CommonStrings
+import tk.zwander.oneuituner.util.values.strings.makeDefaultCommonStrings
 import tk.zwander.oneuituner.xml.*
 import tk.zwander.overlaylib.*
 import java.io.*
@@ -161,558 +167,29 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                     )
                 )
 
-                add(
-                    ResourceFileData(
-                        "integers.xml",
-                        "values",
-                        makeResourceXml(
-                            arrayListOf<ResourceData>().apply {
-                                when {
-                                    Build.VERSION.SDK_INT <= Build.VERSION_CODES.P -> {
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "quick_qs_tile_num",
-                                                prefs.headerCountPortrait.toString()
-                                            )
-                                        )
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "quick_qs_tile_min_num",
-                                                "2"
-                                            )
-                                        )
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "qspanel_screen_grid_columns_5",
-                                                prefs.qsColCountPortrait.toString()
-                                            )
-                                        )
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "qspanel_screen_grid_rows",
-                                                prefs.qsRowCountPortrait.toString()
-                                            )
-                                        )
-                                    }
-                                    Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q -> {
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "quick_qs_panel_max_columns",
-                                                prefs.headerCountPortrait.toString()
-                                            )
-                                        )
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "quick_qs_tile_min_num",
-                                                "2"
-                                            )
-                                        )
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_max_columns",
-                                                "20"
-                                            )
-                                        )
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_num_columns",
-                                                "20"
-                                            )
-                                        )
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_max_rows",
-                                                "20"
-                                            )
-                                        )
-                                    }
-                                    else -> {
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_qs_panel_max_columns",
-                                                prefs.headerCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_qs_panel_max_columns_fold",
-                                                prefs.headerCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_qs_panel_max_columns_tablet",
-                                                prefs.headerCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_qs_panel_max_columns_fold_sub",
-                                                prefs.headerCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_max_rows",
-                                                prefs.qsRowCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_max_rows_tablet",
-                                                prefs.qsRowCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_max_rows_fold",
-                                                prefs.qsRowCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_max_rows_fold_sub",
-                                                prefs.qsRowCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                    "integer",
-                                                    "quick_settings_num_columns",
-                                                    prefs.qsColCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                    "integer",
-                                                    "sec_quick_settings_num_columns",
-                                                    prefs.qsColCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                    "integer",
-                                                    "sec_quick_settings_num_columns_tablet",
-                                                    prefs.qsColCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                    "integer",
-                                                    "sec_quick_settings_num_columns_power_saving",
-                                                    prefs.qsColCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                    "integer",
-                                                    "sec_quick_settings_num_columns_fold",
-                                                    prefs.qsColCountPortrait.toString()
-                                            )
-                                        )
-
-                                        add(
-                                            ResourceData(
-                                                    "integer",
-                                                    "sec_quick_settings_num_columns_fold_sub",
-                                                    prefs.qsColCountPortrait.toString()
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        )
-                    )
-                )
-
-                add(
-                    ResourceFileData(
-                        "integers.xml",
-                        "values-land",
-                        makeResourceXml(
-                            arrayListOf<ResourceData>().apply {
-                                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "quick_qs_tile_num",
-                                            prefs.headerCountLandscape.toString()
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "quick_qs_tile_min_num",
-                                            "2"
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "qspanel_screen_grid_columns_5",
-                                            prefs.qsColCountLandscape.toString()
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "qspanel_screen_grid_rows",
-                                            prefs.qsColCountLandscape.toString()
-                                        )
-                                    )
-                                } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "quick_qs_panel_max_columns",
-                                            prefs.headerCountLandscape.toString()
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "quick_qs_tile_min_num",
-                                            "2"
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_columns",
-                                            "20"
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_num_columns",
-                                            "20"
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows",
-                                            "20"
-                                        )
-                                    )
-                                } else {
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_qs_panel_max_columns",
-                                            prefs.headerCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_qs_panel_max_columns_fold",
-                                            prefs.headerCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_qs_panel_max_columns_tablet",
-                                            prefs.headerCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_qs_panel_max_columns_fold_sub",
-                                            prefs.headerCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows",
-                                            prefs.qsRowCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows_tablet",
-                                            prefs.qsRowCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows_fold",
-                                            prefs.qsRowCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                            "integer",
-                                            "sec_quick_settings_max_rows_fold_sub",
-                                            prefs.qsRowCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                                "integer",
-                                                "quick_settings_num_columns",
-                                                prefs.qsColCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_num_columns",
-                                                prefs.qsColCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_num_columns_tablet",
-                                                prefs.qsColCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_num_columns_power_saving",
-                                                prefs.qsColCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_num_columns_fold",
-                                                prefs.qsColCountLandscape.toString()
-                                        )
-                                    )
-
-                                    add(
-                                        ResourceData(
-                                                "integer",
-                                                "sec_quick_settings_num_columns_fold_sub",
-                                                prefs.qsColCountLandscape.toString()
-                                        )
-                                    )
-                                }
-                            }
-                        )
-                    )
-                )
-
-                add(
-                    ResourceFileData(
-                        "dimens.xml",
-                        "values",
-                        makeResourceXml(
-                            arrayListOf<ResourceData>().apply {
-                                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                                    add(ResourceData(
-                                        "dimen",
-                                        "qs_tile_height_5x3_ratio",
-                                        prefs.qsRowCountPortrait.run {
-                                            when {
-                                                this > 4 -> "9.5"
-                                                this > 3 -> "8.0"
-                                                else -> "7.1"
-                                            }
-                                        }
-                                    ))
-                                    add(ResourceData(
-                                        "dimen",
-                                        "qs_tile_icon_size_5x3_ratio",
-                                        prefs.qsRowCountPortrait.run {
-                                            when {
-                                                this > 4 -> if (!needsSynergy) "21.0" else "3.0"
-                                                else -> if (!needsSynergy) "19.43" else "2.73"
-                                            }
-                                        }
-                                    ))
-                                    add(ResourceData(
-                                        "dimen",
-                                        "qs_tile_text_size",
-                                        prefs.qsRowCountPortrait.run {
-                                            when {
-                                                this > 4 -> "12sp"
-                                                else -> "13sp"
-                                            }
-                                        }
-                                    ))
-                                } else {
-                                    add(
-                                        ResourceData(
-                                            "dimen",
-                                            "sec_qs_tile_width",
-                                            "${calculateQsWidthForColumnCount(
-                                                prefs.qsColCountPortrait,
-                                                false
-                                            )}dp"
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "dimen",
-                                            "qs_quick_tile_size",
-                                            "${calculateQsWidthForHeaderCount(prefs.headerCountPortrait, false)}dp"
-                                        )
-                                    )
-                                }
-
-                                if (prefs.hidePanelCarrier) {
-                                    add(
-                                        ResourceData(
-                                            "dimen",
-                                            "notification_panel_carrier_label_height",
-                                            "0dp"
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "dimen",
-                                            "notification_panel_carrier_label_height_zvv",
-                                            "0dp"
-                                        )
-                                    )
-                                }
-                            }
-                        )
-                    )
-                )
-                add(
-                    ResourceFileData(
-                        "dimens.xml",
-                        "values-sw411dp",
-                        makeResourceXml(
-                            arrayListOf<ResourceData>().apply {
-                                add(ResourceData(
-                                    "dimen",
-                                    "qs_tile_text_size",
-                                    prefs.qsRowCountPortrait.run {
-                                        when {
-                                            this > 4 -> "13sp"
-                                            else -> "14sp"
-                                        }
-                                    }
-                                ))
-
-                                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                                    add(
-                                        ResourceData(
-                                            "dimen",
-                                            "sec_qs_tile_width",
-                                            "${calculateQsWidthForColumnCount(
-                                                prefs.qsColCountPortrait,
-                                                false
-                                            )}dp"
-                                        )
-                                    )
-                                    add(
-                                        ResourceData(
-                                            "dimen",
-                                            "qs_quick_tile_size",
-                                            "${calculateQsWidthForHeaderCount(
-                                                prefs.headerCountPortrait,
-                                                false
-                                            )}dp"
-                                        )
-                                    )
-                                }
-                            }
-                        )
-                    )
-                )
-
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                    add(
-                        ResourceFileData(
-                            "dimens.xml",
-                            "values-land",
-                            makeResourceXml(
-                                listOf(
-                                    ResourceData(
-                                        "dimen",
-                                        "sec_qs_tile_width",
-                                        "${calculateQsWidthForColumnCount(
-                                            prefs.qsColCountLandscape,
-                                            true
-                                        )}dp"
-                                    ),
-                                    ResourceData(
-                                        "dimen",
-                                        "qs_quick_tile_size",
-                                        "${calculateQsWidthForHeaderCount(prefs.headerCountLandscape, true)}dp"
-                                    )
-                                )
-                            )
-                        )
-                    )
-
-                    add(
-                        ResourceFileData(
-                            "dimens.xml",
-                            "values-sw411dp-land",
-                            makeResourceXml(
-                                listOf(
-                                    ResourceData(
-                                        "dimen",
-                                        "sec_qs_tile_width",
-                                        "${calculateQsWidthForColumnCount(
-                                            prefs.qsColCountLandscape,
-                                            true
-                                        )}dp"
-                                    ),
-                                    ResourceData(
-                                        "dimen",
-                                        "qs_quick_tile_size",
-                                        "${calculateQsWidthForHeaderCount(prefs.headerCountLandscape, true)}dp"
-                                    )
-                                )
-                            )
-                        )
-                    )
+                when {
+                    Build.VERSION.SDK_INT <= Build.VERSION_CODES.P -> {
+                        add(makeDefault9Integers())
+                        add(makeLandscape9Integers())
+                        add(makeDefault9Dimens())
+                        add(make4119Dimens())
+                    }
+                    Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q -> {
+                        add(makeDefault10Integers())
+                        add(makeLandscape10Integers())
+                        add(makeDefault10Dimens())
+                        add(make41110Dimens())
+                        add(makeLandscape10Dimens())
+                        add(make411Landscape10Dimens())
+                    }
+                    Build.VERSION.SDK_INT <= 30 -> {
+                        add(makeDefault11Integers())
+                        add(makeLandscape11Integers())
+                        add(makeDefault11Dimens())
+                        add(make41111Dimens())
+                        add(makeLandscape11Dimens())
+                        add(make411Landscape11Dimens())
+                    }
                 }
 
                 add(
@@ -720,31 +197,7 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                         "strings.xml",
                         "values",
                         makeResourceXml(
-                            arrayListOf<ResourceData>().apply {
-                                if (prefs.customQsDateFormat && prefs.qsDateFormat.isValidClockFormat) {
-                                    add(
-                                        ResourceData(
-                                            "string",
-                                            "system_ui_quick_panel_date_pattern",
-                                            prefs.qsDateFormat
-                                        )
-                                    )
-                                }
-
-                                if (prefs.navLayout.isNotEmpty()) {
-                                    val keys = resources.getStringArray(R.array.nav_bar_layout_resource_keys)
-
-                                    keys.forEach {
-                                        add(
-                                            ResourceData(
-                                                "string",
-                                                it,
-                                                prefs.navLayout
-                                            )
-                                        )
-                                    }
-                                }
-                            }
+                            makeDefaultCommonStrings()
                         )
                     )
                 )
@@ -754,21 +207,7 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                         "strings.xml",
                         "values-sw600dp",
                         makeResourceXml(
-                            arrayListOf<ResourceData>().apply {
-                                if (prefs.navLayout.isNotEmpty()) {
-                                    val keys = resources.getStringArray(R.array.nav_bar_layout_resource_keys)
-
-                                    keys.forEach {
-                                        add(
-                                            ResourceData(
-                                                "string",
-                                                it,
-                                                prefs.navLayout
-                                            )
-                                        )
-                                    }
-                                }
-                            }
+                            make600CommonStrings()
                         )
                     )
                 )
@@ -778,21 +217,7 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                         "strings.xml",
                         "values-sw900dp",
                         makeResourceXml(
-                            arrayListOf<ResourceData>().apply {
-                                if (prefs.navLayout.isNotEmpty()) {
-                                    val keys = resources.getStringArray(R.array.nav_bar_layout_resource_keys)
-
-                                    keys.forEach {
-                                        add(
-                                            ResourceData(
-                                                "string",
-                                                it,
-                                                prefs.navLayout
-                                            )
-                                        )
-                                    }
-                                }
-                            }
+                            make900CommonStrings()
                         )
                     )
                 )
@@ -802,21 +227,7 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                         "strings.xml",
                         "values-sw372dp",
                         makeResourceXml(
-                            arrayListOf<ResourceData>().apply {
-                                if (prefs.navLayout.isNotEmpty()) {
-                                    val keys = resources.getStringArray(R.array.nav_bar_layout_resource_keys)
-
-                                    keys.forEach {
-                                        add(
-                                            ResourceData(
-                                                "string",
-                                                it,
-                                                prefs.navLayout
-                                            )
-                                        )
-                                    }
-                                }
-                            }
+                            make372CommonStrings()
                         )
                     )
                 )
