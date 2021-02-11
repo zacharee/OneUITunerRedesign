@@ -54,6 +54,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+    implementation 'com.github.zacharee:PatreonSupportersRetrieval:4ce71eb5bf'
 
     implementation "com.github.topjohnwu.libsu:core:3.0.2"
     implementation "com.github.topjohnwu.libsu:io:3.0.2"

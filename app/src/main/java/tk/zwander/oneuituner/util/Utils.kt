@@ -667,3 +667,25 @@ fun Context.showSynergyInstallPrompt() {
         .setNegativeButton(R.string.no, null)
         .show()
 }
+
+//Safely launch a URL.
+//If no matching Activity is found, silently fail.
+fun Context.launchUrl(url: String) {
+    try {
+        val browserIntent =
+            Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
+    } catch (e: Exception) {}
+}
+
+//Safely start an email draft.
+//If no matching email client is found, silently fail.
+fun Context.launchEmail(to: String, subject: String) {
+    try {
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.type = "text/plain"
+        intent.data = Uri.parse("mailto:${Uri.encode(to)}?subject=${Uri.encode(subject)}")
+
+        startActivity(intent)
+    } catch (e: Exception) {}
+}

@@ -2,6 +2,12 @@
     <string name="app_name">OneUI Tuner</string>
     <string name="options">Options</string>
     <string name="tweaks">Tweaks</string>
+    <string name="more">More</string>
+
+    <string name="twitter">Twitter</string>
+    <string name="github">GitHub</string>
+    <string name="website">Website</string>
+    <string name="patreon">Patreon</string>
 
     <string name="clock">Clock</string>
     <string name="qs">Quick Settings</string>
