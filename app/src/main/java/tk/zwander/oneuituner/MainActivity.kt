@@ -26,7 +26,7 @@ import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.io.SuFile
-import kotlinx.android.synthetic.main.activity_main.*
+import tk.zwander.oneuituner.databinding.ActivityMainBinding
 import tk.zwander.oneuituner.util.*
 import tk.zwander.unblacklister.disableApiBlacklist
 import java.io.File
@@ -35,16 +35,12 @@ import java.net.URLConnection
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
     companion object {
         const val ACTION_INSTALL_STATUS_UPDATE = "INSTALL_STATUS_UPDATE"
-
-        init {
-            Shell.Config.setFlags(Shell.FLAG_REDIRECT_STDERR)
-            Shell.Config.verboseLogging(BuildConfig.DEBUG)
-            Shell.Config.setTimeout(10)
-        }
     }
 
     private val currentFrag: NavDestination?
         get() = navController.currentDestination
+
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private val navButton by lazy {
         run {
@@ -53,7 +49,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 .apply {
                     isAccessible = true
                 }
-                .get(bottom_bar) as View
+                .get(binding.bottomBar) as View
         }
     }
 
@@ -62,14 +58,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private val nm by lazy { getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager }
 
     private var progressShown: Boolean
-        get() = progress_wrapper.isVisible
+        get() = binding.progressWrapper.isVisible
         set(value) {
-            progress_wrapper.fadedVisibility = if (value) View.VISIBLE else View.GONE
+            binding.progressWrapper.fadedVisibility = if (value) View.VISIBLE else View.GONE
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         disableApiBlacklist()
 
@@ -96,18 +92,18 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             }
         }
 
-        cancel_button.setOnClickListener {
+        binding.cancelButton.setOnClickListener {
             filesToInstall.clear()
             packagesToUninstall.clear()
 
             progressShown = false
         }
 
-        bottom_bar.setNavigationOnClickListener {
+        binding.bottomBar.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        with(bottom_bar.background as MaterialShapeDrawable) {
+        with(binding.bottomBar.background as MaterialShapeDrawable) {
             val color = ElevationOverlayProvider(this@MainActivity)
                 .compositeOverlayWithThemeSurfaceColorIfNeeded(elevation)
 
@@ -120,16 +116,16 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
         val animDuration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
 
-        title_switcher.inAnimation =
+        binding.titleSwitcher.inAnimation =
             AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
                 .apply { duration = animDuration }
-        title_switcher.outAnimation =
+        binding.titleSwitcher.outAnimation =
             AnimationUtils.loadAnimation(this, android.R.anim.fade_out)
                 .apply { duration = animDuration }
 
         navController.addOnDestinationChangedListener(this)
 
-        apply.setOnClickListener {
+        binding.apply.setOnClickListener {
             if (prefs.useSynergy && !isSynergyInstalled) {
                 showSynergyInstallPrompt()
                 return@setOnClickListener
@@ -168,7 +164,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     override fun setTitle(title: CharSequence?) {
-        title_switcher.setText(title)
+        binding.titleSwitcher.setText(title)
         super.setTitle(null)
     }
 
