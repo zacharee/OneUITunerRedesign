@@ -63,7 +63,16 @@ dependencies {
     implementation 'com.github.zacharee:colorpicker:9ea5085260'
     implementation 'com.android.tools.build:apksig:3.6.4'
     implementation 'com.github.zacharee:CollapsiblePreferenceCategory:4883357a52'
+
+
+    //Comment out this local dependency.
+    //You'll also need to comment out some stuff in settings.gradle.
     implementation project(':overlaylib')
-//    implementation 'com.github.zacharee:OverlayLib:18280609b7'
+
+    //Uncomment this dependency. Go to https://jitpack.io/#zacharee/OverlayLib, then click
+    //"Commits" to get the latest version, and replace VERSION with that hash.
+//    implementation 'com.github.zacharee:OverlayLib:VERSION'
+
+
     implementation 'com.github.zacharee:Unblacklister:1.1'
 }

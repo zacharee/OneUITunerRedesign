@@ -1,4 +1,6 @@
+//Remove or comment out the ', :overlaylib' text here.
 include ':app', ':overlaylib'
 rootProject.name = "OneUI Tuner"
 
+//Remove or comment out this line.
 project(':overlaylib').projectDir = new File("../OverlayLib/app")
