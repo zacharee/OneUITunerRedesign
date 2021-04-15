@@ -7,6 +7,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
@@ -26,9 +27,9 @@ import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.io.SuFile
+import org.lsposed.hiddenapibypass.HiddenApiBypass
 import tk.zwander.oneuituner.databinding.ActivityMainBinding
 import tk.zwander.oneuituner.util.*
-import tk.zwander.unblacklister.disableApiBlacklist
 import java.io.File
 import java.net.URLConnection
 
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        disableApiBlacklist()
+        HiddenApiBypass.setHiddenApiExemptions("L")
 
         val channel = NotificationChannel(
             "oneuituner_reboot",

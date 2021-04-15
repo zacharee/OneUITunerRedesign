@@ -74,5 +74,5 @@ dependencies {
 //    implementation 'com.github.zacharee:OverlayLib:VERSION'
 
 
-    implementation 'com.github.zacharee:Unblacklister:1.1'
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:1.1'
 }
