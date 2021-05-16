@@ -8,68 +8,96 @@ import tk.zwander.overlaylib.makeResourceXml
 
 fun Context.makeDefault10Integers(): ResourceFileData {
     return ResourceFileData(
-            "integers",
-            "values",
-            makeResourceXml(
-                    ResourceData(
+        "integers",
+        "values",
+        makeResourceXml(
+            arrayListOf<ResourceData>().apply {
+                if (prefs.adjustQsHeader) {
+                    add(
+                        ResourceData(
                             "integer",
                             "quick_qs_panel_max_columns",
                             prefs.headerCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "quick_qs_tile_min_num",
                             "2"
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_columns",
                             "20"
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns",
                             "20"
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows",
                             "20"
+                        )
                     )
-            )
+                }
+            }
+        )
     )
 }
 
 fun Context.makeLandscape10Integers(): ResourceFileData {
     return ResourceFileData(
-            "integers",
-            "values-land",
-            makeResourceXml(
-                    ResourceData(
+        "integers",
+        "values-land",
+        makeResourceXml(
+            arrayListOf<ResourceData>().apply {
+                if (prefs.adjustQsHeader) {
+                    add(
+                        ResourceData(
                             "integer",
                             "quick_qs_panel_max_columns",
                             prefs.headerCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "quick_qs_tile_min_num",
                             "2"
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_columns",
                             "20"
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns",
                             "20"
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows",
                             "20"
+                        )
                     )
-            )
+                }
+            }
+        )
     )
 }

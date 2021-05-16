@@ -11,46 +11,54 @@ fun Context.makeDefaultCommonDimens(): List<ResourceData> {
     return arrayListOf<ResourceData>().apply {
         if (prefs.hidePanelCarrier) {
             add(
-                    ResourceData(
-                            "dimen",
-                            "notification_panel_carrier_label_height",
-                            "0dp"
-                    )
+                ResourceData(
+                    "dimen",
+                    "notification_panel_carrier_label_height",
+                    "0dp"
+                )
             )
             add(
-                    ResourceData(
-                            "dimen",
-                            "notification_panel_carrier_label_height_zvv",
-                            "0dp"
-                    )
+                ResourceData(
+                    "dimen",
+                    "notification_panel_carrier_label_height_zvv",
+                    "0dp"
+                )
             )
         }
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-            add(
+            if (prefs.adjustQsGrid) {
+                add(
                     ResourceData(
-                            "dimen",
-                            "sec_qs_tile_width",
-                            "${calculateQsWidthForColumnCount(
-                                    prefs.qsColCountPortrait,
-                                    false
-                            )}dp"
+                        "dimen",
+                        "sec_qs_tile_width",
+                        "${
+                            calculateQsWidthForColumnCount(
+                                prefs.qsColCountPortrait,
+                                false
+                            )
+                        }dp"
                     )
-            )
-            add(
+                )
+            }
+            if (prefs.adjustQsHeader) {
+                add(
                     ResourceData(
-                            "dimen",
-                            "qs_quick_tile_size",
-                            "${calculateQsWidthForHeaderCount(prefs.headerCountPortrait, false)}dp"
+                        "dimen",
+                        "qs_quick_tile_size",
+                        "${calculateQsWidthForHeaderCount(prefs.headerCountPortrait, false)}dp"
                     )
-            )
+                )
+            }
         }
     }
 }
 
 fun Context.make411CommonDimens(): List<ResourceData> {
-    return arrayListOf(
-            ResourceData(
+    return arrayListOf<ResourceData>().apply {
+        if (prefs.adjustQsGrid) {
+            add(
+                ResourceData(
                     "dimen",
                     "qs_tile_text_size",
                     prefs.qsRowCountPortrait.run {
@@ -59,29 +67,39 @@ fun Context.make411CommonDimens(): List<ResourceData> {
                             else -> "14sp"
                         }
                     }
+                )
             )
-    ).apply {
+        }
+
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-            add(
+            if (prefs.adjustQsGrid) {
+                add(
                     ResourceData(
-                            "dimen",
-                            "sec_qs_tile_width",
-                            "${calculateQsWidthForColumnCount(
-                                    prefs.qsColCountPortrait,
-                                    false
-                            )}dp"
+                        "dimen",
+                        "sec_qs_tile_width",
+                        "${
+                            calculateQsWidthForColumnCount(
+                                prefs.qsColCountPortrait,
+                                false
+                            )
+                        }dp"
                     )
-            )
-            add(
+                )
+            }
+            if (prefs.adjustQsHeader) {
+                add(
                     ResourceData(
-                            "dimen",
-                            "qs_quick_tile_size",
-                            "${calculateQsWidthForHeaderCount(
-                                    prefs.headerCountPortrait,
-                                    false
-                            )}dp"
+                        "dimen",
+                        "qs_quick_tile_size",
+                        "${
+                            calculateQsWidthForHeaderCount(
+                                prefs.headerCountPortrait,
+                                false
+                            )
+                        }dp"
                     )
-            )
+                )
+            }
         }
     }
 }
@@ -89,23 +107,29 @@ fun Context.make411CommonDimens(): List<ResourceData> {
 fun Context.makeLandscapeCommonDimens(): List<ResourceData> {
     return arrayListOf<ResourceData>().apply {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-            add(
+            if (prefs.adjustQsGrid) {
+                add(
                     ResourceData(
-                            "dimen",
-                            "sec_qs_tile_width",
-                            "${calculateQsWidthForColumnCount(
-                                    prefs.qsColCountLandscape,
-                                    true
-                            )}dp"
+                        "dimen",
+                        "sec_qs_tile_width",
+                        "${
+                            calculateQsWidthForColumnCount(
+                                prefs.qsColCountLandscape,
+                                true
+                            )
+                        }dp"
                     )
-            )
-            add(
+                )
+            }
+            if (prefs.adjustQsHeader) {
+                add(
                     ResourceData(
-                            "dimen",
-                            "qs_quick_tile_size",
-                            "${calculateQsWidthForHeaderCount(prefs.headerCountLandscape, true)}dp"
+                        "dimen",
+                        "qs_quick_tile_size",
+                        "${calculateQsWidthForHeaderCount(prefs.headerCountLandscape, true)}dp"
                     )
-            )
+                )
+            }
         }
     }
 }
@@ -113,23 +137,29 @@ fun Context.makeLandscapeCommonDimens(): List<ResourceData> {
 fun Context.makeLandscape411CommonDimens(): List<ResourceData> {
     return arrayListOf<ResourceData>().apply {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-            add(
+            if (prefs.adjustQsGrid) {
+                add(
                     ResourceData(
-                            "dimen",
-                            "sec_qs_tile_width",
-                            "${calculateQsWidthForColumnCount(
-                                    prefs.qsColCountLandscape,
-                                    true
-                            )}dp"
+                        "dimen",
+                        "sec_qs_tile_width",
+                        "${
+                            calculateQsWidthForColumnCount(
+                                prefs.qsColCountLandscape,
+                                true
+                            )
+                        }dp"
                     )
-            )
-            add(
+                )
+            }
+            if (prefs.adjustQsHeader) {
+                add(
                     ResourceData(
-                            "dimen",
-                            "qs_quick_tile_size",
-                            "${calculateQsWidthForHeaderCount(prefs.headerCountLandscape, true)}dp"
+                        "dimen",
+                        "qs_quick_tile_size",
+                        "${calculateQsWidthForHeaderCount(prefs.headerCountLandscape, true)}dp"
                     )
-            )
+                )
+            }
         }
     }
 }

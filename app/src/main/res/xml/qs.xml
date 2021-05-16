@@ -6,6 +6,12 @@
         android:title="@string/qs_header"
         android:key="qs_header">
 
+        <SwitchPreference
+            android:title="@string/adjust_qs_header"
+            android:key="adjust_qs_header"
+            android:defaultValue="false"
+            />
+
         <Preference
             android:summary="@string/qqs_hint"
             android:enabled="false"
@@ -15,6 +21,7 @@
             android:title="@string/header_count_portrait"
             android:key="header_count_portrait"
             android:defaultValue="@integer/header_count_portrait_default"
+            android:dependency="adjust_qs_header"
             app:minValue="@integer/header_count_portrait_min"
             app:maxValue="@integer/header_count_portrait_max"
             />
@@ -23,6 +30,7 @@
             android:title="@string/header_count_landscape"
             android:key="header_count_landscape"
             android:defaultValue="@integer/header_count_landscape_default"
+            android:dependency="adjust_qs_header"
             app:minValue="@integer/header_count_landscape_min"
             app:maxValue="@integer/header_count_landscape_max"
             />
@@ -33,6 +41,12 @@
         android:title="@string/qs_row_col"
         android:key="qs_row_col">
 
+        <SwitchPreference
+            android:title="@string/adjust_qs_grid"
+            android:key="adjust_qs_grid"
+            android:defaultValue="false"
+            />
+
         <Preference
             android:summary="@string/qs_row_col_hint"
             android:enabled="false"
@@ -42,6 +56,7 @@
             android:title="@string/qs_row_count_portrait"
             android:key="qs_row_count_portrait"
             android:defaultValue="@integer/qs_row_count_portrait_default"
+            android:dependency="adjust_qs_grid"
             app:minValue="@integer/qs_row_count_portrait_min"
             app:maxValue="@integer/qs_row_count_portrait_max"
             />
@@ -50,6 +65,7 @@
             android:title="@string/qs_row_count_landscape"
             android:key="qs_row_count_landscape"
             android:defaultValue="@integer/qs_row_count_landscape_default"
+            android:dependency="adjust_qs_grid"
             app:minValue="@integer/qs_row_count_landscape_min"
             app:maxValue="@integer/qs_row_count_landscape_max"
             />
@@ -58,6 +74,7 @@
             android:title="@string/qs_col_count_portrait"
             android:key="qs_col_count_portrait"
             android:defaultValue="@integer/qs_col_count_portrait_default"
+            android:dependency="adjust_qs_grid"
             app:minValue="@integer/qs_col_count_portrait_min"
             app:maxValue="@integer/qs_col_count_portrait_max"
             />
@@ -66,6 +83,7 @@
             android:title="@string/qs_col_count_landscape"
             android:key="qs_col_count_landscape"
             android:defaultValue="@integer/qs_col_count_landscape_default"
+            android:dependency="adjust_qs_grid"
             app:minValue="@integer/qs_col_count_landscape_min"
             app:maxValue="@integer/qs_col_count_landscape_max"
             />

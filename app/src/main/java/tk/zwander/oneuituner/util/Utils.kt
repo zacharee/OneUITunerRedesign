@@ -378,17 +378,27 @@ fun Context.doCompile(listener: (List<File>) -> Unit) = MainScope().launch {
                                     "navigation_bar_height",
                                     "${prefs.navHeight}dp"
                                 ),
-                                ResourceData(
-                                    "dimen",
-                                    "navigation_bar_width",
-                                    "${prefs.navHeight}dp"
-                                ),
-                                ResourceData(
-                                    "dimen",
-                                    "status_bar_height_portrait",
-                                    "${prefs.statusBarHeight}dp"
-                                )
                             ).apply {
+                                if (prefs.adjustStatusHeight) {
+                                    add(
+                                        ResourceData(
+                                            "dimen",
+                                            "status_bar_height_portrait",
+                                            "${prefs.statusBarHeight}dp"
+                                        )
+                                    )
+                                }
+
+                                if (prefs.adjustNavHeight) {
+                                    add(
+                                        ResourceData(
+                                            "dimen",
+                                            "navigation_bar_width",
+                                            "${prefs.navHeight}dp"
+                                        )
+                                    )
+                                }
+
                                 if (prefs.oldRecents && Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                                     add(
                                         ResourceData(

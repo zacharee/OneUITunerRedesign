@@ -96,4 +96,10 @@
     <string name="clock_position_right">right</string>
 
     <string name="default_clock_type">@string/clock_type_default</string>
+
+    <string name="adjust_nav_bar_size">Adjust Navigation Bar Size</string>
+    <string name="adjust_status_bar_size">Adjust Status Bar Size</string>
+
+    <string name="adjust_qs_header">Adjust QS Header</string>
+    <string name="adjust_qs_grid">Adjust QS Grid</string>
 </resources>

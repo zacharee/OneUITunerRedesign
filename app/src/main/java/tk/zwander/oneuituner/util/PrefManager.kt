@@ -49,6 +49,11 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
 
         const val USE_SYNERGY = "use_synergy"
         const val NEEDS_ADDITIONAL_REBOOT = "needs_additional_reboot"
+
+        const val ADJUST_NAV_HEIGHT = "adjust_nav_height"
+        const val ADJUST_STATUS_HEIGHT = "adjust_status_height"
+        const val ADJUST_QS_GRID = "adjust_qs_grid"
+        const val ADJUST_QS_HEADER = "adjust_qs_header"
     }
 
     val preferences = PreferenceManager.getDefaultSharedPreferences(this)
@@ -144,6 +149,18 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
 
     val desktopFreeformMax: Int
         get() = getString(FREEFORM_DESKTOP_MAX_COUNT, resourceInt(R.integer.desktop_freeform_max_default).toString()).toInt()
+
+    val adjustNavHeight: Boolean
+        get() = getBoolean(ADJUST_NAV_HEIGHT, false)
+
+    val adjustStatusHeight: Boolean
+        get() = getBoolean(ADJUST_STATUS_HEIGHT, false)
+
+    val adjustQsHeader: Boolean
+        get() = getBoolean(ADJUST_QS_HEADER, false)
+
+    val adjustQsGrid: Boolean
+        get() = getBoolean(ADJUST_QS_GRID, false)
 
     fun getInt(key: String, def: Int = 0) = preferences.getInt(key, def)
     fun getString(key: String, def: String): String = preferences.getString(key, def) ?: def

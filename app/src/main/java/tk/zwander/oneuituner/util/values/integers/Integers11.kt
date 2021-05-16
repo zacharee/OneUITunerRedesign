@@ -8,158 +8,227 @@ import tk.zwander.overlaylib.makeResourceXml
 
 fun Context.makeDefault11Integers(): ResourceFileData {
     return ResourceFileData(
-            "integers",
-            "values",
-            makeResourceXml(
-                    ResourceData(
+        "integers",
+        "values",
+        makeResourceXml(
+            arrayListOf<ResourceData>().apply {
+                if (prefs.adjustQsHeader) {
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_qs_panel_max_columns",
                             prefs.headerCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_qs_panel_max_columns_fold",
                             prefs.headerCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_qs_panel_max_columns_tablet",
                             prefs.headerCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_qs_panel_max_columns_fold_sub",
                             prefs.headerCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                }
+                if (prefs.adjustQsGrid) {
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows",
                             prefs.qsRowCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows_tablet",
                             prefs.qsRowCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows_fold",
                             prefs.qsRowCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows_fold_sub",
                             prefs.qsRowCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "quick_settings_num_columns",
                             prefs.qsColCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns",
                             prefs.qsColCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns_tablet",
                             prefs.qsColCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns_power_saving",
                             prefs.qsColCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns_fold",
                             prefs.qsColCountPortrait.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns_fold_sub",
                             prefs.qsColCountPortrait.toString()
+                        )
                     )
-            )
+                }
+            }
+        )
     )
 }
 
 fun Context.makeLandscape11Integers(): ResourceFileData {
     return ResourceFileData(
-            "integers",
-            "values",
-            makeResourceXml(
-                    ResourceData(
+        "integers",
+        "values",
+        makeResourceXml(
+            arrayListOf<ResourceData>().apply {
+                if (prefs.adjustQsHeader) {
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_qs_panel_max_columns",
                             prefs.headerCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_qs_panel_max_columns_fold",
                             prefs.headerCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_qs_panel_max_columns_tablet",
                             prefs.headerCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_qs_panel_max_columns_fold_sub",
                             prefs.headerCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                }
+
+                if (prefs.adjustQsGrid) {
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows",
                             prefs.qsRowCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows_tablet",
                             prefs.qsRowCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows_fold",
                             prefs.qsRowCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_max_rows_fold_sub",
                             prefs.qsRowCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "quick_settings_num_columns",
                             prefs.qsColCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns",
                             prefs.qsColCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns_tablet",
                             prefs.qsColCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns_power_saving",
                             prefs.qsColCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns_fold",
                             prefs.qsColCountLandscape.toString()
-                    ),
-                    ResourceData(
+                        )
+                    )
+                    add(
+                        ResourceData(
                             "integer",
                             "sec_quick_settings_num_columns_fold_sub",
                             prefs.qsColCountLandscape.toString()
+                        )
                     )
-            )
+                }
+            }
+        )
     )
 }
