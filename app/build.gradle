@@ -52,8 +52,8 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0'
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
     implementation 'com.github.zacharee:PatreonSupportersRetrieval:4ce71eb5bf'
 
     implementation "com.github.topjohnwu.libsu:core:3.0.2"
@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.github.zacharee:SeekBarPreference:ddc62c12f2'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.zacharee:colorpicker:9ea5085260'
-    implementation 'com.android.tools.build:apksig:3.6.4'
+    implementation 'com.android.tools.build:apksig:4.2.1'
     implementation 'com.github.zacharee:CollapsiblePreferenceCategory:4883357a52'
 
 
