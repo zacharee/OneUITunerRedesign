@@ -59,7 +59,7 @@ dependencies {
     implementation "com.github.topjohnwu.libsu:core:3.1.2"
     implementation "com.github.topjohnwu.libsu:io:3.0.2"
     implementation 'com.github.zacharee:SeekBarPreference:ddc62c12f2'
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.github.zacharee:colorpicker:9ea5085260'
     implementation 'com.android.tools.build:apksig:4.2.1'
     implementation 'com.github.zacharee:CollapsiblePreferenceCategory:4883357a52'
@@ -74,5 +74,5 @@ dependencies {
 //    implementation 'com.github.zacharee:OverlayLib:VERSION'
 
 
-    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:1.1'
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:2.0'
 }

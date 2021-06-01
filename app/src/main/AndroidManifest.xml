@@ -31,6 +31,35 @@
         <activity android:name=".BCRRebootActivity"
             android:exported="false"
             />
+        <activity android:name=".HexActivity"
+            android:enabled="false"
+            android:exported="true"
+            android:theme="@style/AppTheme.Transparent">
+            <meta-data android:name="HEX_PLUGIN_NAME" android:value="@string/app_name"/>
+            <meta-data android:name="HEX_PLUGIN_AUTHOR" android:value="@string/plugin_authors"/>
+            <meta-data android:name="HEX_CONFIG" android:value="1"/>
+            <meta-data android:name="HEX_DAY_NIGHT_PLUGIN" android:value="true"/>
+            <meta-data android:name="HEX_PLUGIN_INFO" android:value="true"/>
+            <meta-data android:name="HEX_PLUGIN_INFO_IMAGES" android:value="true"/>
+            <meta-data android:name="HEX_PLUGIN_DEFAULT_PROJECT" android:value="true"/>
+            <meta-data android:name="HEX_PLUGIN_EXTRA_PREFERENCES" android:value="true"/>
+            <meta-data android:name="HEX_COMMON" android:value="true"/>
+            <meta-data android:name="HEX_COMMON_BACKGROUND" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_BOX" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_CONTROL" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_DIALPAD" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_ICONS" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_KEYBOARD" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_NAVBAR" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_QS" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_SETTINGSICON" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_STATUSBAR" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_HOME" android:value="false"/>
+            <meta-data android:name="HEX_COMMON_MISC" android:value="false"/>
+            <intent-filter>
+                <action android:name="project.vivid.hex.UI.PLUGIN"/>
+            </intent-filter>
+        </activity>
 
         <receiver android:name=".BootReceiver">
             <intent-filter>

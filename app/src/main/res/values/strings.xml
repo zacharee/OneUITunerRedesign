@@ -102,4 +102,6 @@
 
     <string name="adjust_qs_header">Adjust QS Header</string>
     <string name="adjust_qs_grid">Adjust QS Grid</string>
+
+    <string name="plugin_authors">Zachary Wander</string>
 </resources>
