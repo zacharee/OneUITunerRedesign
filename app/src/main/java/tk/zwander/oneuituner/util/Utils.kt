@@ -27,6 +27,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.io.SuFile
+import com.topjohnwu.superuser.io.SuFileInputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -577,7 +578,7 @@ fun createMagiskModule(result: ((needsToReboot: Boolean) -> Unit)? = null) = Mai
     val needsToUpdate = withContext(Dispatchers.IO) {
         val doesExist = moduleExists
         val currentVersion = try {
-            BufferedReader(FileReader(SuFile("$MAGISK_MODULE_PATH/module.prop")))
+            BufferedReader(SuFileInputStream(SuFile("$MAGISK_MODULE_PATH/module.prop")).reader())
                 .lines()
                 .filter { it.startsWith("versionCode") }
                 .findFirst()
