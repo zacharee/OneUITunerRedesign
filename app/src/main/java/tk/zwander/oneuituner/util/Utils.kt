@@ -563,6 +563,9 @@ fun Context.findInstalledLegacyOverlayFiles(): Array<File> {
 val moduleExists: Boolean
     get() = SuFile(MAGISK_MODULE_PATH).exists()
 
+val badModuleExists: Boolean
+    get() = SuFile("${MAGISK_PATH}/modules/opfpcontrol").exists()
+
 val moduleAppDir: File
     get() = SuFile(MAGISK_MODULE_PATH, "/system/app/").also {
         if (!it.exists()) {
@@ -585,15 +588,18 @@ fun createMagiskModule(result: ((needsToReboot: Boolean) -> Unit)? = null) = Mai
             0
         }
 
-        val needsToUpdate = !doesExist || currentVersion < BuildConfig.MODULE_VERSION
+        val badExists = badModuleExists
+
+        val needsToUpdate = !doesExist || currentVersion < BuildConfig.MODULE_VERSION || badExists
 
         if (needsToUpdate) {
             val prop = java.lang.StringBuilder()
+                .appendLine("id=tk.zwander.oneuituner.magisk")
                 .appendLine("name=OneUI Tuner Module")
                 .appendLine("version=${BuildConfig.MODULE_VERSION}")
                 .appendLine("versionCode=${BuildConfig.MODULE_VERSION}")
                 .appendLine("author=Zachary Wander")
-                .appendLine("description=Systemlessly install Tuner overlays")
+                .appendLine("description=Systemlessly install OneUI Tuner overlays")
 
             Shell.su(
                 "mkdir -p $MAGISK_MODULE_PATH",
@@ -602,6 +608,10 @@ fun createMagiskModule(result: ((needsToReboot: Boolean) -> Unit)? = null) = Mai
                 "touch $MAGISK_MODULE_PATH/update",
                 "echo \"$prop\" > $MAGISK_MODULE_PATH/module.prop"
             ).exec()
+        }
+
+        if (badExists) {
+            SuFile("$MAGISK_PATH/modules/opfpcontrol").deleteRecursive()
         }
 
         needsToUpdate

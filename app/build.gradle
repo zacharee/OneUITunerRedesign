@@ -11,7 +11,7 @@ android {
         versionCode 22
         versionName versionCode.toString()
 
-        buildConfigField "Integer", "MODULE_VERSION", "1"
+        buildConfigField "Integer", "MODULE_VERSION", "2"
     }
 
     buildTypes {

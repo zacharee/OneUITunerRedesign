@@ -35,7 +35,7 @@ class BootReceiver : BroadcastReceiver() {
     private fun notifyForSecondReboot(context: Context) {
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (context.prefs.needsAdditionalReboot) {
-            val notification = Notification.Builder(context, "opfp_main")
+            val notification = Notification.Builder(context, "oneuituner_reboot")
                 .setContentTitle(context.resources.getText(R.string.reboot))
                 .setContentText(context.resources.getText(R.string.reboot_first_again_desc))
                 .setSmallIcon(R.mipmap.ic_launcher)
